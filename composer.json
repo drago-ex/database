@@ -1,7 +1,7 @@
 {
 	"name": "drago-fw/database",
 	"type": "library",
-	"description": "Connect to database through dibi",
+	"description": "Drago Framework: connect to database through dibi",
 	"license": ["MIT"],
 	"authors": [
 		{
