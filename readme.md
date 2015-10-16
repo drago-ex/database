@@ -1,10 +1,5 @@
-## Dirs
-Easier access to individual directories for Nette Framework.
+## Database
+Connect to database through dibi. 
 
-## Installation
-Add the configuration file:
-
-```neon
-extensions:
-	dirs: Drago\Application\Directories\DirsExtension
-```
+## Documentation for packages
+- [Dibi - smart database layer](http://dibiphp.com/)
