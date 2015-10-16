@@ -4,7 +4,7 @@ Connect to database through dibi.
 ## instructions
 For models use extends to the class and queries do so 
 ```php
-$this->db
+$this->db->query(...)
 ```
 
 ## Documentation
