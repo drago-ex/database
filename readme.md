@@ -1,8 +1,8 @@
 ## Database
-Connect to database through dibi. 
+Connect to database with dibi.
 
 ## Instruction
-For models use extends to the class and queries do so 
+For models use extends to the class and queries do so
 ```php
 $this->db->query(...)
 ```
