@@ -1,0 +1,20 @@
+{
+	"name": "drago-fw/database",
+	"type": "library",
+	"description": "Connect to database through dibi",
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Zdeněk Papučík",
+			"homepage": "https://github.com/accgit"
+		}
+	],
+	"require": {
+		"php": ">=5.6.0",
+		"dibi/dibi": "~2.3",
+		"nette/utils": "~2.3"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}
