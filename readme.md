@@ -1,5 +1,5 @@
 ## Database
 Connect to database through dibi. 
 
-## Documentation for packages
+## Documentation
 - [Dibi - smart database layer](http://dibiphp.com/)
