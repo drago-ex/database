@@ -9,4 +9,3 @@ $this->db
 
 ## Documentation
 - [Dibi - smart database layer](http://dibiphp.com/)
-
