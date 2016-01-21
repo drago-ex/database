@@ -5,7 +5,9 @@
  * Copyright (c) 2015, Zdeněk Papučík
  */
 namespace Drago\Database;
+
 use Nette;
+use Dibi;
 
 /**
  * Connect to database.
@@ -15,11 +17,11 @@ abstract class Connection extends Nette\Object
 {
 	/**
 	 * Database connect.
-	 * @var \DibiConnection
+	 * @var Dibi\Connection
 	 */
 	protected $db;
 
-	public function __construct(\DibiConnection $db)
+	public function __construct(Dibi\Connection $db)
 	{
 		$this->db = $db;
 	}
