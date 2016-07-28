@@ -9,7 +9,7 @@ extensions:
 # Credentials to the database
 dibi:
 	host:
-	driver: mysql
+	driver:
 	username:
 	password:
 	database:
