@@ -1,4 +1,4 @@
-## Database
+## Info
 Connect to database with dibi.
 
 ## Settings database server
