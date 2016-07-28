@@ -1,7 +1,9 @@
 ## Info
+
 Connect to database with dibi.
 
 ## Settings database server
+
 ```yaml
 extensions:
 	dibi: Dibi\Bridges\Nette\DibiExtension22
@@ -19,7 +21,9 @@ dibi:
 ```
 
 ## Instruction
-For models use extends to the class and queries do so
+
+For models use extends to the class and queries do so:
+
 ```php
 $this->db->query(...)
 ```
