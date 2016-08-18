@@ -5,13 +5,13 @@
  * Copyright (c) 2015, Zdeněk Papučík
  */
 namespace Drago\Database;
-use Nette\Object;
+use Nette;
 
 /**
  * Database entity.
  * @author Zdeněk Papučík
  */
-abstract class Entity extends Object
+abstract class Entity extends Nette\Object
 {
 	/**
 	 * @var int
