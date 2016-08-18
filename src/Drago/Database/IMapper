@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * This file is part of the Drago Framework
+ * Copyright (c) 2015, Zdeněk Papučík
+ */
+namespace Drago\Database;
+
+/**
+ * Database Mapper.
+ * @author Zdeněk Papučík
+ */
+interface IMapper
+{
+	/**
+	 * Return all data.
+	 */
+	public function all();
+
+	/**
+	 * Find data.
+	 * @param mixed
+	 */
+	public function find($args);
+
+	/**
+	 * Save data.
+	 * @param array
+	 */
+	public function save(Entity $args);
+
+	/**
+	 *  Delete data.
+	 * @param mixed
+	 */
+	public function delete($args);
+
+}
