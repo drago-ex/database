@@ -10,23 +10,11 @@ namespace Drago\Database;
  * Database mapper.
  * @author Zdeněk Papučík
  */
-interface IMapper
+interface IMapperFindAll
 {
 	/**
 	 * Return all records.
 	 */
 	public function getAll();
-
-	/**
-	 * Find records.
-	 * @param mixed
-	 */
-	public function find($args);
-
-	/**
-	 *  Delete records.
-	 * @param mixed
-	 */
-	public function delete($args);
 
 }
