@@ -11,7 +11,7 @@ use Nette\Object;
  * Database entity.
  * @author Zdeněk Papučík
  */
-abstract class Entity extends Object
+abstract class BaseEntity extends Object
 {
 	/**
 	 * @var int
