@@ -13,24 +13,24 @@ namespace Drago\Database;
 interface IMapper
 {
 	/**
-	 * Return all data.
+	 * Return all records.
 	 */
 	public function all();
 
 	/**
-	 * Find data.
+	 * Find records.
 	 * @param mixed
 	 */
 	public function find($args);
 
 	/**
-	 * Save data.
+	 * Save records.
 	 * @param array
 	 */
 	public function save(Entity $args);
 
 	/**
-	 *  Delete data.
+	 *  Delete records.
 	 * @param mixed
 	 */
 	public function delete($args);
