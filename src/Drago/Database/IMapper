@@ -27,7 +27,7 @@ interface IMapper
 	 * Save records.
 	 * @param array
 	 */
-	public function save(BaseEntity $args);
+	public function save(Entity $args);
 
 	/**
 	 *  Delete records.
