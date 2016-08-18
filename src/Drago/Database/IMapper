@@ -7,7 +7,7 @@
 namespace Drago\Database;
 
 /**
- * Database Mapper.
+ * Database mapper.
  * @author Zdeněk Papučík
  */
 interface IMapper
