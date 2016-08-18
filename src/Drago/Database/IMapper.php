@@ -15,19 +15,13 @@ interface IMapper
 	/**
 	 * Return all records.
 	 */
-	public function all();
+	public function getAll();
 
 	/**
 	 * Find records.
 	 * @param mixed
 	 */
 	public function find($args);
-
-	/**
-	 * Save records.
-	 * @param array
-	 */
-	public function save($args);
 
 	/**
 	 *  Delete records.
