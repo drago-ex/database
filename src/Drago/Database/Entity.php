@@ -11,8 +11,10 @@ use Nette;
  * Database entity.
  * @author Zdeněk Papučík
  */
-abstract class Entity extends Nette\Object
+abstract class Entity
 {
+	use Nette\SmartObject;
+
 	/**
 	 * @var int
 	 */
