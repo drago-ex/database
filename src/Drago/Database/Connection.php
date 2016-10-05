@@ -13,8 +13,10 @@ use Dibi;
  * Connect to database.
  * @author Zdeněk Papučík
  */
-abstract class Connection extends Nette\Object
+abstract class Connection
 {
+	use Nette\SmartObject;
+
 	/**
 	 * Database connect.
 	 * @var Dibi\Connection
