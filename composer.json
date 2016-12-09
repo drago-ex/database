@@ -1,5 +1,8 @@
 {
 	"name": "drago-ex/database",
+	"replace": {
+		"drago-fw/database": "self.version"
+	},
 	"type": "library",
 	"description": "Connect to database with dibi",
 	"license": ["MIT"],
