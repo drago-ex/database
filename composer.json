@@ -1,8 +1,5 @@
 {
 	"name": "drago-ex/database",
-	"replace": {
-		"drago-fw/database": "self.version"
-	},
 	"type": "library",
 	"description": "Connect to database with dibi",
 	"license": ["MIT"],
@@ -16,6 +13,9 @@
 		"php": ">=5.6.0",
 		"dibi/dibi": "~3.0.0",
 		"nette/utils": "~2.4.0"
+	},
+	"replace": {
+		"drago-fw/database": "*"
 	},
 	"autoload": {
 		"classmap": ["src/"]
