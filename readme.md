@@ -1,4 +1,4 @@
-## Info
+## Drago Database
 
 Connect to database with dibi.
 
