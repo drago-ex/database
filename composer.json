@@ -1,5 +1,5 @@
 {
-	"name": "drago-fw/database",
+	"name": "drago-ex/database",
 	"type": "library",
 	"description": "Connect to database with dibi",
 	"license": ["MIT"],
