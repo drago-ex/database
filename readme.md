@@ -6,6 +6,8 @@ Connect to database with dibi.
 
 ```yaml
 extensions:
+
+	# Connect to database with dibi.
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
 # Credentials to the database
@@ -16,8 +18,8 @@ dibi:
 	password:
 	database:
 	lazy: TRUE
-	substitutes:
-		prefix:
+	#substitutes:
+		#prefix:
 ```
 
 ## Instruction
