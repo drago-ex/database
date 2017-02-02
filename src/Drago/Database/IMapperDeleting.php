@@ -15,7 +15,7 @@ namespace Drago\Database;
 interface IMapperDeleting
 {
 	/**
-	 *  Delete records.
+	 * Delete records.
 	 * @param mixed
 	 */
 	public function delete($args);
