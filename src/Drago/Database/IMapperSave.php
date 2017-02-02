@@ -15,7 +15,7 @@ namespace Drago\Database;
 interface IMapperSave
 {
 	/**
-	 *  Save or update records.
+	 * Save or update records.
 	 * @param mixed
 	 */
 	public function save($entity);
