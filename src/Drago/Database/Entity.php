@@ -39,5 +39,19 @@ abstract class Entity
 	{
 		return $this->id;
 	}
+	
+	/**
+	 * Iteration items.
+	 * @param  object
+	 * @return array
+	 */
+	public function iterator($entity)
+	{
+		$items = [];
+		foreach ($entity as $key => $item) {
+			$items[$key] = $item;
+		}
+		return $items;
+	}
 
 }
