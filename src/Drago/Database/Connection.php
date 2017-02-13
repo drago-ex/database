@@ -18,6 +18,7 @@ abstract class Connection
 	use Nette\SmartObject;
 
 	/**
+	 * Database connect.
 	 * @var Dibi\Connection
 	 */
 	protected $db;
@@ -25,15 +26,6 @@ abstract class Connection
 	public function __construct(Dibi\Connection $db)
 	{
 		$this->db = $db;
-	}
-	
-	/**
-	 * Database connect.
-	 * @return Dibi\Connection
-	 */
-	public function db()
-	{
-		return $this->db;
 	}
 
 }
