@@ -4,7 +4,7 @@ Connect to database with dibi.
 
 ## Settings database server
 
-```neon
+```
 extensions:
 
 	# Connect to database with dibi.
