@@ -31,4 +31,4 @@ $this->db->query(...)
 ```
 
 ## Documentation
-- [Dibi - smart database layer](http://dibiphp.com/)
+- [Dibi - smart database layer](https://github.com/dg/dibi)
