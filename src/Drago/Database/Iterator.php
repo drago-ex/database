@@ -8,7 +8,7 @@ namespace Drago\Database;
 use Nette;
 
 /**
- * Database entity iterator.
+ * Entity iterator.
  * @author Zdeněk Papučík
  */
 class Iterator
