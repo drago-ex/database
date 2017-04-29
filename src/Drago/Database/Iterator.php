@@ -14,7 +14,7 @@ use Nette;
 class Iterator
 {
 	use Nette\StaticClass;
-	
+
 	/**
 	 * Iteration items.
 	 * @param  object
