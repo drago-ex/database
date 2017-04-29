@@ -7,10 +7,10 @@ Connect to database with dibi.
 ```
 extensions:
 
-	# connect to database with dibi
+	# Connect to database with dibi.
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
-# credentials to the database
+# Credentials to the database.
 dibi:
 	host:
 	driver:
