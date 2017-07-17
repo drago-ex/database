@@ -5,7 +5,9 @@
  * Copyright (c) 2015, Zdeněk Papučík
  */
 namespace Drago\Database;
-use Nette, Dibi;
+
+use Nette
+use Dibi;
 
 /**
  * Connect to database.
