@@ -6,7 +6,7 @@
  */
 namespace Drago\Database;
 
-use Nette
+use Nette;
 use Dibi;
 
 /**
