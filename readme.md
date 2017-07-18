@@ -24,9 +24,7 @@ dibi:
 		#prefix:
 ```
 
-## Instruction
-
-For models (repository) use extends to the class and queries do so:
+## Usage
 
 ```php
 $this->db
