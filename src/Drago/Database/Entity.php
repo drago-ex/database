@@ -21,7 +21,6 @@ abstract class Entity
 	private $id;
 
 	/**
-	 * Setter.
 	 * @param int
 	 */
 	public function setId($id)
@@ -30,7 +29,6 @@ abstract class Entity
 	}
 
 	/**
-	 * Getter.
 	 * @return int
 	 */
 	public function getId()
