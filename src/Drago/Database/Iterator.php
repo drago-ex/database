@@ -17,7 +17,7 @@ class Iterator
 
 	/**
 	 * Iteration items.
-	 * @param  object
+	 * @param  mixed
 	 * @return array
 	 */
 	public static function set($entity)
