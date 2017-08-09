@@ -11,7 +11,6 @@ use Dibi;
 
 /**
  * Connect to database.
- * @author Zdeněk Papučík
  */
 abstract class Connection
 {
