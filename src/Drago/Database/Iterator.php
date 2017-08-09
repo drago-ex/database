@@ -9,7 +9,6 @@ use Nette;
 
 /**
  * Entity iterator.
- * @author Zdeněk Papučík
  */
 class Iterator
 {
