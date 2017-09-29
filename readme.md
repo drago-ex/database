@@ -19,7 +19,7 @@ dibi:
 	username:
 	password:
 	database:
-	lazy: TRUE
+	lazy: true
 	#substitutes:
 		#prefix:
 ```
