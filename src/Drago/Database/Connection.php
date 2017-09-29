@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Extending for Nette Framework
+ * Extension Nette
  * Copyright (c) 2015, Zdeněk Papučík
  */
 namespace Drago\Database;
@@ -10,14 +10,13 @@ use Nette;
 use Dibi;
 
 /**
- * Connect to database.
+ * Připojení k databázovému serveru.
  */
 abstract class Connection
 {
 	use Nette\SmartObject;
 
 	/**
-	 * Database connect.
 	 * @var Dibi\Connection
 	 */
 	protected $db;

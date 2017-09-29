@@ -1,7 +1,7 @@
 {
 	"name": "drago-ex/database",
 	"type": "library",
-	"description": "Connect to database with dibi.",
+	"description": "Připojení k databázovému serveru.",
 	"license": ["MIT"],
 	"authors": [
 		{

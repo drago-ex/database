@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Extending for Nette Framework
+ * Extension Nette
  * Copyright (c) 2015, Zdeněk Papučík
  */
 namespace Drago\Database;
 use Nette;
 
 /**
- * Database entity.
+ * Základní entita.
  */
 abstract class Entity
 {

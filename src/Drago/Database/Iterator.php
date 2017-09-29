@@ -1,22 +1,21 @@
 <?php
 
 /**
- * Extending for Nette Framework
+ * Extension Nette
  * Copyright (c) 2015, Zdeněk Papučík
  */
 namespace Drago\Database;
 use Nette;
 
 /**
- * Entity iterator.
+ * Iterátor entit.
  */
 class Iterator
 {
 	use Nette\StaticClass;
 
 	/**
-	 * Iteration items.
-	 * @param  mixed
+	 * @param mixed
 	 * @return array
 	 */
 	public static function set($entity)
