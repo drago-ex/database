@@ -33,5 +33,27 @@ V balíčku se nachází abstraktní třída pro entity, která má připravené
 Abychom mohli vložit hodnoty z entit do databáze, musíme je nejprve projít a předat jako pole,
 k tomu nám dobře poslouží třída Iterator.
 
+## Příklad vložení nebo aktualizování záznamů
+
+```php
+/**
+ * @param mixed
+ * @return void
+ */
+public function save(Entity $entity)
+{
+	if (!$entity->getId()) {
+		return $this->db
+			->insert('table', Database\Iterator::set($entity))
+			->execute();
+	} else {
+		return $this->db
+			->update('table', Database\Iterator::set($entity))
+			->where('id = ?', $entity->getId())
+			->execute();
+	}
+}
+```
+
 ## Dokumentace
 - [Dibi - smart database layer](https://github.com/dg/dibi)
