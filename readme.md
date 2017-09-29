@@ -33,7 +33,7 @@ V balíčku se nachází abstraktní třída pro entity, která má připravené
 Abychom mohli vložit hodnoty z entit do databáze, musíme je nejprve projít a předat jako pole,
 k tomu nám dobře poslouží třída Iterator.
 
-## Příklad vložení nebo aktualizování záznamů
+## Příklad, jak vložit nebo aktualizovat záznamy
 
 ```php
 /**
