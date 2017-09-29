@@ -30,7 +30,8 @@ V balíčku se nachází abstraktní třída pro entity, která má připravené
 
 ## Třída Iterator
 
-Abychom mohli vložit hodnoty z entit do databáze, musíme je nejprve projít a předat jako pole, k tomu nám poslouží třída Iterator.
+Abychom mohli vložit hodnoty z entit do databáze, musíme je nejprve projít a předat jako pole,
+k tomu nám dobře poslouží třída Iterator.
 
 ## Dokumentace
 - [Dibi - smart database layer](https://github.com/dg/dibi)
