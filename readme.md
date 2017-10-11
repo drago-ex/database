@@ -41,7 +41,8 @@ V balíčku se nachází abstraktní třída pro entity, která nám může posl
 
 ## Třída Iterator
 
-Abychom mohli vložit hodnoty z entit do databáze, musíme je předat metodě insert v podobě pole, k tomu nám poslouží třída Iterator.
+Abychom mohli vložit nebo upravit hodnoty z entit do databáze, musíme je předat metodě insert nebo update v podobě pole,
+k tomu nám dobře poslouží třída Iterator.
 
 ## Příklad, jak vložit nebo aktualizovat záznam
 
