@@ -4,6 +4,17 @@
 
 Připojení k databázovému serveru.
 
+## Požadavky
+
+- PHP 7.0.8 nebo vyšší
+- composer
+
+## Instalace
+
+```
+composer require drago-ex/database
+```
+
 ## Registrace rozšíření
 
 ```
@@ -26,12 +37,11 @@ dibi:
 
 ## Základní třída pro entity
 
-V balíčku se nachází abstraktní třída pro entity, která má připravené metody pro vložení nebo zjištění id záznamu.
+V balíčku se nachází abstraktní třída pro entity, která nám může posloužit pro vložení nebo zjištění id záznamu.
 
 ## Třída Iterator
 
-Abychom mohli vložit hodnoty z entit do databáze, musíme je nejprve projít a předat jako pole,
-k tomu nám dobře poslouží třída Iterator.
+Abychom mohli vložit hodnoty z entit do databáze, musíme je předat metodě insert v podobě pole, k tomu nám poslouží třída Iterator.
 
 ## Příklad, jak vložit nebo aktualizovat záznam
 
