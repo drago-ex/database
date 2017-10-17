@@ -8,7 +8,7 @@ namespace Drago\Database;
 use Nette;
 
 /**
- * Základní entita.
+ * Base entity.
  */
 abstract class Entity
 {

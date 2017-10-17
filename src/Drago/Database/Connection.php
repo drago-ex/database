@@ -10,7 +10,7 @@ use Nette;
 use Dibi;
 
 /**
- * Připojení k databázovému serveru.
+ * Connect to database server.
  */
 abstract class Connection
 {

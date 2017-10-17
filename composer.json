@@ -1,7 +1,7 @@
 {
 	"name": "drago-ex/database",
 	"type": "library",
-	"description": "Připojení k databázovému serveru.",
+	"description": "Connect to database server.",
 	"license": ["MIT"],
 	"authors": [
 		{

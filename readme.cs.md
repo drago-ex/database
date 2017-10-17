@@ -2,28 +2,28 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0a573beafc964543af530617a71467fd)](https://www.codacy.com/app/accgit/database?utm_source=github.com&utm_medium=referral&utm_content=drago-ex/database&utm_campaign=badger)
 
-Connect to database server.
+Připojení k databázovému serveru.
 
-## Requirements
+## Požadavky
 
-- PHP 7.0.8 or higher
+- PHP 7.0.8 nebo vyšší
 - composer
 
-## Installation
+## Instalace
 
 ```
 composer require drago-ex/database
 ```
 
-## Register the extension
+## Registrace rozšíření
 
 ```
 extensions:
 
-	# Connect to database server.
+	# Připojení k databázovému serveru.
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
-# Settings database.
+# Nastavení databáze.
 dibi:
 	host:
 	driver:
@@ -35,16 +35,16 @@ dibi:
 		#prefix:
 ```
 
-## Basic class for entities
+## Základní třída pro entity
 
-The package contains an abstract class for entities that can serve us to insert or detect a record id.
+V balíčku se nachází abstraktní třída pro entity, která nám může posloužit pro vložení nebo zjištění id záznamu.
 
-## Class Iterator
+## Třída Iterator
 
-In order to insert or edit values from entities in a database, we must forward them to insert and update methods in the form of array.
-In this case, we can use the Iterator class, which returns those values as array.
+Abychom mohli vložit nebo upravit hodnoty z entit do databáze, musíme je předat metodám insert a update v podobě pole.
+V tomto případě můžeme využít třídu Iterator, která nám ty hodnoty vráti jako pole.
 
-## An example of how to insert or update a record
+## Příklad, jak vložit nebo aktualizovat záznam
 
 ```php
 /**
@@ -66,5 +66,5 @@ public function save(Entity $entity)
 }
 ```
 
-## Documentation
+## Dokumentace
 - [Dibi - smart database layer](https://github.com/dg/dibi)
