@@ -47,7 +47,7 @@ class Iterator
 			}
 
 		}
-		return $items;
+		return array_filter($items);
 	}
 
 }
