@@ -39,8 +39,8 @@ class Iterator
 		$items = [];
 		foreach ($entity as $key => $item) {
 			switch ($convert) {
-				case 'lower': $items[$convert ? Utils\Strings::lower($key) : $key] = $item; break;
-				case 'upper': $items[$convert ? Utils\Strings::upper($key) : $key] = $item; break;
+				case 'lower': $items[Utils\Strings::lower($key)] = $item; break;
+				case 'upper': $items[Utils\Strings::upper($key)] = $item; break;
 				default:
 					$items[$key] = $item;
 				break;
