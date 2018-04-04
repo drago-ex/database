@@ -86,7 +86,7 @@ class Iterator
 	{
 		$array = [];
 		foreach ($rows as $row) {
-			$array[] = ArrayHash::from(Iterator::lower($row));
+			$array[] = ArrayHash::from(Iterator::toLower($row));
 		}
 		return $array;
 	}
@@ -99,7 +99,7 @@ class Iterator
 	 */
 	public static function toLowerOne($row)
 	{
-		return ArrayHash::from(Iterator::lower($row));
+		return ArrayHash::from(Iterator::toLower($row));
 	}
 
 }
