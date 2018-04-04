@@ -48,46 +48,58 @@ class Iterator
 	}
 
 	/**
-	 * Standart convert entity to array.
+	 * Convert entity to array.
 	 * @param  mixed
 	 * @return array
 	 */
-	public static function standart($entity)
+	public static function toArray($entity)
 	{
 		return Iterator::convert($entity);
 	}
 
 	/**
-	 * Covert array keys from upper to lower.
+	 * Convert to array and lower case.
 	 * @param  mixed
 	 * @return array
 	 */
-	public static function lower($entity)
+	public static function toLower($entity)
 	{
 		return Iterator::convert($entity, self::LOWER);
 	}
 
 	/**
-	 * Covert array keys from lower to upper.
+	 * Convert to array and upper case.
 	 * @param  mixed
 	 * @return array
 	 */
-	public static function upper($entity)
+	public static function toUpper($entity)
 	{
 		return Iterator::convert($entity, self::UPPER);
 	}
 
 	/**
-	 * Convert all array keys from upper to lower.
-	 * @param
+	 * Convert all records (sql query) to lower case.
+	 * @param array
+	 * @return array
 	 */
-	public static function records($records)
+	public static function toLowerAll($records)
 	{
 		$items = [];
 		foreach ($records as $record) {
 			$items[] = ArrayHash::from(Iterator::lower($record));
 		}
 		return $items;
+	}
+
+
+	/**
+	 * Convert one record (sql query) to lower case.
+	 * @param array
+	 * @return array
+	 */
+	public static function toLowerOne($records)
+	{
+		return ArrayHash::from(Iterator::lower($records));
 	}
 
 }
