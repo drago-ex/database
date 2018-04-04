@@ -32,7 +32,7 @@ class Iterator
 	 * @param string|null
 	 * @return array
 	 */
-	private static function convert($entity, $convert = null)
+	public static function convert($entity, $convert = null)
 	{
 		$items = [];
 		foreach ($entity as $key => $item) {
