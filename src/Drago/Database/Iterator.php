@@ -34,17 +34,17 @@ class Iterator
 	 */
 	public static function convert($entity, $convert = null)
 	{
-		$items = [];
-		foreach ($entity as $key => $item) {
+		$array = [];
+		foreach ($entity as $key => $value) {
 			switch ($convert) {
-				case 'lower': $items[Strings::lower($key)] = $item; break;
-				case 'upper': $items[Strings::upper($key)] = $item; break;
+				case 'lower': $array[Strings::lower($key)] = $value; break;
+				case 'upper': $array[Strings::upper($key)] = $value; break;
 				default:
-					$items[$key] = $item;
+					$array[$key] = $value;
 				break;
 			}
 		}
-		return $items;
+		return $array;
 	}
 
 	/**
@@ -82,13 +82,13 @@ class Iterator
 	 * @param array
 	 * @return array
 	 */
-	public static function toLowerAll($records)
+	public static function toLowerAll($rows)
 	{
-		$items = [];
-		foreach ($records as $record) {
-			$items[] = ArrayHash::from(Iterator::lower($record));
+		$array = [];
+		foreach ($rows as $row) {
+			$array[] = ArrayHash::from(Iterator::lower($row));
 		}
-		return $items;
+		return $array;
 	}
 
 
@@ -97,9 +97,9 @@ class Iterator
 	 * @param array
 	 * @return array
 	 */
-	public static function toLowerOne($records)
+	public static function toLowerOne($row)
 	{
-		return ArrayHash::from(Iterator::lower($records));
+		return ArrayHash::from(Iterator::lower($row));
 	}
 
 }
