@@ -26,6 +26,6 @@ interface Mapper
 	 * Save records to database.
 	 * @param mixed
 	 */
-	public function save($entity);
+	public function save(Entity $entity);
 
 }
