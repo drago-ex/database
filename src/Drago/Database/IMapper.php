@@ -9,7 +9,7 @@ namespace Drago\Database;
 /**
  * Pattern for repository.
  */
-interface Mapper
+interface IMapper
 {
 	/**
 	 * Get all records.
