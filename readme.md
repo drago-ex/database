@@ -6,7 +6,7 @@ Connect to database server.
 
 ## Requirements
 
-- PHP 7.0.8 or higher
+- PHP 7.1 or higher
 - composer
 
 ## Installation
@@ -20,10 +20,10 @@ composer require drago-ex/database
 ```
 extensions:
 
-	# Connect to database server.
+	# library to connect to the database
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
-# Settings database.
+# settings database
 dibi:
 	host:
 	driver:
@@ -35,31 +35,30 @@ dibi:
 		#prefix:
 ```
 
-## Basic class for entities
+## Class for entity
 
-The package contains an abstract class for entities that can serve us to insert or detect a record id.
+The package contains a base class for entity in which the setter and getter method is used to work with id.
 
 ## Class Iterator
 
-In order to insert or edit values from entities in a database, we must forward them to insert and update methods in the form of array.
+To insert or update values from an entity to a database, we must pass the values in the array.
 In this case, we can use the Iterator class, which returns those values as array.
 
-## An example of how to insert or update a record
+## An example of how to insert or update values
 
 ```php
 /**
- * @param mixed
- * @return void
+ * Save values to database.
  */
-public function save(Entity $entity)
+public function save(Entity $entity): void
 {
 	if (!$entity->getId()) {
 		return $this->db
-			->insert('table', Database\Iterator::set($entity))
+			->insert('table', Iterator::toArray($entity))
 			->execute();
 	} else {
 		return $this->db
-			->update('table', Database\Iterator::set($entity))
+			->update('table', Iterator::toArray($entity))
 			->where('id = ?', $entity->getId())
 			->execute();
 	}

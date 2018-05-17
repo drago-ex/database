@@ -1,5 +1,8 @@
 <?php
 
+// Enable strict mode.
+declare(strict_types = 1);
+
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
@@ -14,23 +17,20 @@ abstract class Entity
 {
 	use Nette\SmartObject;
 
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $id;
 
-	/**
-	 * @param int
-	 */
-	public function setId($id)
+
+	public function setId(int $id)
 	{
 		$this->id = $id;
 	}
 
+
 	/**
-	 * @return int
+	 * Get the record ID.
 	 */
-	public function getId()
+	public function getId(): int
 	{
 		return $this->id;
 	}

@@ -1,5 +1,8 @@
 <?php
 
+// Enable strict mode.
+declare(strict_types = 1);
+
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
@@ -11,93 +14,85 @@ use Nette\Utils\Strings;
 use Nette\Utils\ArrayHash;
 
 /**
- * Basic iterator and convert to lower or upper keys.
+ * Iterator and convert keys in array to lowercase or uppercase.
  */
 class Iterator
 {
 	use Nette\StaticClass;
 
-	/**
-	 * @var string
-	 */
-	const LOWER = 'lower';
+	/** Convert keys in array */
+	public const
+
+		// Convert to lowercase
+		LOWER = 'lower',
+
+		// Convert to uppercase
+		UPPER = 'upper';
+
 
 	/**
-	 * @var string
+	 * Convert keys in array when the lower or upper parameter is added.
 	 */
-	const UPPER = 'upper';
-
-	/**
-	 * @param mixed
-	 * @param string|null
-	 * @return array
-	 */
-	public static function convert($entity, $convert = null)
+	private static function convert(array $entity, string $convert = null): array
 	{
-		$array = [];
+		$arr = [];
 		foreach ($entity as $key => $value) {
 			switch ($convert) {
-				case 'lower': $array[Strings::lower($key)] = $value; break;
-				case 'upper': $array[Strings::upper($key)] = $value; break;
+				case 'lower': $arr[Strings::lower($key)] = $value; break;
+				case 'upper': $arr[Strings::upper($key)] = $value; break;
 				default:
-					$array[$key] = $value;
+					$arr[$key] = $value;
 				break;
 			}
 		}
-		return $array;
+		return $arr;
 	}
+
 
 	/**
 	 * Convert entity to array.
-	 * @param  mixed
-	 * @return array
 	 */
-	public static function toArray($entity)
+	public static function toArray(array $entity): array
 	{
 		return Iterator::convert($entity);
 	}
 
+
 	/**
-	 * Convert to array and lower case.
-	 * @param  mixed
-	 * @return array
+	 * Convert keys in array to lowercase.
 	 */
-	public static function toLower($entity)
+	public static function toLower(array $entity): array
 	{
 		return Iterator::convert($entity, self::LOWER);
 	}
 
+
 	/**
-	 * Convert to array and upper case.
-	 * @param  mixed
-	 * @return array
+	 * Convert keys in array to uppercase.
 	 */
-	public static function toUpper($entity)
+	public static function toUpper(array $entity): array
 	{
 		return Iterator::convert($entity, self::UPPER);
 	}
 
+
 	/**
-	 * Convert all records (sql query) to lower case.
-	 * @param array
-	 * @return array
+	 * Convert keys in array to lowercase for all records.
 	 */
-	public static function toLowerAll($rows)
+	public static function toLowerAll(array $rows): ArrayHash
 	{
-		$array = [];
+		$arr = [];
 		foreach ($rows as $row) {
-			$array[] = ArrayHash::from(Iterator::toLower($row));
+			$arr[] = ArrayHash::from(Iterator::toLower($row));
 		}
-		return $array;
+		return $arr;
 	}
 
 
 	/**
-	 * Convert one record (sql query) to lower case.
-	 * @param array
-	 * @return array
+	 * Convert keys in array to lowercase for one record.
 	 */
-	public static function toLowerOne($row)
+	public static function toLowerOne(array $row): ArrayHash
 	{
 		return ArrayHash::from(Iterator::toLower($row));
 	}
