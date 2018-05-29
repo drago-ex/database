@@ -10,21 +10,21 @@ declare(strict_types = 1);
 namespace Drago\Database;
 
 use Nette;
-use Dibi\Connection;
+use Dibi;
 
 /**
  * Database connection.
  */
-abstract class Database
+abstract class Connection
 {
 	use Nette\SmartObject;
 
 	/**
-	 * @var Connection
+	 * @var Dibi\Connection
 	 */
 	private $db;
 
-	public function __construct(Connection $db)
+	public function __construct(Dibi\Connection $db)
 	{
 		$this->db = $db;
 	}
@@ -32,7 +32,7 @@ abstract class Database
 	/**
 	 * Building queries.
 	 */
-	public function db(): Connection
+	public function db(): Dibi\Connection
 	{
 		return $this->db;
 	}
