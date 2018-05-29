@@ -19,15 +19,15 @@ abstract class Database
 {
 	use Nette\SmartObject;
 
-	/** @var Connection */
+	/**
+	 * @var Connection
+	 */
 	private $db;
-
 
 	public function __construct(Connection $db)
 	{
 		$this->db = $db;
 	}
-
 
 	/**
 	 * Building queries.

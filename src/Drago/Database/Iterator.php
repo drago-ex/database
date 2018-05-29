@@ -20,15 +20,20 @@ class Iterator
 {
 	use Nette\StaticClass;
 
-	/** Convert keys in array */
+	/**
+	 * Convert keys in array.
+	 */
 	public const
 
-		// Convert to lowercase
+		/**
+		 * Convert to lowercase.
+		 */
 		LOWER = 'lower',
 
-		// Convert to uppercase
+		/**
+		 * Convert to uppercase.
+		 */
 		UPPER = 'upper';
-
 
 	/**
 	 * Convert keys in array when the lower or upper parameter is added.
@@ -48,7 +53,6 @@ class Iterator
 		return $arr;
 	}
 
-
 	/**
 	 * Convert entity to array.
 	 */
@@ -56,7 +60,6 @@ class Iterator
 	{
 		return Iterator::convert($entity);
 	}
-
 
 	/**
 	 * Convert keys in array to lowercase.
@@ -66,7 +69,6 @@ class Iterator
 		return Iterator::convert($entity, self::LOWER);
 	}
 
-
 	/**
 	 * Convert keys in array to uppercase.
 	 */
@@ -74,7 +76,6 @@ class Iterator
 	{
 		return Iterator::convert($entity, self::UPPER);
 	}
-
 
 	/**
 	 * Convert keys in array to lowercase for all records.
@@ -87,7 +88,6 @@ class Iterator
 		}
 		return $arr;
 	}
-
 
 	/**
 	 * Convert keys in array to lowercase for one record.

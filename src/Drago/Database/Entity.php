@@ -17,15 +17,15 @@ abstract class Entity
 {
 	use Nette\SmartObject;
 
-	/** @var int */
+	/**
+	 * @var int
+	 */
 	private $id;
-
 
 	public function setId(int $id)
 	{
 		$this->id = $id;
 	}
-
 
 	/**
 	 * Get the record ID.
