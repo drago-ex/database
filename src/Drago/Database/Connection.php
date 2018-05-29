@@ -22,19 +22,11 @@ abstract class Connection
 	/**
 	 * @var Dibi\Connection
 	 */
-	private $db;
+	protected $db;
 
 	public function __construct(Dibi\Connection $db)
 	{
 		$this->db = $db;
-	}
-
-	/**
-	 * Building queries.
-	 */
-	public function db(): Dibi\Connection
-	{
-		return $this->db;
 	}
 
 }
