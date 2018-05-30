@@ -1,8 +1,5 @@
 <?php
 
-// Enable strict mode.
-declare(strict_types = 1);
-
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
@@ -11,7 +8,7 @@ namespace Drago\Database;
 
 use Nette;
 use Nette\Utils\Strings;
-use Nette\Utils\ArrayHash;
+use stdClass;
 
 /**
  * Iterator and convert keys in array to lowercase or uppercase.
@@ -23,8 +20,7 @@ class Iterator
 	/**
 	 * Convert keys in array.
 	 */
-	public const
-
+	const
 		/**
 		 * Convert to lowercase.
 		 */
@@ -37,8 +33,10 @@ class Iterator
 
 	/**
 	 * Convert keys in array when the lower or upper parameter is added.
+	 * @param string $convert
+	 * @return array
 	 */
-	private static function convert(array $entity, string $convert = null): array
+	private static function convert(array $entity, $convert = null)
 	{
 		$arr = [];
 		foreach ($entity as $key => $value) {
@@ -55,46 +53,51 @@ class Iterator
 
 	/**
 	 * Convert entity to array.
+	 * @return array
 	 */
-	public static function toArray(array $entity): array
+	public static function toArray(array $entity)
 	{
 		return Iterator::convert($entity);
 	}
 
 	/**
 	 * Convert keys in array to lowercase.
+	 * @return array
 	 */
-	public static function toLower(array $entity): array
+	public static function toLower(array $entity)
 	{
 		return Iterator::convert($entity, self::LOWER);
 	}
 
 	/**
 	 * Convert keys in array to uppercase.
+	 * @return array
 	 */
-	public static function toUpper(array $entity): array
+	public static function toUpper(array $entity)
 	{
 		return Iterator::convert($entity, self::UPPER);
 	}
 
 	/**
 	 * Convert keys in array to lowercase for all records.
+	 * @return stdClass
 	 */
-	public static function toLowerAll(array $rows): ArrayHash
+	public static function toLowerAll(array $rows)
 	{
 		$arr = [];
 		foreach ($rows as $row) {
-			$arr[] = ArrayHash::from(Iterator::toLower($row));
+			$arr[] = (object) Iterator::toLower($row);
 		}
 		return $arr;
 	}
 
 	/**
 	 * Convert keys in array to lowercase for one record.
+	 * @return stdClass
 	 */
-	public static function toLowerOne(array $row): ArrayHash
+	public static function toLowerOne(array $row)
 	{
-		return ArrayHash::from(Iterator::toLower($row));
+		return (object) Iterator::toLower($row);
 	}
 
 }

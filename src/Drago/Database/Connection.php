@@ -1,8 +1,5 @@
 <?php
 
-// Enable strict mode.
-declare(strict_types = 1);
-
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
