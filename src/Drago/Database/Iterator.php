@@ -8,7 +8,8 @@ namespace Drago\Database;
 
 use Nette;
 use Nette\Utils\Strings;
-use stdClass;
+
+use Dibi;
 
 /**
  * Iterator and convert keys in array to lowercase or uppercase.
@@ -87,7 +88,7 @@ class Iterator
 	{
 		$arr = [];
 		foreach ($rows as $row) {
-			$arr[] = (object) Iterator::toLower($row);
+			$arr[] = new Dibi\Row(Iterator::toLower($row));
 		}
 		return $arr;
 	}
@@ -99,7 +100,7 @@ class Iterator
 	 */
 	public static function toLowerOne($row)
 	{
-		return (object) Iterator::toLower($row);
+		return new Dibi\Row(Iterator::toLower($row));
 	}
 
 }
