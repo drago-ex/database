@@ -29,10 +29,11 @@ class Iterator
 
 	/**
 	 * Convert keys in array when the lower or upper parameter is added.
+	 * @param mixed $entity
 	 * @param string $convert
 	 * @return array
 	 */
-	private static function convert(array $entity, $convert = null)
+	private static function convert($entity, $convert = null)
 	{
 		$arr = [];
 		foreach ($entity as $key => $value) {
@@ -49,36 +50,40 @@ class Iterator
 
 	/**
 	 * Convert entity to array.
+	 * @param mixed $entity
 	 * @return array
 	 */
-	public static function toArray(array $entity)
+	public static function toArray($entity)
 	{
 		return Iterator::convert($entity);
 	}
 
 	/**
 	 * Convert keys in array to lowercase.
+	 * @param mixed $entity
 	 * @return array
 	 */
-	public static function toLower(array $entity)
+	public static function toLower($entity)
 	{
 		return Iterator::convert($entity, self::LOWER);
 	}
 
 	/**
 	 * Convert keys in array to uppercase.
+	 * @param mixed $entity
 	 * @return array
 	 */
-	public static function toUpper(array $entity)
+	public static function toUpper($entity)
 	{
 		return Iterator::convert($entity, self::UPPER);
 	}
 
 	/**
 	 * Convert keys in array to lowercase for all records.
+	 * @param mixed $rows
 	 * @return stdClass
 	 */
-	public static function toLowerAll(array $rows)
+	public static function toLowerAll($rows)
 	{
 		$arr = [];
 		foreach ($rows as $row) {
@@ -89,9 +94,10 @@ class Iterator
 
 	/**
 	 * Convert keys in array to lowercase for one record.
+	 * @param mixed $row
 	 * @return stdClass
 	 */
-	public static function toLowerOne(array $row)
+	public static function toLowerOne($row)
 	{
 		return (object) Iterator::toLower($row);
 	}
