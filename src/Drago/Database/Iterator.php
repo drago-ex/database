@@ -82,7 +82,7 @@ class Iterator
 	/**
 	 * Convert keys in array to lowercase for all records.
 	 * @param mixed $rows
-	 * @return stdClass
+	 * @return Dibi\Row
 	 */
 	public static function toLowerAll($rows)
 	{
@@ -96,7 +96,7 @@ class Iterator
 	/**
 	 * Convert keys in array to lowercase for one record.
 	 * @param mixed $row
-	 * @return stdClass
+	 * @return Dibi\Row
 	 */
 	public static function toLowerOne($row)
 	{
