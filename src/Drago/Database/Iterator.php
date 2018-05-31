@@ -21,14 +21,10 @@ class Iterator
 	 * Convert keys in array.
 	 */
 	const
-		/**
-		 * Convert to lowercase.
-		 */
+		// Convert to lowercase.
 		LOWER = 'lower',
 
-		/**
-		 * Convert to uppercase.
-		 */
+		// Convert to uppercase.
 		UPPER = 'upper';
 
 	/**
