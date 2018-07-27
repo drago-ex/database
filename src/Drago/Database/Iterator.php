@@ -37,16 +37,18 @@ class Iterator
 	private static function convert($entity, $convert = null)
 	{
 		$arr = [];
-		foreach ($entity as $key => $value) {
-			switch ($convert) {
-				case 'lower': $arr[Strings::lower($key)] = $value; break;
-				case 'upper': $arr[Strings::upper($key)] = $value; break;
-				default:
-					$arr[$key] = $value;
-				break;
+		if ($entity) {
+			foreach ($entity as $key => $value) {
+				switch ($convert) {
+					case 'lower': $arr[Strings::lower($key)] = $value; break;
+					case 'upper': $arr[Strings::upper($key)] = $value; break;
+					default:
+						$arr[$key] = $value;
+					break;
+				}
 			}
 		}
-		return $arr;
+		return $arr ? $arr : $entity;
 	}
 
 	/**
@@ -87,10 +89,12 @@ class Iterator
 	public static function toLowerAll($rows)
 	{
 		$arr = [];
-		foreach ($rows as $row) {
-			$arr[] = new Dibi\Row(Iterator::toLower($row));
+		if ($rows) {
+			foreach ($rows as $row) {
+				$arr[] = new Dibi\Row(Iterator::toLower($row));
+			}
 		}
-		return $arr;
+		return $arr ? $arr : $rows;
 	}
 
 	/**
