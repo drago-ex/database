@@ -50,18 +50,11 @@ In this case, we can use the Iterator class, which returns those values as array
 /**
  * Save values to database.
  */
-public function save(Entity $entity): void
+public function save(Entity $entity)
 {
-	if (!$entity->getId()) {
-		return $this->db
-			->insert('table', Iterator::toArray($entity))
-			->execute();
-	} else {
-		return $this->db
-			->update('table', Iterator::toArray($entity))
-			->where('id = ?', $entity->getId())
-			->execute();
-	}
+	$entity->getId() ?
+	$this->db->query('UPDATE :prefix:privileges SET  %a', Iterator::toArray($entity), 'WHERE id = ?', $entity->getId()) :
+	$this->db->query('INSERT INTO :prefix:privileges %v', Iterator::toArray($entity));
 }
 ```
 
