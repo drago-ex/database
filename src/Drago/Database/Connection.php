@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
@@ -21,9 +23,9 @@ abstract class Connection
 	 */
 	protected $db;
 
+
 	public function __construct(Dibi\Connection $db)
 	{
 		$this->db = $db;
 	}
-
 }

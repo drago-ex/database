@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
@@ -28,13 +30,11 @@ class Iterator
 		// Convert to uppercase.
 		UPPER = 'upper';
 
+
 	/**
 	 * Convert keys in array when the lower or upper parameter is added.
-	 * @param mixed $entity
-	 * @param string $convert
-	 * @return array
 	 */
-	private static function convert($entity, $convert = null)
+	private static function convert($entity, ...$convert): array
 	{
 		$arr = [];
 		if ($entity) {
@@ -51,42 +51,38 @@ class Iterator
 		return $arr ? $arr : $entity;
 	}
 
+
 	/**
-	 * Convert entity to array.
-	 * @param mixed $entity
-	 * @return array
+	 * Convert entity to array.y
 	 */
-	public static function toArray($entity)
+	public static function toArray($entity): array
 	{
 		return Iterator::convert($entity);
 	}
 
+
 	/**
 	 * Convert keys in array to lowercase.
-	 * @param mixed $entity
-	 * @return array
 	 */
-	public static function toLower($entity)
+	public static function toLower($entity): array
 	{
 		return Iterator::convert($entity, self::LOWER);
 	}
 
+
 	/**
 	 * Convert keys in array to uppercase.
-	 * @param mixed $entity
-	 * @return array
 	 */
-	public static function toUpper($entity)
+	public static function toUpper($entity): array
 	{
 		return Iterator::convert($entity, self::UPPER);
 	}
 
+
 	/**
 	 * Convert keys in array to lowercase for all records.
-	 * @param mixed $rows
-	 * @return Dibi\Row
 	 */
-	public static function toLowerAll($rows)
+	public static function toLowerAll($rows): Dibi\Row
 	{
 		$arr = [];
 		if ($rows) {
@@ -97,14 +93,12 @@ class Iterator
 		return $arr ? $arr : $rows;
 	}
 
+
 	/**
 	 * Convert keys in array to lowercase for one record.
-	 * @param mixed $row
-	 * @return Dibi\Row
 	 */
-	public static function toLowerOne($row)
+	public static function toLowerOne($row): Dibi\Row
 	{
 		return new Dibi\Row(Iterator::toLower($row));
 	}
-
 }

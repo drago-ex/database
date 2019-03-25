@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 /**
  * Drago Database
  * Copyright (c) 2015, Zdeněk Papučík
@@ -19,21 +21,18 @@ abstract class Entity
 	 */
 	private $id;
 
-	/**
-	 * @param int $id
-	 */
-	public function setId($id)
+
+	public function setId(int $id)
 	{
 		$this->id = $id;
 	}
 
+
 	/**
 	 * Get the record ID.
-	 * @return int
 	 */
-	public function getId()
+	public function getId(): int
 	{
 		return $this->id;
 	}
-
 }
