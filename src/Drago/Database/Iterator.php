@@ -32,7 +32,7 @@ class Iterator
 	/**
 	 * Convert keys in array when the lower or upper parameter is added.
 	 */
-	private static function convert($entity, ...$convert): array
+	private static function convert($entity, string $convert = null): array
 	{
 		$arr = [];
 		if ($entity) {
@@ -51,7 +51,7 @@ class Iterator
 
 
 	/**
-	 * Convert entity to array.y
+	 * Convert entity to array.
 	 */
 	public static function toArray($entity): array
 	{
