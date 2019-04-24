@@ -1,31 +1,28 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 /**
  * Drago Database
- * Copyright (c) 2015, Zdeněk Papučík
+ * @copyright Zdeněk Papučík
  */
 namespace Drago\Database;
 
+use Dibi;
 use Nette;
 use Nette\Utils\Strings;
-
-use Dibi;
+use Tracy\Debugger;
 
 /**
  * Iterator and convert keys in array to lowercase or uppercase.
+ * @package Drago\Database
  */
 class Iterator
 {
 	use Nette\StaticClass;
 
-	/**
-	 * Convert keys in array.
-	 */
 	const
-		// Convert to lowercase.
 		LOWER = 'lower',
-
-		// Convert to uppercase.
 		UPPER = 'upper';
 
 
@@ -35,18 +32,14 @@ class Iterator
 	private static function convert($entity, string $convert = null): array
 	{
 		$arr = [];
-		if ($entity) {
-			foreach ($entity as $key => $value) {
-				switch ($convert) {
-					case 'lower': $arr[Strings::lower($key)] = $value; break;
-					case 'upper': $arr[Strings::upper($key)] = $value; break;
-					default:
-						$arr[$key] = $value;
-					break;
-				}
+		foreach ($entity as $key => $value) {
+			switch ($convert) {
+				case 'lower': $arr[Strings::lower($key)] = $value; break;
+				case 'upper': $arr[Strings::upper($key)] = $value; break;
+				default: $arr[$key] = $value; break;
 			}
 		}
-		return $arr ? $arr : $entity;
+		return $arr;
 	}
 
 
@@ -60,15 +53,6 @@ class Iterator
 
 
 	/**
-	 * Convert keys in array to lowercase.
-	 */
-	public static function toLower($entity): array
-	{
-		return Iterator::convert($entity, self::LOWER);
-	}
-
-
-	/**
 	 * Convert keys in array to uppercase.
 	 */
 	public static function toUpper($entity): array
@@ -78,25 +62,33 @@ class Iterator
 
 
 	/**
-	 * Convert keys in array to lowercase for all records.
+	 * Convert keys in array to lowercase.
 	 */
-	public static function toLowerAll($rows): Dibi\Row
+	public static function toLower($entity): array
 	{
-		$arr = [];
-		if ($rows) {
-			foreach ($rows as $row) {
-				$arr[] = new Dibi\Row(Iterator::toLower($row));
-			}
-		}
-		return $arr ? $arr : $rows;
+		return Iterator::convert($entity, self::LOWER);
 	}
 
 
 	/**
 	 * Convert keys in array to lowercase for one record.
 	 */
-	public static function toLowerOne($row): Dibi\Row
+	public static function toLowerOne(?Dibi\Row $row): ?Dibi\Row
 	{
-		return new Dibi\Row(Iterator::toLower($row));
+		$result = $row ? new Dibi\Row(Iterator::toLower($row)) : null;
+		return $result;
+	}
+
+
+	/**
+	 * Convert keys in array to lowercase for all records.
+	 */
+	public static function toLowerAll(iterable $rows): iterable
+	{
+		$arr = [];
+		foreach ($rows as $row) {
+			$arr[] = new Dibi\Row(Iterator::toLower($row));
+		}
+		return $arr;
 	}
 }
