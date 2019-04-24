@@ -1,22 +1,21 @@
-<?php declare(strict_types = 1);
+<?php 
+
+declare(strict_types = 1);
 
 /**
  * Drago Database
- * Copyright (c) 2015, Zdeněk Papučík
+ * @copyright Zdeněk Papučík
  */
 namespace Drago\Database;
 use Nette;
 
 /**
  * Base entity.
+ * @package Drago\Database
  */
-abstract class Entity
+trait Entity
 {
-	use Nette\SmartObject;
-
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	private $id;
 
 
