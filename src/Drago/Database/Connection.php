@@ -1,8 +1,10 @@
-<?php declare(strict_types = 1);
+<?php 
+
+declare(strict_types = 1);
 
 /**
  * Drago Database
- * Copyright (c) 2015, Zdeněk Papučík
+ * @copyright Zdeněk Papučík
  */
 namespace Drago\Database;
 
@@ -11,14 +13,11 @@ use Dibi;
 
 /**
  * Database connection.
+ * @package Drago\Database
  */
-abstract class Connection
+class Connection
 {
-	use Nette\SmartObject;
-
-	/**
-	 * @var Dibi\Connection
-	 */
+	/** @var Dibi\Connection */
 	protected $db;
 
 
