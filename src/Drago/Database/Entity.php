@@ -28,7 +28,7 @@ trait Entity
 	/**
 	 * Get the record ID.
 	 */
-	public function getId(): int
+	public function getId(): ?int
 	{
 		return $this->id;
 	}
