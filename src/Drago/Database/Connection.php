@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 declare(strict_types = 1);
 
@@ -17,6 +17,8 @@ use Dibi;
  */
 class Connection
 {
+	use Nette\SmartObject;
+	
 	/** @var Dibi\Connection */
 	protected $db;
 
