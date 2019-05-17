@@ -17,7 +17,7 @@ use stdClass;
  * @property-read Connection|stdClass $db
  * @package Drago\Database
  */
-trait BaseRepository
+trait Repository
 {
 	/**
 	 * Get all records.
