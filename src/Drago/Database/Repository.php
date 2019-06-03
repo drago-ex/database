@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 /**
  * Drago Database
- * @copyright Zdeněk Papučík
+ * Package built on Nette Framework
  */
 namespace Drago\Database;
 
