@@ -6,7 +6,7 @@ declare(strict_types = 1);
  * Drago Database
  * @copyright Zdeněk Papučík
  */
-namespace App\Presenters;
+namespace Drago\Database;
 
 use Dibi\Connection;
 use Dibi\Fluent;
