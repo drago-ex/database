@@ -1,6 +1,6 @@
 ## Drago Database
 
-Connect to database server.
+Connect and work with the database.
 
 ## Requirements
 
