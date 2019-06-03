@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 /**
  * Drago Database
- * @copyright Zdeněk Papučík
+ * Package built on Nette Framework
  */
 namespace Drago\Database;
 
@@ -15,7 +15,7 @@ use Countable;
 
 /**
  * Entity base.
- * @package Drago\Database\Entity
+ * @package Drago\Database
  */
 class Entity implements ArrayAccess, IteratorAggregate, Countable
 {
