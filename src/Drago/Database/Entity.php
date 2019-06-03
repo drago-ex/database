@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 declare(strict_types = 1);
 
@@ -6,30 +6,104 @@ declare(strict_types = 1);
  * Drago Database
  * @copyright Zdeněk Papučík
  */
-namespace Drago\Database;
-use Nette;
+namespace Drago\Generator;
+
+use ArrayAccess;
+use ArrayIterator;
+use IteratorAggregate;
+use Countable;
 
 /**
- * Base entity.
- * @package Drago\Database
+ * Class Entity
+ * @package Drago\Generator\Entity
  */
-trait Entity
+class Entity implements ArrayAccess, IteratorAggregate, Countable
 {
-	/** @var int */
-	private $id;
+	/** @var mixed */
+	protected $data;
+
+	/** @var mixed */
+	protected $modify;
 
 
-	public function setId(int $id)
+	public function __construct(array $arr = [])
 	{
-		$this->id = $id;
+		$this->data = $arr;
+		foreach ($arr as $k => $v) {
+			$this->$k = $v;
+		}
 	}
 
 
 	/**
-	 * Get the record ID.
+	 * Convert to array.
 	 */
-	public function getId(): ?int
+	public function toArray(): array
 	{
-		return $this->id;
+		return (array) $this->data;
+	}
+
+
+	/**
+	 * Modified data.
+	 */
+	public function getModify(): ?array
+	{
+		return $this->modify;
+	}
+
+
+	/**
+	 * Retrieve an external iterator.
+	 */
+	public function getIterator()
+	{
+		return new ArrayIterator($this);
+	}
+
+
+	/**
+	 * Whether a offset exists.
+	 */
+	public function offsetExists($offset)
+	{
+		return isset($this->$offset);
+	}
+
+
+	/**
+	 * Offset to retrieve.
+	 */
+	public function offsetGet($offset)
+	{
+		return $this->$offset;
+	}
+
+
+	/**
+	 * Offset to set.
+	 */
+	public function offsetSet($offset, $value)
+	{
+		$this->modify[$offset] = $value;
+		$this->$offset = $value;
+	}
+
+
+	/**
+	 * Offset to unset.
+	 */
+	public function offsetUnset($offset)
+	{
+		unset($this->$offset);
+	}
+
+
+	/**
+	 * Count elements of an object.
+	 */
+	public function count()
+	{
+		return count((array) $this);
 	}
 }
