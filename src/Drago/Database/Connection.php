@@ -18,7 +18,7 @@ use Dibi;
 class Connection
 {
 	use Nette\SmartObject;
-	
+
 	/** @var Dibi\Connection */
 	protected $db;
 
