@@ -13,6 +13,7 @@ use ArrayIterator;
 use IteratorAggregate;
 use Countable;
 
+
 /**
  * Entity base.
  * @package Drago\Database
