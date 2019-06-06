@@ -11,6 +11,7 @@ namespace Drago\Database;
 use Nette;
 use Dibi;
 
+
 /**
  * Database connection.
  * @package Drago\Database
