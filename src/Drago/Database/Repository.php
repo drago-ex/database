@@ -12,6 +12,7 @@ use Dibi\Connection;
 use Dibi\Fluent;
 use stdClass;
 
+
 /**
  * Repository base.
  * @property-read Connection|stdClass $db
