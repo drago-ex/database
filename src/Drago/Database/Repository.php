@@ -33,11 +33,12 @@ trait Repository
 
 	/**
 	 * Find record.
+	 * @param mixed ...$parm
 	 */
-	public function find(int $id): Fluent
+	public function find(string $cond, ...$parm): Fluent
 	{
 		return $this->get()
-			->where("{$this->primaryId} = ?", $id);
+			->where("{$cond} = ?", $parm);
 	}
 
 
