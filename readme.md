@@ -124,6 +124,7 @@ class HomePresenter extends Presenter
 }
 ```
 
+You can find all available methods in the Repository.
 
 ## Documentation
 - [Dibi - smart database layer](https://github.com/dg/dibi)
