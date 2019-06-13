@@ -23,7 +23,7 @@ trait Repository
 	/**
 	 * Get all records.
 	 */
-	public function get(): Fluent
+	public function getRecords(): Fluent
 	{
 		return $this->db
 			->select('*')
@@ -37,7 +37,7 @@ trait Repository
 	 */
 	public function find(string $cond, ...$parm): Fluent
 	{
-		return $this->get()
+		return $this->getRecords()
 			->where("{$cond} = ?", $parm);
 	}
 
@@ -47,7 +47,7 @@ trait Repository
 	 */
 	public function findById(int $id): Fluent
 	{
-		return $this->get()
+		return $this->getRecords()
 			->where("{$this->primaryId} = ?", $id);
 	}
 
