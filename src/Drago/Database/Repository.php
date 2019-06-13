@@ -32,9 +32,20 @@ trait Repository
 
 
 	/**
+	 * Find a record by parameters.
+	 * @param mixed ...$parm
+	 */
+	public function find(string $cond, ...$parm): Fluent
+	{
+		return $this->get()
+			->where("{$cond} = ?", $parm);
+	}
+
+
+	/**
 	 * Find record by primary id.
 	 */
-	public function find(int $id): Fluent
+	public function findById(int $id): Fluent
 	{
 		return $this->get()
 			->where("{$this->primaryId} = ?", $id);
@@ -42,12 +53,13 @@ trait Repository
 
 
 	/**
-	 * Find a record by custom parameters.
+	 * Remove record by parameters.
 	 * @param mixed ...$parm
 	 */
-	public function findBy(string $cond, ...$parm): Fluent
+	public function remove(string $cond, ...$parm): Fluent
 	{
-		return $this->get()
+		return $this->db
+			->delete($this->table)
 			->where("{$cond} = ?", $parm);
 	}
 
@@ -55,23 +67,11 @@ trait Repository
 	/**
 	 * Remove record by primary id.
 	 */
-	public function remove(int $id): Fluent
+	public function removeById(int $id): Fluent
 	{
 		return $this->db
 			->delete($this->table)
 			->where("{$this->primaryId} = ?", $id);
-	}
-
-
-	/**
-	 * Remove record by custom parameters.
-	 * @param mixed ...$parm
-	 */
-	public function removeBy(string $cond, ...$parm): Fluent
-	{
-		return $this->db
-			->delete($this->table)
-			->where("{$cond} = ?", $parm);
 	}
 
 
