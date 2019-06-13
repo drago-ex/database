@@ -99,8 +99,31 @@ class UserRepository extends Connection
 
 ```
 
-The repository can also be used without entities. We can omit this UserRepository
-and use the Repository Trait in Presenter.
+If you want to use a very simple query without an entity, we can 
+use the Repository trait in the Presenter.
+
+## Let's give an example
+
+```php
+class HomePresenter extends Presenter
+{
+	use Repository;
+
+	/** @var string table name */
+	private $table = 'users';
+
+	/** @var int primary id */
+	private $primaryId = 'userId';
+
+
+	protected function beforeRender(): void
+	{
+		// Get all records form table.
+		$allRecords = $this->getRecords();
+	}
+}
+```
+
 
 ## Documentation
 - [Dibi - smart database layer](https://github.com/dg/dibi)
