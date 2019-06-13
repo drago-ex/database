@@ -25,6 +25,9 @@ class UserEntity extends Drago\Database\Entity
 	/** @var int */
 	public $userId;
 
+	/** @var string */
+    public $email;
+
 
 	public function setUserId(int $userId)
 	{
