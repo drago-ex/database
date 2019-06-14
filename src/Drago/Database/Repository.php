@@ -8,9 +8,13 @@ declare(strict_types = 1);
  */
 namespace Drago\Database;
 
+use Dibi;
 use Dibi\Connection;
 use Dibi\Fluent;
+use Dibi\Result;
+use Entity\UserEntity;
 use stdClass;
+use Tracy\Debugger;
 
 
 /**
@@ -47,8 +51,7 @@ trait Repository
 	 */
 	public function findById(int $id): Fluent
 	{
-		return $this->getRecords()
-			->where("{$this->primaryId} = ?", $id);
+		return $this->find($this->primaryId, $id);
 	}
 
 
@@ -69,20 +72,40 @@ trait Repository
 	 */
 	public function removeById(int $id): Fluent
 	{
-		return $this->db
-			->delete($this->table)
-			->where("{$this->primaryId} = ?", $id);
+		return $this->remove($this->primaryId, $id);
 	}
 
 
 	/**
-	 * Insert new record.
+	 * Save record by parameters.
+	 * @param mixed ...$parm
+	 */
+	public function save(array $args, string $cond = null, ...$parm): Fluent
+	{
+		$query = $cond && $parm
+			? $this->db->update($this->table, $args)->where("{$cond} = ?", $parm)
+			: $this->db->insert($this->table, $args);
+
+		return $query;
+	}
+
+
+	/**
+	 * Save record by id.
+	 */
+	public function saveById(array $args, int $id): Fluent
+	{
+		$query = $this->save($args, $this->primaryId, $id);
+		return $query;
+	}
+
+
+	/**
+	 * Returns the ID of the inserted record.
 	 * @throws Dibi\Exception
 	 */
-	public function add(array $args, string $sequence = null): int
+	public function getInsertId(string $sequence = null): int
 	{
-		$this->db->insert($this->table, $args)->execute();
-		$insertId = $this->db->getInsertId($sequence);
-		return $insertId;
+		return $this->db->getInsertId();
 	}
 }
