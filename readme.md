@@ -95,6 +95,22 @@ class UserRepository extends Connection
 			->setRowClass(UserEntity::class)
 			->fetch();
 	}
+
+
+	/**
+	 * Save record.
+	 * @return Dibi\Result|int|null
+	 * @throws Dibi\Exception
+	 */
+	public function saveUser(UserEntity $entity)
+	{
+		$id = $entity->getUserId();
+		$query = $id
+			? $this->save($entity->getModify(), $this->primaryKey, $id)
+			: $this->save($entity->getModify());
+
+		return $query->execute();
+	}
 }
 
 ```
