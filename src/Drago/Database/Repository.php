@@ -76,16 +76,13 @@ trait Repository
 
 
 	/**
-	 * Insert or update record.
+	 * Insert new record.
+	 * @throws Dibi\Exception
 	 */
-	public function save(array $args, int $id = null): Fluent
+	public function add(array $args, string $sequence = null): int
 	{
-		$update = $this->db
-			->update($this->table, $args)
-			->where("{$this->primaryId} = ?", $id);
-
-		$insert = $this->db->insert($this->table, $args);
-		$id ? $row = $update : $row = $insert;
-		return $row;
+		$this->db->insert($this->table, $args)->execute();
+		$insertId = $this->db->getInsertId($sequence);
+		return $insertId;
 	}
 }
