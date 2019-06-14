@@ -115,6 +115,18 @@ class UserRepository extends Connection
 
 ```
 
+## Use Find and update record
+
+```php
+// Find user.
+$row = $this->userRepository->FindUserByEmail($email);
+
+// Save update record.
+$entity = $row;
+$entity->setRealname('Change Username');
+$this->userRepository->saveUser($entity);
+```
+
 If you want to use a very simple query without an entity, we can 
 use the Repository trait in the Presenter.
 
