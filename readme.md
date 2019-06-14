@@ -63,10 +63,10 @@ class UserRepository extends Connection
 	use Repository;
 
 	/** @var string table name */
-	public $table = UserEntity::TABLE;
+	private $table = UserEntity::TABLE;
 
 	/** @var int primary id */
-	public $primaryId = UserEntity::USER_ID;
+	private $primaryId = UserEntity::USER_ID;
 
 
 	/**
