@@ -37,19 +37,23 @@ trait Repository
 
 	/**
 	 * Find a record by parameters.
-	 * @param mixed ...$parm
+	 * @return Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function find(string $cond, ...$parm): Fluent
+	public function find(string $cond, ...$parm)
 	{
 		return $this->getRecords()
-			->where("{$cond} = ?", $parm);
+			->where("{$cond} = ?", $parm)
+			->execute();
 	}
 
 
 	/**
-	 * Find record by primary id.
+	 * Find record by id.
+	 * @return Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function findById(int $id): Fluent
+	public function findById(int $id)
 	{
 		return $this->find($this->primaryId, $id);
 	}
@@ -57,20 +61,25 @@ trait Repository
 
 	/**
 	 * Remove record by parameters.
-	 * @param mixed ...$parm
+	 * @param  mixed ...$parm
+	 * @return Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function remove(string $cond, ...$parm): Fluent
+	public function remove(string $cond, ...$parm)
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$cond} = ?", $parm);
+			->where("{$cond} = ?", $parm)
+			->execute();
 	}
 
 
 	/**
 	 * Remove record by primary id.
+	 * @return Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function removeById(int $id): Fluent
+	public function removeById(int $id)
 	{
 		return $this->remove($this->primaryId, $id);
 	}
@@ -79,23 +88,28 @@ trait Repository
 	/**
 	 * Save record by parameters.
 	 * @param mixed ...$parm
+	 * @return Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function save(array $args, string $cond = null, ...$parm): Fluent
+	public function save(array $args, string $cond = null, ...$parm)
 	{
 		$query = $cond && $parm
 			? $this->db->update($this->table, $args)->where("{$cond} = ?", $parm)
 			: $this->db->insert($this->table, $args);
-
-		return $query;
+		return $query->execute();
 	}
 
 
 	/**
-	 * Save record by id.
+	 * Save record by entity.
+	 * @return Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function saveById(array $args, int $id): Fluent
+	public function saveRecord(Entity $entity, int $id = null)
 	{
-		$query = $this->save($args, $this->primaryId, $id);
+		$query = $id
+			? $this->save($entity->getModify(), $this->primaryId, $id)
+			: $this->save($entity->getModify());
 		return $query;
 	}
 
