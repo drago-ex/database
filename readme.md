@@ -74,7 +74,7 @@ class UserRepository extends Connection
 	 * @return array|UserEntity|null
 	 * @throws Dibi\Exception
 	 */
-	public function FindUser(int $id)
+	public function find(int $id)
 	{
 		return $this
 			->findById($id)->execute()
@@ -88,10 +88,10 @@ class UserRepository extends Connection
 	 * @return array|UserEntity|null
 	 * @throws Dibi\Exception
 	 */
-	public function FindUserByEmail(string $email)
+	public function findByEmail(string $email)
 	{
 		return $this
-			->find(UserEntity::EMAIL, $email)->execute()
+			->find(UserEntity::EMAIL, $email)
 			->setRowClass(UserEntity::class)
 			->fetch();
 	}
@@ -102,14 +102,10 @@ class UserRepository extends Connection
 	 * @return Dibi\Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function saveUser(UserEntity $entity)
+	public function save(UserEntity $entity)
 	{
 		$id = $entity->getUserId();
-		$query = $id
-			? $this->saveById($entity->getModify(), $id)
-			: $this->save($entity->getModify());
-
-		return $query->execute();
+		return $this->saveRecord($entity, $id);
 	}
 }
 
@@ -118,13 +114,13 @@ class UserRepository extends Connection
 ## Use Find and update record
 
 ```php
-// Find user.
-$row = $this->userRepository->FindUserByEmail($email);
+// Find user by email.
+$row = $this->userRepository->FindByEmail($email);
 
 // Save update record.
 $entity = $row;
 $entity->setRealname('Change Username');
-$this->userRepository->saveUser($entity);
+$this->userRepository->save($entity);
 ```
 
 If you want to use a very simple query without an entity, we can 
