@@ -77,7 +77,7 @@ class UserRepository extends Connection
 	public function find(int $id)
 	{
 		return $this
-			->findById($id)
+			->discoverId($id)
 			->setRowClass(UserEntity::class)
 			->fetch();
 	}
@@ -88,10 +88,10 @@ class UserRepository extends Connection
 	 * @return array|UserEntity|null
 	 * @throws Dibi\Exception
 	 */
-	public function findByEmail(string $email)
+	public function findBy(string $email)
 	{
 		return $this
-			->find(UserEntity::EMAIL, $email)
+			->discover(UserEntity::EMAIL, $email)
 			->setRowClass(UserEntity::class)
 			->fetch();
 	}
@@ -105,22 +105,10 @@ class UserRepository extends Connection
 	public function save(UserEntity $entity)
 	{
 		$id = $entity->getUserId();
-		return $this->saveRecord($entity, $id);
+		return $this->add($entity, $id);
 	}
 }
 
-```
-
-## Use Find and update record
-
-```php
-// Find user by email.
-$row = $this->userRepository->FindByEmail($email);
-
-// Save update record.
-$entity = $row;
-$entity->setRealname('Change Username');
-$this->userRepository->save($entity);
 ```
 
 If you want to use a very simple query without an entity, we can 
@@ -143,7 +131,7 @@ class HomePresenter extends Presenter
 	protected function beforeRender(): void
 	{
 		// Get all records form table.
-		$allRecords = $this->getRecords();
+		$allRecords = $this->all();
 	}
 }
 ```
