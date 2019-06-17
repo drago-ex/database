@@ -77,7 +77,7 @@ class UserRepository extends Connection
 	public function find(int $id)
 	{
 		return $this
-			->findById($id)->execute()
+			->findById($id)
 			->setRowClass(UserEntity::class)
 			->fetch();
 	}
