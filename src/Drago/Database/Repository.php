@@ -26,7 +26,7 @@ trait Repository
 	/**
 	 * Get all records.
 	 */
-	public function getRecords(): Fluent
+	public function all(): Fluent
 	{
 		return $this->db
 			->select('*')
@@ -35,13 +35,13 @@ trait Repository
 
 
 	/**
-	 * Find a record by parameters.
+	 * Find a record by parameter.
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function find(string $cond, ...$parm)
+	public function discover(string $cond, ...$parm)
 	{
-		return $this->getRecords()
+		return $this->all()
 			->where("{$cond} = ?", $parm)
 			->execute();
 	}
@@ -52,19 +52,19 @@ trait Repository
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function findById(int $id)
+	public function discoverId(int $id)
 	{
-		return $this->find($this->primaryId, $id);
+		return $this->discover($this->primaryId, $id);
 	}
 
 
 	/**
-	 * Remove record by parameters.
+	 * Delete a record by parameter.
 	 * @param  mixed ...$parm
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function remove(string $cond, ...$parm)
+	public function erase(string $cond, ...$parm)
 	{
 		return $this->db
 			->delete($this->table)
@@ -74,23 +74,23 @@ trait Repository
 
 
 	/**
-	 * Remove record by primary id.
+	 * Deleting an entry by the primary key.
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function removeById(int $id)
+	public function eraseId(int $id)
 	{
-		return $this->remove($this->primaryId, $id);
+		return $this->delete($this->primaryId, $id);
 	}
 
 
 	/**
-	 * Save record by parameters.
+	 * Saving a record by parameter.
 	 * @param mixed ...$parm
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function save(array $args, string $cond = null, ...$parm)
+	public function put(array $args, string $cond = null, ...$parm)
 	{
 		$query = $cond && $parm
 			? $this->db->update($this->table, $args)->where("{$cond} = ?", $parm)
@@ -100,11 +100,11 @@ trait Repository
 
 
 	/**
-	 * Save record by entity.
+	 * Saving an entry by entity.
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function saveRecord(Entity $entity, int $id = null)
+	public function add(Entity $entity, int $id = null)
 	{
 		$query = $id
 			? $this->save($entity->getModify(), $this->primaryId, $id)
@@ -114,7 +114,7 @@ trait Repository
 
 
 	/**
-	 * Returns the ID of the inserted record.
+	 * Get the id of the inserted record.
 	 * @throws Dibi\Exception
 	 */
 	public function getInsertId(string $sequence = null): int
