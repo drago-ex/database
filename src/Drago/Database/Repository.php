@@ -12,7 +12,6 @@ use Dibi;
 use Dibi\Connection;
 use Dibi\Fluent;
 use Dibi\Result;
-use Entity\UserEntity;
 use stdClass;
 use Tracy\Debugger;
 
