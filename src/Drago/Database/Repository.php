@@ -64,7 +64,7 @@ trait Repository
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function remove(string $cond, ...$parm)
+	public function erase(string $cond, ...$parm)
 	{
 		return $this->db
 			->delete($this->table)
@@ -78,7 +78,7 @@ trait Repository
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function removeId(int $id)
+	public function eraseId(int $id)
 	{
 		return $this->delete($this->primaryId, $id);
 	}
