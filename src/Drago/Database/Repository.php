@@ -48,7 +48,7 @@ trait Repository
 
 
 	/**
-	 * Find record by id.
+	 * Find record by id. (Can only be used when a variable primaryId is set.)
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
@@ -107,8 +107,8 @@ trait Repository
 	public function add(Entity $entity, int $id = null)
 	{
 		$query = $id
-			? $this->save($entity->getModify(), $this->primaryId, $id)
-			: $this->save($entity->getModify());
+			? $this->put($entity->getModify(), $this->primaryId, $id)
+			: $this->put($entity->getModify());
 		return $query;
 	}
 
