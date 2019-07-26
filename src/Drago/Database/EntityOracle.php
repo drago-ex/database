@@ -19,7 +19,7 @@ class EntityOracle extends Entity
 	{
 		$this->data = $arr;
 		foreach ($arr as $k => $v) {
-      $k = Strings::lower($k);
+			$k = Strings::lower($k);
 			$this->$k = $v;
 		}
 	}
