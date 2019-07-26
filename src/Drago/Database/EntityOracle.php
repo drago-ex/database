@@ -27,6 +27,16 @@ class EntityOracle extends Entity
 	}
 
 
+	public function toArray(): array
+	{
+		$data = [];
+		foreach ($this->data as $k => $v) {
+			$data[Strings::lower($k)] = $v;
+		}
+		return $data;
+	}
+
+
 	/**
 	 * Offset to set.
 	 */
