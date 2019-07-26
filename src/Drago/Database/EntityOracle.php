@@ -8,6 +8,8 @@ declare(strict_types = 1);
  */
 namespace Drago\Database;
 
+use Nette\Utils\Strings;
+
 
 /**
  * Entity base.
