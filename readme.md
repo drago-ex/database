@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="https://avatars0.githubusercontent.com/u/50230834?s=400&u=3551f498f489486fb0ee563171d5fb2d43892a17&v=4" width="100" alt="logo">
+  <img src="https://avatars0.githubusercontent.com/u/11717487?s=400&u=40ecb522587ebbcfe67801ccb6f11497b259f84b&v=4" width="100" alt="logo">
 </p>
 
-<h3 align="center">Compostrap</h3>
-<p align="center">Simple and fast components build on Bootstrap 4</p>
+<h3 align="center">Drago</h3>
+<p align="center">Package built on Nette Framework</p>
 
 ## Info
 
