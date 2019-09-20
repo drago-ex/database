@@ -3,7 +3,7 @@
 </p>
 
 <h3 align="center">Drago</h3>
-<p align="center">Package built on Nette Framework</p>
+<p align="center">Simple packages built on Nette Framework</p>
 
 ## Info
 
