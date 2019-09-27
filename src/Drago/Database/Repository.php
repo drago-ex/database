@@ -13,12 +13,11 @@ use Dibi\Connection;
 use Dibi\Fluent;
 use Dibi\Result;
 use stdClass;
-use Tracy\Debugger;
 
 
 /**
  * Repository base.
- * @property-read Connection|stdClass $db
+ * @property-read  Connection|stdClass  $db
  * @package Drago\Database
  */
 trait Repository
@@ -39,10 +38,10 @@ trait Repository
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function discover(string $cond, ...$parm)
+	public function discover(string $column, int $id)
 	{
 		return $this->all()
-			->where("{$cond} = ?", $parm)
+			->where("{$column} = ?", $id)
 			->execute();
 	}
 
@@ -60,15 +59,14 @@ trait Repository
 
 	/**
 	 * Delete a record by parameter.
-	 * @param  mixed ...$parm
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function erase(string $cond, ...$parm)
+	public function erase(string $column, int $id)
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$cond} = ?", $parm)
+			->where("{$column} = ?", $id)
 			->execute();
 	}
 
@@ -86,15 +84,14 @@ trait Repository
 
 	/**
 	 * Saving a record by parameter.
-	 * @param mixed ...$parm
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function put(array $args, string $cond = null, ...$parm)
+	public function put(array $records, string $column = null, int $id = null)
 	{
-		$query = $cond && $parm
-			? $this->db->update($this->table, $args)->where("{$cond} = ?", $parm)
-			: $this->db->insert($this->table, $args);
+		$query = $column && $id
+			? $this->db->update($this->table, $records)->where("{$column} = ?", $id)
+			: $this->db->insert($this->table, $records);
 		return $query->execute();
 	}
 
@@ -117,7 +114,7 @@ trait Repository
 	 * Get the id of the inserted record.
 	 * @throws Dibi\Exception
 	 */
-	public function getInsertId(string $sequence = null): int
+	public function getInsertedId(string $sequence = null): int
 	{
 		return $this->db->getInsertId();
 	}

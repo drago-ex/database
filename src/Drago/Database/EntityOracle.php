@@ -19,6 +19,7 @@ class EntityOracle extends Entity
 {
 	public function __construct(array $arr = [])
 	{
+		parent::__construct();
 		$this->data = $arr;
 		foreach ($arr as $k => $v) {
 			$k = Strings::lower($k);
