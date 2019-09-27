@@ -35,13 +35,14 @@ trait Repository
 
 	/**
 	 * Find a record by parameter.
+	 * @param  int|string  $args
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function discover(string $column, int $id)
+	public function discover(string $column, $args)
 	{
 		return $this->all()
-			->where("{$column} = ?", $id)
+			->where("{$column} = ?", $args)
 			->execute();
 	}
 
@@ -59,14 +60,15 @@ trait Repository
 
 	/**
 	 * Delete a record by parameter.
+	 * @param  int|string  $args
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function erase(string $column, int $id)
+	public function erase(string $column, $args)
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$column} = ?", $id)
+			->where("{$column} = ?", $args)
 			->execute();
 	}
 
@@ -84,13 +86,14 @@ trait Repository
 
 	/**
 	 * Saving a record by parameter.
+	 * @param  mixed ...$args
 	 * @return Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function put(array $records, string $column = null, int $id = null)
+	public function put(array $records, string $column = null, ...$args)
 	{
-		$query = $column && $id
-			? $this->db->update($this->table, $records)->where("{$column} = ?", $id)
+		$query = $column && $args
+			? $this->db->update($this->table, $records)->where("{$column} = ?", $args)
 			: $this->db->insert($this->table, $records);
 		return $query->execute();
 	}
