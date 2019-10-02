@@ -28,6 +28,9 @@ class EntityOracle extends Entity
 	}
 
 
+	/**
+	 * Convert to array.
+	 */
 	public function toArray(): array
 	{
 		$data = [];
