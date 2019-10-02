@@ -6,12 +6,13 @@ declare(strict_types = 1);
  * Drago Database
  * Package built on Nette Framework
  */
+
 namespace Drago\Database;
 
 use ArrayAccess;
 use ArrayIterator;
-use IteratorAggregate;
 use Countable;
+use IteratorAggregate;
 
 
 /**
