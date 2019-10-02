@@ -16,7 +16,6 @@ use Countable;
 
 /**
  * Entity base.
- * @package Drago\Database
  */
 class Entity implements ArrayAccess, IteratorAggregate, Countable
 {
