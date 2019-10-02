@@ -16,7 +16,7 @@ use Nette\SmartObject;
 /**
  * Database connection.
  */
-class Database
+class Connect
 {
 	use SmartObject;
 
