@@ -13,7 +13,6 @@ use Nette\Utils\Strings;
 
 /**
  * Entity base.
- * @package Drago\Database
  */
 class EntityOracle extends Entity
 {
