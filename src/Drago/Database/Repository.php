@@ -18,7 +18,6 @@ use stdClass;
 /**
  * Repository base.
  * @property-read  Connection|stdClass  $db
- * @package Drago\Database
  */
 trait Repository
 {
