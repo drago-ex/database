@@ -14,7 +14,6 @@ use Nette\SmartObject;
 
 /**
  * Database connection.
- * @package Drago\Database
  */
 class Database
 {
