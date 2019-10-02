@@ -3,16 +3,14 @@
 declare(strict_types = 1);
 
 /**
- * Drago Database
+ * Drago Extension
  * Package built on Nette Framework
  */
 
 namespace Drago\Database;
 
-use Dibi;
 use Dibi\Connection;
 use Dibi\Fluent;
-use Dibi\Result;
 use stdClass;
 
 
@@ -36,8 +34,8 @@ trait Repository
 	/**
 	 * Find a record by parameter.
 	 * @param  int|string  $args
-	 * @return Result|int|null
-	 * @throws Dibi\Exception
+	 * @return \Dibi\Result|int|null
+	 * @throws \Dibi\Exception
 	 */
 	public function discover(string $column, $args)
 	{
@@ -49,8 +47,8 @@ trait Repository
 
 	/**
 	 * Find record by id. (Can only be used when a variable primaryId is set.)
-	 * @return Result|int|null
-	 * @throws Dibi\Exception
+	 * @return \Dibi\Result|int|null
+	 * @throws \Dibi\Exception
 	 */
 	public function discoverId(int $id)
 	{
@@ -61,8 +59,8 @@ trait Repository
 	/**
 	 * Delete a record by parameter.
 	 * @param  int|string  $args
-	 * @return Result|int|null
-	 * @throws Dibi\Exception
+	 * @return \Dibi\Result|int|null
+	 * @throws \Dibi\Exception
 	 */
 	public function erase(string $column, $args)
 	{
@@ -75,20 +73,20 @@ trait Repository
 
 	/**
 	 * Deleting an entry by the primary key.
-	 * @return Result|int|null
-	 * @throws Dibi\Exception
+	 * @return \Dibi\Result|int|null
+	 * @throws \Dibi\Exception
 	 */
 	public function eraseId(int $id)
 	{
-		return $this->delete($this->primaryId, $id);
+		return $this->erase($this->primaryId, $id);
 	}
 
 
 	/**
 	 * Saving a record by parameter.
 	 * @param  mixed ...$args
-	 * @return Result|int|null
-	 * @throws Dibi\Exception
+	 * @return \Dibi\Result|int|null
+	 * @throws \Dibi\Exception
 	 */
 	public function put(array $records, string $column = null, ...$args)
 	{
@@ -101,8 +99,8 @@ trait Repository
 
 	/**
 	 * Saving an entry by entity.
-	 * @return Result|int|null
-	 * @throws Dibi\Exception
+	 * @return \Dibi\Result|int|null
+	 * @throws \Dibi\Exception
 	 */
 	public function add(Entity $entity, int $id = null)
 	{
@@ -115,7 +113,7 @@ trait Repository
 
 	/**
 	 * Get the id of the inserted record.
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
 	public function getInsertedId(string $sequence = null): int
 	{
