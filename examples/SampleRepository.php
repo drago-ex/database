@@ -26,8 +26,7 @@ class SampleRepository extends Connect
 	 */
 	public function find(int $id)
 	{
-		return $this
-			->discoverId($id)
+		return $this->discoverId($id)
 			->setRowClass(SampleEntity::class)
 			->fetch();
 	}
@@ -40,8 +39,7 @@ class SampleRepository extends Connect
 	 */
 	public function findBy(string $string)
 	{
-		return $this
-			->discover(SampleEntity::SAMPLE_STRING, $string)
+		return $this->discover(SampleEntity::SAMPLE_STRING, $string)
 			->setRowClass(SampleEntity::class)
 			->fetch();
 	}
