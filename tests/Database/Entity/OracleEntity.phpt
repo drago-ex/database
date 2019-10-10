@@ -13,8 +13,8 @@ require __DIR__ . '/../../../examples/SampleOracleEntity.php';
 
 test(function () {
 	$class = new SampleOracleEntity([
-		'sample_id' => 1,
-		'sample_string' => 'Hello',
+		'SAMPLE_ID' => 1,
+		'SAMPLE_STRING' => 'Hello',
 	]);
 
 	Assert::same(1, $class->getSampleId());
@@ -43,10 +43,10 @@ test(function () {
 
 test(function () {
 	$class = new SampleOracleEntity([
-		'sample_id' => 99,
-		'sample_string' => 'Hello',
+		'SAMPLE_ID' => 99,
+		'SAMPLE_STRING' => 'Hello',
 	]);
-	Assert::same(4, $class->count());
+	Assert::same(6, $class->count());
 	Assert::same(99, $class->offsetGet(SampleOracleEntity::SAMPLE_ID));
 	Assert::true($class->offsetExists(SampleOracleEntity::SAMPLE_ID));
 	Assert::same(SampleOracleEntity::SAMPLE_ID, $class->getIterator()->key());
