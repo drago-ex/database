@@ -4,8 +4,13 @@ php:
   - 7.2
   - 7.3
 
+services:
+  - mysql
+
 before_install:
   - composer self-update
+  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mysql -u root tests < tests/db.sql
 
 install:
   - composer install --no-interaction --prefer-source
