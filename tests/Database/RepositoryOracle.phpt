@@ -9,7 +9,7 @@ use Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';
-require __DIR__ . '/../../examples/SampleEntity.php';
+require __DIR__ . '/../../examples/SampleOracleEntity.php';
 require __DIR__ . '/../../examples/SampleRepository.php';
 
 
