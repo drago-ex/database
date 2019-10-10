@@ -17,7 +17,7 @@ before_install:
   - bash ./accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
   - bash ./tests/db.sh
   - sudo apt-get install libaio1
-  - pecl install oci8 && php-ext-enable oci8
+  - echo 'instantclient,/u01/app/oracle/product/11.2.0' | pecl install oci8 && php-ext-enable oci8
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
   - mysql -u root test < tests/db.sql
 
