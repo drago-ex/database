@@ -21,9 +21,21 @@ function config()
 }
 
 
-function connect()
+function configOracle()
 {
-	return new Connection(config());
+	try {
+		$configOracle = Tester\Environment::loadData();
+	} catch (Exception $e) {
+		$configOracle = parse_ini_file(__DIR__ . '/databases.oracle.ini', true);
+		$configOracle = reset($configOracle);
+	}
+	return $configOracle;
+}
+
+
+function connectOracle()
+{
+	return new Connection(configOracle());
 }
 
 
