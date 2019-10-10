@@ -16,7 +16,7 @@ install:
   - composer install --no-interaction --prefer-source
 
 script:
-  - echo "skipping tests"
+  - vendor/bin/tester tests -s
 
 jobs:
   include:
