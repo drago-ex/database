@@ -6,6 +6,7 @@ namespace Examples;
 
 use Drago\Database\Entity;
 
+
 class SampleEntity extends Entity
 {
 	public const TABLE = 'table';
