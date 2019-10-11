@@ -18,6 +18,7 @@ before_install:
   - bash test_db.sh
   - bash install_oci8_ext.sh
   - echo "extension = oci8.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo service apache2 restart
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
   - mysql -u root test < tests/db.sql
   - composer self-update
