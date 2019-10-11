@@ -4,39 +4,51 @@ declare(strict_types = 1);
 
 namespace Test\Database;
 
-use Examples\SampleEntity;
-use Examples\SampleRepository;
+use Dibi\Connection;
+use Examples\Mysql\Entity;
+use Examples\Mysql\Repository;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
-require __DIR__ . '/../../examples/SampleEntity.php';
-require __DIR__ . '/../../examples/SampleRepository.php';
+require __DIR__ . '/../../examples/mysqli/Entity.php';
+require __DIR__ . '/../../examples/mysqli/Repository.php';
+
+
+function connect()
+{
+	$db = [
+		'driver' => 'mysqli',
+		'host' => '127.0.0.1',
+		'username' => 'root',
+		'password' => '',
+		'database' => 'test',
+	];
+	return new Connection($db);
+}
 
 
 test(function () {
-	$repository = new SampleRepository(connect());
+	$repository = new Repository(connect());
 	$find = $repository->find(1);
 
 	Assert::same(1, $find->getSampleId());
 	Assert::same('Hello', $find->getSampleString());
 
 	Assert::equal([
-		SampleEntity::SAMPLE_ID => 1,
-		SampleEntity::SAMPLE_STRING => 'Hello',
+		Entity::SAMPLE_ID => 1,
+		Entity::SAMPLE_STRING => 'Hello',
 	], $find->toArray());
 });
 
 
 test(function () {
-	$repository = new SampleRepository(connect());
+	$repository = new Repository(connect());
 
-	$entity = new SampleEntity;
-	$entity->setSampleId(0);
+	$entity = new Entity;
 	$entity->setSampleString('Insert');
 
 	Assert::equal([
-		SampleEntity::SAMPLE_ID => 0,
-		SampleEntity::SAMPLE_STRING => 'Insert',
+		Entity::SAMPLE_STRING => 'Insert',
 	], $entity->getModify());
 
 	$repository->save($entity);
@@ -48,15 +60,15 @@ test(function () {
 
 
 test(function () {
-	$repository = new SampleRepository(connect());
+	$repository = new Repository(connect());
 
-	$entity = new SampleEntity;
+	$entity = new Entity;
 	$entity->setSampleId(2);
 	$entity->setSampleString('Modify');
 
 	Assert::equal([
-		SampleEntity::SAMPLE_ID => 2,
-		SampleEntity::SAMPLE_STRING => 'Modify',
+		Entity::SAMPLE_ID => 2,
+		Entity::SAMPLE_STRING => 'Modify',
 	], $entity->getModify());
 
 	$repository->save($entity);
@@ -68,7 +80,7 @@ test(function () {
 
 
 test(function () {
-	$repository = new SampleRepository(connect());
+	$repository = new Repository(connect());
 	$greeting = $repository->find(1);
 	$greeting->setSampleString('Hello, World!');
 	$repository->save($greeting);
@@ -78,6 +90,6 @@ test(function () {
 
 
 test(function () {
-	$repository = new SampleRepository(connect());
+	$repository = new Repository(connect());
 	$repository->eraseId(2);
 });

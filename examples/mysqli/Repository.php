@@ -2,45 +2,44 @@
 
 declare(strict_types = 1);
 
-namespace Examples;
+namespace Examples\Mysql;
 
 use Drago\Database\Connect;
-use Drago\Database\Repository;
 
 
-class SampleRepository extends Connect
+class Repository extends Connect
 {
-	use Repository;
+	use \Drago\Database\Repository;
 
 	/** @var string */
-	private $table = SampleEntity::TABLE;
+	private $table = Entity::TABLE;
 
 	/** @var int */
-	private $primaryId = SampleEntity::SAMPLE_ID;
+	private $primaryId = Entity::SAMPLE_ID;
 
 
 	/**
 	 * Find by id.
-	 * @return array|SampleEntity|null
+	 * @return array|Entity|null
 	 * @throws \Dibi\Exception
 	 */
 	public function find(int $id)
 	{
 		return $this->discoverId($id)
-			->setRowClass(SampleEntity::class)
+			->setRowClass(Entity::class)
 			->fetch();
 	}
 
 
 	/**
 	 * Find by string.
-	 * @return array|SampleEntity|null
+	 * @return array|Entity|null
 	 * @throws \Dibi\Exception
 	 */
 	public function findBy(string $string)
 	{
-		return $this->discover(SampleEntity::SAMPLE_STRING, $string)
-			->setRowClass(SampleEntity::class)
+		return $this->discover(Entity::SAMPLE_STRING, $string)
+			->setRowClass(Entity::class)
 			->fetch();
 	}
 
@@ -50,7 +49,7 @@ class SampleRepository extends Connect
 	 * @return \Dibi\Result|int|null
 	 * @throws \Dibi\Exception
 	 */
-	public function save(SampleEntity $entity)
+	public function save(Entity $entity)
 	{
 		$id = $entity->getSampleId();
 		return $this->add($entity, $id);

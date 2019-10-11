@@ -117,6 +117,6 @@ trait Repository
 	 */
 	public function getInsertedId(string $sequence = null): int
 	{
-		return $this->db->getInsertId();
+		return $this->db->getInsertId($sequence);
 	}
 }

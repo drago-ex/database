@@ -2,14 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Examples;
-
-use Drago\Database\Entity;
+namespace Examples\Mysql;
 
 
-class SampleEntity extends Entity
+class Entity extends \Drago\Database\Entity
 {
-	public const TABLE = 'table';
+	public const TABLE = 'test';
 	public const SAMPLE_ID = 'sampleId';
 	public const SAMPLE_STRING = 'sampleString';
 
@@ -26,7 +24,7 @@ class SampleEntity extends Entity
 	}
 
 
-	public function getSampleId(): int
+	public function getSampleId(): ?int
 	{
 		return $this->sampleId;
 	}

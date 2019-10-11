@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Examples;
+namespace Examples\Oracle;
 
-use Drago\Database\EntityOracle;
+use Drago\Database\EntityConvertor;
 
 
-class SampleOracleEntity extends EntityOracle
+class Entity extends EntityConvertor
 {
-	public const TABLE = 'TABLE';
+	public const TABLE = 'TEST';
 	public const SAMPLE_ID = 'sample_id';
 	public const SAMPLE_STRING = 'sample_string';
 
@@ -26,7 +26,7 @@ class SampleOracleEntity extends EntityOracle
 	}
 
 
-	public function getSampleId(): int
+	public function getSampleId(): ?int
 	{
 		return $this->sample_id;
 	}

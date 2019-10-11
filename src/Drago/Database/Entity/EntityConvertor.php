@@ -13,9 +13,9 @@ use Nette\Utils\Strings;
 
 
 /**
- * Entity base.
+ * Entity base, converts the index from upper to lower.
  */
-class EntityOracle extends Entity
+class EntityConvertor extends Entity
 {
 	public function __construct(array $arr = [])
 	{
