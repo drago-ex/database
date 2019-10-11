@@ -4,13 +4,12 @@ php:
   - 7.2
   - 7.3
 
-services:
-  - mysql
-
 before_install:
   - composer self-update
   - wget https://raw.githubusercontent.com/accgit/travis-oracle/master/install.sh
   - bash install.sh
+  - wget https://raw.githubusercontent.com/accgit/travis-oracle/master/install.client.sh
+  - bash install.client.sh
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
   - mysql -u root test < tests/db.sql
 
