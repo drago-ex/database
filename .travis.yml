@@ -4,6 +4,9 @@ php:
   - 7.2
   - 7.3
 
+services:
+  - mysql
+
 before_install:
   - composer self-update
   - wget https://raw.githubusercontent.com/accgit/travis-oracle/master/install.sh
