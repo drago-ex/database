@@ -14,7 +14,7 @@ before_install:
   - wget https://raw.githubusercontent.com/jpina/oci8/master/bin/instantclient-basic-linux.x64-12.1.0.2.0.zip
   - wget https://raw.githubusercontent.com/jpina/oci8/master/bin/instantclient-sdk-linux.x64-12.1.0.2.0.zip
   - bash accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
-  - bash db.add.tabe.sh
+  - bash tests/db.add.tabe.sh
   - bash install_oci8_ext.sh
   - echo "extension = oci8.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
