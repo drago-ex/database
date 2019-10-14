@@ -43,6 +43,7 @@ test(function () {
 
 test(function () {
 	$repository = new Repository(connect());
+	$repository->put(['SAMPLE_ID' => null, 'SAMPLE_STRING' => 'Hello']);
 
 	$entity = new Entity;
 	$entity->setSampleString('Insert');
