@@ -29,7 +29,6 @@ function connect()
 
 test(function () {
 	$repository = new Repository(connect());
-	$repository->put(['SAMPLE_ID' => 1, 'SAMPLE_STRING' => 'Hello']);
 	$find = $repository->find(1);
 
 	Assert::same(1, $find->getSampleId());
