@@ -29,6 +29,7 @@ function connect()
 
 test(function () {
 	$repository = new Repository(connect());
+	$repository->put(['SAMPLE_ID' => null, 'SAMPLE_STRING' => 'Hello']);
 	$find = $repository->find(1);
 
 	Assert::same(1, $find->getSampleId());
@@ -43,7 +44,6 @@ test(function () {
 
 test(function () {
 	$repository = new Repository(connect());
-	$repository->put(['SAMPLE_ID' => null, 'SAMPLE_STRING' => 'Hello']);
 
 	$entity = new Entity;
 	$entity->setSampleString('Insert');
