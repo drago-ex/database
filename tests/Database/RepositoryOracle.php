@@ -28,5 +28,7 @@ function connect()
 
 
 test(function () {
-	Assert::true(connect());
+	$repository = new Repository(connect());
+	$find = $repository->find(1);
+	Assert::same(1, $find->getSampleId());
 });
