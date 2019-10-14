@@ -28,14 +28,5 @@ function connect()
 
 
 test(function () {
-	$repository = new Repository(connect());
-	$find = $repository->find(1);
-
-	Assert::same(1, $find->getSampleId());
-	Assert::same('Hello', $find->getSampleString());
-
-	Assert::equal([
-		Entity::SAMPLE_ID => 1,
-		Entity::SAMPLE_STRING => 'Hello',
-	], $find->toArray());
+	Assert::true(connect());
 });
