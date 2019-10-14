@@ -26,7 +26,7 @@ class Entity extends EntityConvertor
 	}
 
 
-	public function getSampleId(): ?int
+	public function getSampleId(): int
 	{
 		return $this->sample_id;
 	}
