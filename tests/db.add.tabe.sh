@@ -2,7 +2,7 @@ export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe;
 export ORACLE_SID=XE;
 $ORACLE_HOME/bin/sqlplus -S travis/travis <<SQL
 whenever sqlerror exit 2;
-CREATE SEQUENCE test_seq;
-CREATE TABLE test (sample_id NUMBER NOT NULL PRIMARY KEY, sample_string VARCHAR2(255) NOT NULL);
-INSERT INTO test(sample_id, sample_string) VALUES (1,'Hello')
+CREATE SEQUENCE TEST_SEQ;
+CREATE TABLE TEST (SAMPLE_ID NUMBER NOT NULL PRIMARY KEY, SAMPLE_STRING VARCHAR2(255) NOT NULL);
+INSERT INTO TEST(SAMPLE_ID, SAMPLE_STRING) VALUES (1,'Hello');
 SQL

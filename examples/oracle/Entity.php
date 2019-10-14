@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace Examples\Oracle;
 
+use Drago\Database\EntityConvertor;
 
-class Entity extends \Drago\Database\Entity
+
+class Entity extends EntityConvertor
 {
 	public const TABLE = 'TEST';
 	public const SAMPLE_ID = 'sample_id';
@@ -24,7 +26,7 @@ class Entity extends \Drago\Database\Entity
 	}
 
 
-	public function getSampleId(): int
+	public function getSampleId(): ?int
 	{
 		return $this->sample_id;
 	}
