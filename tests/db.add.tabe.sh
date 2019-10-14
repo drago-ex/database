@@ -3,9 +3,13 @@ export ORACLE_SID=XE;
 $ORACLE_HOME/bin/sqlplus -S travis/travis <<SQL
 whenever sqlerror exit 2;
 CREATE TABLE test (sample_id INTEGER NOT NULL PRIMARY KEY, sample_string VARCHAR2(255) NOT NULL);
-
+SQL
+$ORACLE_HOME/bin/sqlplus -S travis/travis <<SQL
+whenever sqlerror exit 2;
 CREATE SEQUENCE test_id_seq;
-
+SQL
+$ORACLE_HOME/bin/sqlplus -S travis/travis <<SQL
+whenever sqlerror exit 2;
 CREATE TRIGGER test_on_insert
 BEFORE INSERT ON test
 FOR EACH ROW
@@ -14,6 +18,8 @@ BEGIN
   INTO :new.sample_id
   FROM dual;
 END;
-
+SQL
+$ORACLE_HOME/bin/sqlplus -S travis/travis <<SQL
+whenever sqlerror exit 2;
 INSERT INTO test (sample_string) VALUES ('Hello');
 SQL
