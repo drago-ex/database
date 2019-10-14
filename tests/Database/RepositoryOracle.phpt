@@ -20,7 +20,7 @@ function connect()
 		'driver' => 'oracle',
 		'username' => 'travis',
 		'password' => 'travis',
-		'database' => 'localhost:1521/XE',
+		'database' => '(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID=xe)))',
 		'charset' => 'utf8',
 	];
 	return new Connection($db);
