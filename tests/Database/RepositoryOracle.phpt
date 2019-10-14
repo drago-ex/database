@@ -31,7 +31,7 @@ test(function () {
 	$repository = new Repository(connect());
 	$find = $repository->find(1);
 
-	Assert::same(1.0, $find->getSampleId());
+	Assert::same(1, $find->getSampleId());
 	Assert::same('Hello', $find->getSampleString());
 
 	Assert::equal([
