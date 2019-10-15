@@ -13,4 +13,5 @@ BEGIN
   FROM dual;
 END;
 /
+INSERT INTO test (sample_string) VALUES ('Hello');
 SQL
