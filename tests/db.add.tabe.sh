@@ -15,6 +15,5 @@ BEGIN
   INTO :new.sample_id
   FROM dual;
 END;
-/
 
 SQL
