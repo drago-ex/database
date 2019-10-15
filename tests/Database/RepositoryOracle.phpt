@@ -39,3 +39,21 @@ test(function () {
 		Entity::SAMPLE_STRING => 'Hello',
 	], $find->toArray());
 });
+
+
+test(function () {
+	$repository = new Repository(connect());
+
+	$entity = new Entity;
+	$entity->setSampleString('Insert');
+
+	Assert::equal([
+		strtoupper(Entity::SAMPLE_STRING) => 'Insert',
+	], $entity->getModify());
+
+	$repository->save($entity);
+	Assert::same(2, $repository->getInsertedId('TEST_SEQ'));
+
+	$find = $repository->find(2);
+	Assert::same('Insert', $find->getSampleString());
+});
