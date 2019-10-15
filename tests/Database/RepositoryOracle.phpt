@@ -76,3 +76,13 @@ test(function () {
 	$find = $repository->find(2);
 	Assert::same('Modify', $find->getSampleString());
 });
+
+
+test(function () {
+	$repository = new Repository(connect());
+	$greeting = $repository->find(1);
+	$greeting->setSampleString('Hello, World!');
+	$repository->save($greeting);
+
+	Assert::same('Hello, World!', $greeting->getSampleString());
+});
