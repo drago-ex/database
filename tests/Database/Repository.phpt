@@ -102,7 +102,7 @@ test(function () {
 	$repository = new Repository(connect());
 	$find = $repository->find(1);
 
-	Assert::count(4, $find->count());
+	Assert::count($find->count());
 	Assert::same(1, $find->offsetGet(Entity::SAMPLE_ID));
 	Assert::true($find->offsetExists(Entity::SAMPLE_ID));
 	Assert::same(Entity::SAMPLE_ID, $find->getIterator()->key());
