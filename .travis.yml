@@ -1,6 +1,4 @@
 sudo: required
-language: php
-
 services:
   - mysql
 
@@ -19,6 +17,11 @@ jobs:
           - travis_retry composer create-project nette/code-checker temp/code-checker ^3 --no-progress
         script:
           - php temp/code-checker/code-checker --strict-types
+        language: php
+        php:
+          - 7.1
+          - 7.2
+          - 7.3
 
 
     -   name: Nette Coding Standard
@@ -26,6 +29,11 @@ jobs:
           - travis_retry composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress
         script:
           - php temp/coding-standard/ecs check src examples --config temp/coding-standard/coding-standard-php71.yml
+        language: php
+        php:
+          - 7.1
+          - 7.2
+          - 7.3
 
 
     -   name: Nette Tester
@@ -42,6 +50,7 @@ jobs:
           - sudo dpkg -i oracle-instantclient12.2-basic_12.2.0.1.0-2_amd64.deb
           - sudo dpkg -i oracle-instantclient12.2-devel_12.2.0.1.0-2_amd64.deb
           - echo 'instantclient,/usr/lib/oracle/12.2/client64/lib' | pecl install oci8
+        language: php
         php:
           - 7.1
           - 7.2
@@ -63,6 +72,7 @@ jobs:
           - sudo dpkg -i oracle-instantclient12.2-basic_12.2.0.1.0-2_amd64.deb
           - sudo dpkg -i oracle-instantclient12.2-devel_12.2.0.1.0-2_amd64.deb
           - echo 'instantclient,/usr/lib/oracle/12.2/client64/lib' | pecl install oci8
+        language: php
         php:
           - 7.1
           - 7.2
