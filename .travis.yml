@@ -20,8 +20,6 @@ jobs:
         language: php
         php:
           - 7.1
-          - 7.2
-          - 7.3
 
 
     -   name: Nette Coding Standard
@@ -32,11 +30,9 @@ jobs:
         language: php
         php:
           - 7.1
-          - 7.2
-          - 7.3
 
 
-    -   name: Nette Tester
+    -   name: PHP 7.1
         install:
           - travis_retry composer require nette/tester --dev
         script:
@@ -53,16 +49,13 @@ jobs:
         language: php
         php:
           - 7.1
-          - 7.2
-          - 7.3
 
 
-    -   stage: Code Coverage
+    -   name: PHP 7.2
+        install:
+          - travis_retry composer require nette/tester --dev
         script:
-          - vendor/bin/tester -c tests/php.oracle.ini -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
-        after_script:
-          - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
-          - php coveralls.phar --verbose --config tests/.coveralls.yml
+          - vendor/bin/tester -c tests/php.oracle.ini tests -s
         before_script:
           - wget https://raw.githubusercontent.com/Vincit/travis-oracledb-xe/master/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
           - wget https://raw.githubusercontent.com/accgit/docker/master/docker-oracle/oracle/oracle-instantclient12.2-basic_12.2.0.1.0-2_amd64.deb
@@ -74,6 +67,23 @@ jobs:
           - echo 'instantclient,/usr/lib/oracle/12.2/client64/lib' | pecl install oci8
         language: php
         php:
-          - 7.1
           - 7.2
+
+
+    -   name: PHP 7.3
+        install:
+          - travis_retry composer require nette/tester --dev
+        script:
+          - vendor/bin/tester -c tests/php.oracle.ini tests -s
+        before_script:
+          - wget https://raw.githubusercontent.com/Vincit/travis-oracledb-xe/master/accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
+          - wget https://raw.githubusercontent.com/accgit/docker/master/docker-oracle/oracle/oracle-instantclient12.2-basic_12.2.0.1.0-2_amd64.deb
+          - wget https://raw.githubusercontent.com/accgit/docker/master/docker-oracle/oracle/oracle-instantclient12.2-devel_12.2.0.1.0-2_amd64.deb
+          - bash accept_the_license_agreement_for_oracledb_xe_11g_and_install.sh
+          - bash tests/db.add.tabe.sh
+          - sudo dpkg -i oracle-instantclient12.2-basic_12.2.0.1.0-2_amd64.deb
+          - sudo dpkg -i oracle-instantclient12.2-devel_12.2.0.1.0-2_amd64.deb
+          - echo 'instantclient,/usr/lib/oracle/12.2/client64/lib' | pecl install oci8
+        language: php
+        php:
           - 7.3
