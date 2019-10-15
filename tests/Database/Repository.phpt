@@ -92,4 +92,20 @@ test(function () {
 test(function () {
 	$repository = new Repository(connect());
 	$repository->eraseId(2);
+
+	$find = $repository->find(2);
+	Assert::null($find);
+});
+
+
+test(function () {
+	$repository = new Repository(connect());
+	$find = $repository->find(1);
+
+	Assert::count(4, $find->count());
+	Assert::same(1, $find->offsetGet(Entity::SAMPLE_ID));
+	Assert::true($find->offsetExists(Entity::SAMPLE_ID));
+	Assert::same(Entity::SAMPLE_ID, $find->getIterator()->key());
+
+	$find->offsetUnset(Entity::SAMPLE_ID);
 });
