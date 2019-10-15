@@ -57,3 +57,22 @@ test(function () {
 	$find = $repository->find(2);
 	Assert::same('Insert', $find->getSampleString());
 });
+
+
+test(function () {
+	$repository = new Repository(connect());
+
+	$entity = new Entity;
+	$entity->setSampleId(2);
+	$entity->setSampleString('Modify');
+
+	Assert::equal([
+		strtoupper(Entity::SAMPLE_ID) => 2,
+		strtoupper(Entity::SAMPLE_STRING) => 'Modify',
+	], $entity->getModify());
+
+	$repository->save($entity);
+
+	$find = $repository->find(2);
+	Assert::same('Modify', $find->getSampleString());
+});
