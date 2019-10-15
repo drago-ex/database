@@ -12,7 +12,8 @@
 	"require": {
 		"php": ">=7.1",
 		"dibi/dibi": "^4.0",
-		"nette/utils": "^3.0"
+		"nette/utils": "^3.0",
+		"ext-oci8": "*"
 	},
 		"require-dev": {
 		"nette/tester": "^2.3",
