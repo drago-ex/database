@@ -38,8 +38,8 @@ jobs:
         script:
           - vendor/bin/tester -c tests/php.oracle.ini tests -s
         before_script:
-          - bash tests/bash/add.table.sh
           - bash tests/bash/setup.travis.sh
+          - bash tests/bash/add.table.sh
         language: php
         php:
           - 7.1
@@ -51,8 +51,8 @@ jobs:
         script:
           - vendor/bin/tester -c tests/php.oracle.ini tests -s
         before_script:
-          - bash tests/bash/add.table.sh
           - bash tests/bash/setup.travis.sh
+          - bash tests/bash/add.table.sh
         language: php
         php:
           - 7.2
@@ -64,8 +64,8 @@ jobs:
         script:
           - vendor/bin/tester -c tests/php.oracle.ini tests -s
         before_script:
-          - bash tests/bash/add.table.sh
           - bash tests/bash/setup.travis.sh
+          - bash tests/bash/add.table.sh
         language: php
         php:
           - 7.3
