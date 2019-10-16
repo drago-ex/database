@@ -14,7 +14,7 @@
 		"dibi/dibi": "^4.0",
 		"nette/utils": "^3.0"
 	},
-		"require-dev": {
+	"require-dev": {
 		"nette/tester": "^2.3",
 		"tracy/tracy": "^2.7"
 	},
