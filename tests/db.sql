@@ -5,5 +5,4 @@ CREATE TABLE `test` (
   PRIMARY KEY (`sampleId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `test` (`sampleId`, `sampleString`) VALUES
-(1,	'Hello');
+INSERT INTO `test` (`sampleId`, `sampleString`) VALUES (1, 'Hello');

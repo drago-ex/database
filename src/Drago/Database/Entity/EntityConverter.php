@@ -15,7 +15,7 @@ use Nette\Utils\Strings;
 /**
  * Entity base, converts the index from upper to lower.
  */
-class EntityConvertor extends Entity
+class EntityConverter extends Entity
 {
 	public function __construct(array $arr = [])
 	{

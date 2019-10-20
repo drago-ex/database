@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Examples\Oracle;
 
-use Drago\Database\EntityConvertor;
+use Drago\Database\EntityConverter;
 
 
-class Entity extends EntityConvertor
+class Entity extends EntityConverter
 {
 	public const TABLE = 'TEST';
 	public const SAMPLE_ID = 'sample_id';
