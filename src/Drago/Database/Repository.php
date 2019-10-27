@@ -106,7 +106,7 @@ trait Repository
 	{
 		$query = $id
 			? $this->put($entity->getModify(), $this->primaryId, $id)
-			: $this->put($entity->getModify());
+			: $this->put($entity->toArray());
 		return $query;
 	}
 
