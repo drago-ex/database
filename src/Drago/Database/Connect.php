@@ -21,11 +21,17 @@ class Connect
 	use SmartObject;
 
 	/** @var Connection */
-	protected $db;
+	private $db;
 
 
 	public function __construct(Connection $db)
 	{
 		$this->db = $db;
+	}
+
+
+	public function db(): Connection
+	{
+		return $this->db;
 	}
 }
