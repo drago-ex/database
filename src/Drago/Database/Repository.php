@@ -40,7 +40,7 @@ trait Repository
 	public function discover(string $column, $args)
 	{
 		return $this->all()
-			->where("{$column} = ?", $args)
+			->where('%n = ?', $column, $args)
 			->execute();
 	}
 
@@ -66,7 +66,7 @@ trait Repository
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$column} = ?", $args)
+			->where('%n = ?', $column, $args)
 			->execute();
 	}
 
@@ -91,7 +91,7 @@ trait Repository
 	public function put(array $records, string $column = null, ...$args)
 	{
 		$query = $column && $args
-			? $this->db->update($this->table, $records)->where("{$column} = ?", $args)
+			? $this->db->update($this->table, $records)->where('%n = ?', $column, $args)
 			: $this->db->insert($this->table, $records);
 		return $query->execute();
 	}
@@ -104,10 +104,9 @@ trait Repository
 	 */
 	public function add(Entity $entity, int $id = null)
 	{
-		$query = $id
+		return isset($id)
 			? $this->put($entity->getModify(), $this->primaryId, $id)
 			: $this->put($entity->getModify());
-		return $query;
 	}
 
 
