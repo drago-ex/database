@@ -35,7 +35,7 @@ function repository()
 
 
 test(function () {
-	$row = repository()->find(1);
+	$row = repository()->find(2);
 
 	Assert::same(1, $row->getSampleId());
 	Assert::same('Hello', $row->getSampleString());
