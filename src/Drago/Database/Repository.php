@@ -57,56 +57,30 @@ trait Repository
 
 
 	/**
-	 * Delete a record by parameter.
-	 * @param  int|string  $args
-	 * @return \Dibi\Result|int|null
-	 * @throws \Dibi\Exception
-	 */
-	public function erase(string $column, $args)
-	{
-		return $this->db
-			->delete($this->table)
-			->where("{$column} = ?", $args)
-			->execute();
-	}
-
-
-	/**
-	 * Deleting an entry by the primary key.
+	 * Deleting an records by the primary key.
 	 * @return \Dibi\Result|int|null
 	 * @throws \Dibi\Exception
 	 */
 	public function eraseId(int $id)
 	{
-		return $this->erase($this->primaryId, $id);
+		return $this->db
+			->delete($this->table)
+			->where("{$this->primaryId} = ?", $id)
+			->execute();
 	}
 
 
 	/**
-	 * Saving a record by parameter.
-	 * @param  mixed ...$args
+	 * Saving an records by entity.
 	 * @return \Dibi\Result|int|null
 	 * @throws \Dibi\Exception
 	 */
-	public function put(array $records, string $column = null, ...$args)
+	public function put(Entity $entity, int $id = null)
 	{
-		$query = $column && $args
-			? $this->db->update($this->table, $records)->where("{$column} = ?", $args)
-			: $this->db->insert($this->table, $records);
+		$query = $id === null
+			? $this->db->insert($this->table, $entity->getModify())
+			: $this->db->update($this->table, $entity->getModify())->where("{$this->primaryId} = ?", $id);
 		return $query->execute();
-	}
-
-
-	/**
-	 * Saving an entry by entity.
-	 * @return \Dibi\Result|int|null
-	 * @throws \Dibi\Exception
-	 */
-	public function add(Entity $entity, int $id = null)
-	{
-		return $id
-			? $this->put($entity->getModify(), $this->primaryId, $id)
-			: $this->put($entity->getModify());
 	}
 
 
