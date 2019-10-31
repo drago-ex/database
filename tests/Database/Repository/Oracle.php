@@ -19,11 +19,6 @@ class Oracle extends Connect
 	/** @var int */
 	private $primaryId = EntityConverter::SAMPLE_ID;
 
-	public function test()
-	{
-		return $this->db->query('SELECT * FROM TEST')->fetchAll();
-	}
-
 
 	/**
 	 * Find by id.
