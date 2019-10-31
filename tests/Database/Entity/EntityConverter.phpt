@@ -8,6 +8,7 @@ use Dibi\Connection;
 use Examples\EntityConverter;
 use Test\Repository\Oracle;
 use Tester\Assert;
+use Tracy\Dumper;
 
 require __DIR__ . '/../../bootstrap.php';
 require __DIR__ . '/../../../examples/EntityConverter.php';
@@ -18,9 +19,9 @@ function connect()
 {
 	$db = [
 		'driver' => 'oracle',
-		'username' => 'travis',
-		'password' => 'travis',
-		'database' => '(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID=xe)))',
+		'username' => 'zdenek',
+		'password' => 'zdenek0',
+		'database' => '(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.25.18.49)(PORT = 1521)))(CONNECT_DATA=(SID=pdboraclelnx)))',
 		'charset' => 'utf8',
 	];
 	return new Connection($db);
@@ -35,6 +36,7 @@ function repository()
 
 
 test(function () {
+	dump(repository()->test());
 	$row = repository()->find(1);
 
 	Assert::same(1, $row->getSampleId());
