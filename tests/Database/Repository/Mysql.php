@@ -2,14 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace Examples\Mysql;
+namespace Test\Repository;
 
 use Drago\Database\Connect;
+use Drago\Database\Repository;
+use Examples\Entity;
 
 
-class Repository extends Connect
+class Mysql extends Connect
 {
-	use \Drago\Database\Repository;
+	use Repository;
 
 	/** @var string */
 	private $table = Entity::TABLE;
@@ -32,19 +34,6 @@ class Repository extends Connect
 
 
 	/**
-	 * Find by string.
-	 * @return array|Entity|null
-	 * @throws \Dibi\Exception
-	 */
-	public function findBy(string $string)
-	{
-		return $this->discover(Entity::SAMPLE_STRING, $string)
-			->setRowClass(Entity::class)
-			->fetch();
-	}
-
-
-	/**
 	 * Save record.
 	 * @return \Dibi\Result|int|null
 	 * @throws \Dibi\Exception
@@ -52,6 +41,6 @@ class Repository extends Connect
 	public function save(Entity $entity)
 	{
 		$id = $entity->getSampleId();
-		return $this->add($entity, $id);
+		return $this->put($entity, $id);
 	}
 }

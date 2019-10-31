@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Examples\Mysql;
+namespace Examples;
 
 
 class Entity extends \Drago\Database\Entity
