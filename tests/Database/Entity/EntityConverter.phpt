@@ -4,33 +4,20 @@ declare(strict_types = 1);
 
 namespace Test\Entity;
 
-use Dibi\Connection;
 use Examples\EntityConverter;
-use Test\Repository\Oracle;
+use Test\Repository;
 use Tester\Assert;
+use Tests\Connect;
 
 require __DIR__ . '/../../bootstrap.php';
 require __DIR__ . '/../../../examples/EntityConverter.php';
 require __DIR__ . '/../Repository/Oracle.php';
 
 
-function connect()
-{
-	$db = [
-		'driver' => 'oracle',
-		'username' => 'travis',
-		'password' => 'travis',
-		'database' => '(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID=xe)))',
-		'charset' => 'utf8',
-	];
-	return new Connection($db);
-}
-
-
 function repository()
 {
-	$repository = new Oracle(connect());
-	return $repository;
+	$db = new Connect();
+	return new Repository\Oracle($db->oracle());
 }
 
 

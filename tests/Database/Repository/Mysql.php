@@ -4,14 +4,13 @@ declare(strict_types = 1);
 
 namespace Test\Repository;
 
-use Drago\Database\Connect;
-use Drago\Database\Repository;
+use Drago\Database;
 use Examples\Entity;
 
 
-class Mysql extends Connect
+class Mysql extends Database\Connect
 {
-	use Repository;
+	use Database\Repository;
 
 	/** @var string */
 	private $table = Entity::TABLE;

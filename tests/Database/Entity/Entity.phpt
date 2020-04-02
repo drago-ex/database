@@ -4,33 +4,20 @@ declare(strict_types = 1);
 
 namespace Test\Entity;
 
-use Dibi\Connection;
 use Examples\Entity;
-use Test\Repository\Mysql;
+use Test\Repository;
 use Tester\Assert;
+use Tests\Connect;
 
 require __DIR__ . '/../../bootstrap.php';
 require __DIR__ . '/../../../examples/Entity.php';
 require __DIR__ . '/../Repository/Mysql.php';
 
 
-function connect(): Connection
-{
-	$db = [
-		'driver' => 'mysqli',
-		'host' => '127.0.0.1',
-		'username' => 'root',
-		'password' => '',
-		'database' => 'test',
-	];
-	return new Connection($db);
-}
-
-
 function repository()
 {
-	$repository = new Mysql(connect());
-	return $repository;
+	$db = new Connect();
+	return new Repository\Mysql($db->mysql());
 }
 
 

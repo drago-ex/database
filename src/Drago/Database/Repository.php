@@ -9,21 +9,20 @@ declare(strict_types = 1);
 
 namespace Drago\Database;
 
-use Dibi\Connection;
-use Dibi\Fluent;
+use Dibi;
 use stdClass;
 
 
 /**
  * Repository base.
- * @property-read  Connection|stdClass  $db
+ * @property-read  Dibi\Connection|stdClass  $db
  */
 trait Repository
 {
 	/**
 	 * Get all records.
 	 */
-	public function all(): Fluent
+	public function all(): Dibi\Fluent
 	{
 		return $this->db
 			->select('*')
