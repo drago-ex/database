@@ -2,22 +2,22 @@
 
 declare(strict_types = 1);
 
-namespace Test\Entity;
-
 use Examples\Entity;
-use Test\Repository;
 use Tester\Assert;
-use Tests\Connect;
 
 require __DIR__ . '/../../bootstrap.php';
-require __DIR__ . '/../../../examples/Entity.php';
-require __DIR__ . '/../Repository/Mysql.php';
 
 
-function repository()
+function repository(): Mysql
 {
-	$db = new Connect();
-	return new Repository\Mysql($db->mysql());
+	$db = new Connect;
+	return new Mysql($db->mysql());
+}
+
+
+function entity(): Entity
+{
+	return new Entity;
 }
 
 
@@ -34,7 +34,7 @@ test(function () {
 
 
 test(function () {
-	$entity = new Entity;
+	$entity = entity();
 	$entity->setSampleString('Insert');
 
 	Assert::equal([
@@ -52,7 +52,7 @@ test(function () {
 
 
 test(function () {
-	$entity = new Entity;
+	$entity = entity();
 	$entity->setSampleId(2);
 	$entity->setSampleString('Modify');
 	repository()->save($entity);

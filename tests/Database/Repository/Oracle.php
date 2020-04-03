@@ -2,8 +2,6 @@
 
 declare(strict_types = 1);
 
-namespace Test\Repository;
-
 use Drago\Database;
 use Examples\EntityConverter;
 
@@ -22,7 +20,7 @@ class Oracle extends Database\Connect
 	/**
 	 * Find by id.
 	 * @return array|EntityConverter|null
-	 * @throws \Dibi\Exception
+	 * @throws Dibi\Exception
 	 */
 	public function find(int $id)
 	{
@@ -34,8 +32,8 @@ class Oracle extends Database\Connect
 
 	/**
 	 * Save record.
-	 * @return \Dibi\Result|int|null
-	 * @throws \Dibi\Exception
+	 * @return Dibi\Result|int|null
+	 * @throws Dibi\Exception
 	 */
 	public function save(EntityConverter $entity)
 	{

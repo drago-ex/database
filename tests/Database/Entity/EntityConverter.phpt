@@ -2,22 +2,22 @@
 
 declare(strict_types = 1);
 
-namespace Test\Entity;
-
 use Examples\EntityConverter;
-use Test\Repository;
 use Tester\Assert;
-use Tests\Connect;
 
 require __DIR__ . '/../../bootstrap.php';
-require __DIR__ . '/../../../examples/EntityConverter.php';
-require __DIR__ . '/../Repository/Oracle.php';
 
 
-function repository()
+function repository(): Oracle
 {
-	$db = new Connect();
-	return new Repository\Oracle($db->oracle());
+	$db = new Connect;
+	return new Oracle($db->oracle());
+}
+
+
+function entity(): EntityConverter
+{
+	return new EntityConverter;
 }
 
 
@@ -34,7 +34,7 @@ test(function () {
 
 
 test(function () {
-	$entity = new EntityConverter;
+	$entity = entity();
 	$entity->setSampleString('Insert');
 
 	Assert::equal([
@@ -43,7 +43,6 @@ test(function () {
 
 	$repository = repository();
 	$repository->save($entity);
-
 	Assert::same(2, $repository->getInsertedId('TEST_SEQ'));
 
 	$row = repository()->find(2);
@@ -52,13 +51,13 @@ test(function () {
 
 
 test(function () {
-	$entity = new EntityConverter();
+	$entity = entity();
 	$entity->setSampleId(2);
 	$entity->setSampleString('Modify');
 
 	repository()->save($entity);
-
 	$find = repository()->find(2);
+
 	Assert::same('Modify', $find->getSampleString());
 });
 

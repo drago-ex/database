@@ -2,15 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Tests;
-
 use Dibi\Connection;
 
 
 class Connect
 {
 	/**
-	 * @throws \Dibi\Exception
+	 * @throws Dibi\Exception
 	 */
 	public function mysql(): Connection
 	{
@@ -26,7 +24,7 @@ class Connect
 
 
 	/**
-	 * @throws \Dibi\Exception
+	 * @throws Dibi\Exception
 	 */
 	public function oracle(): Connection
 	{

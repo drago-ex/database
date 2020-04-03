@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace Examples;
 
+use Drago;
 
-class Entity extends \Drago\Database\Entity
+
+class Entity extends Drago\Database\Entity
 {
 	public const TABLE = 'test';
 	public const SAMPLE_ID = 'sampleId';
