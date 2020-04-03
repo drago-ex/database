@@ -17,6 +17,7 @@ $boot->setTempDirectory(TEMP_DIR);
 $boot->createRobotLoader()
 	->addDirectory(__DIR__)
 	->addDirectory(__DIR__ . '/../src')
+	->addDirectory(__DIR__ . '/../examples')
 	->register();
 
 return $boot->createContainer();
