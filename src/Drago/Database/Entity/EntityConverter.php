@@ -43,8 +43,10 @@ class EntityConverter extends Entity
 
 	/**
 	 * Offset to set.
+	 * @param  mixed  $offset
+	 * @param  mixed  $value
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		$this->modify[Strings::upper($offset)] = $value;
 		$this->$offset = $value;

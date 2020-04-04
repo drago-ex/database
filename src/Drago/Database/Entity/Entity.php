@@ -57,7 +57,7 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 	/**
 	 * Retrieve an external iterator.
 	 */
-	public function getIterator()
+	public function getIterator(): ArrayIterator
 	{
 		return new ArrayIterator($this);
 	}
@@ -65,8 +65,9 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Whether a offset exists.
+	 * @param  mixed  $offset
 	 */
-	public function offsetExists($offset)
+	public function offsetExists($offset): bool
 	{
 		return isset($this->$offset);
 	}
@@ -74,6 +75,8 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Offset to retrieve.
+	 * @param  mixed  $offse
+	 * @return mixed
 	 */
 	public function offsetGet($offset)
 	{
@@ -83,8 +86,10 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Offset to set.
+	 * @param  mixed  $offset
+	 * @param  mixed  $value
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet($offset, $value): void
 	{
 		$this->modify[$offset] = $value;
 		$this->$offset = $value;
@@ -93,8 +98,9 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Offset to unset.
+	 * @param  mixed  $offset
 	 */
-	public function offsetUnset($offset)
+	public function offsetUnset($offset): void
 	{
 		unset($this->$offset);
 	}
@@ -103,7 +109,7 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 	/**
 	 * Count elements of an object.
 	 */
-	public function count()
+	public function count(): int
 	{
 		return count((array) $this);
 	}
