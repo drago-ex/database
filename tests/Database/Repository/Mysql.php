@@ -11,10 +11,10 @@ class Mysql extends Database\Connect
 	use Database\Repository;
 
 	/** @var string */
-	protected $table = Entity::TABLE;
+	public $table = Entity::TABLE;
 
 	/** @var string */
-	protected $columnId = Entity::SAMPLE_ID;
+	public $columnId = Entity::SAMPLE_ID;
 
 
 	/**
