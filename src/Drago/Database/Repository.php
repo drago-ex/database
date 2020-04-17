@@ -20,10 +20,10 @@ use stdClass;
 trait Repository
 {
 	/** @var string */
-	private $table;
+	public $table;
 
 	/** @var string */
-	private $columnId;
+	public $columnId;
 
 
 	/**

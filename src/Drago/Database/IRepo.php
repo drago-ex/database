@@ -17,7 +17,6 @@ interface IRepo
 	 */
 	public function setTable(): void;
 
-
 	/**
 	 * Column name of primary key.
 	 */
