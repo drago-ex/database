@@ -6,19 +6,19 @@ use Drago\Database;
 use Examples\Entity;
 
 
-class Mysql extends Database\Connect implements Database\IRepo
+class Mysql extends Database\Connect
 {
 	use Database\Repository;
 
-	public function setTable(): void
+	public function table(): string
 	{
-		$this->table = Entity::TABLE;
+		return Entity::TABLE;
 	}
 
 
-	public function setColumnId(): void
+	public function columnId(): string
 	{
-		$this->columnId = Entity::SAMPLE_ID;
+		return Entity::SAMPLE_ID;
 	}
 
 

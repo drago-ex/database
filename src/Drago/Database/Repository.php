@@ -27,31 +27,13 @@ trait Repository
 
 
 	/**
-	 * Table name.
-	 */
-	private function getTable(): string
-	{
-		return $this->table;
-	}
-
-
-	/**
-	 * Column name of primary key.
-	 */
-	private function getColumnId(): string
-	{
-		return $this->columnId;
-	}
-
-
-	/**
 	 * Get all records.
 	 */
 	public function all(): Dibi\Fluent
 	{
 		return $this->db
 			->select('*')
-			->from($this->getTable());
+			->from($this->table);
 	}
 
 
@@ -76,7 +58,7 @@ trait Repository
 	 */
 	public function discoverId(int $id)
 	{
-		return $this->discover($this->getColumnId(), $id);
+		return $this->discover($this->columnId, $id);
 	}
 
 
@@ -89,7 +71,7 @@ trait Repository
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$this->getColumnId()} = ?", $id)
+			->where("{$this->columnId} = ?", $id)
 			->execute();
 	}
 
@@ -104,7 +86,7 @@ trait Repository
 		$query = $id === null
 			? $this->db->insert($this->table, $entity->getModify())
 			: $this->db->update($this->table, $entity->getModify())
-				->where("{$this->getColumnId()} = ?", $id);
+				->where("{$this->columnId} = ?", $id);
 
 		return $query->execute();
 	}

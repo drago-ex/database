@@ -15,10 +15,10 @@ interface IRepo
 	/**
 	 * Table name.
 	 */
-	public function setTable(): void;
+	public function table(): string;
 
 	/**
 	 * Column name of primary key.
 	 */
-	public function setColumnId(): void;
+	public function columnId(): string;
 }
