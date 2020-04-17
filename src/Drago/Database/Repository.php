@@ -27,6 +27,24 @@ trait Repository
 
 
 	/**
+	 * Table name.
+	 */
+	public function table(): string
+	{
+		return $this->table;
+	}
+
+
+	/**
+	 * Column name of primary key.
+	 */
+	public function columnId(): string
+	{
+		return $this->columnId;
+	}
+
+
+	/**
 	 * Get all records.
 	 */
 	public function all(): Dibi\Fluent
