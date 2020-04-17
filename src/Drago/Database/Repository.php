@@ -20,10 +20,28 @@ use stdClass;
 trait Repository
 {
 	/** @var string */
-	public $table;
+	private $table;
 
 	/** @var string */
-	public $columnId;
+	private $columnId;
+
+
+	/**
+	 * Table name.
+	 */
+	private function getTable(): string
+	{
+		return $this->table;
+	}
+
+
+	/**
+	 * Column name of primary key.
+	 */
+	private function getColumnId(): string
+	{
+		return $this->columnId;
+	}
 
 
 	/**
@@ -33,7 +51,7 @@ trait Repository
 	{
 		return $this->db
 			->select('*')
-			->from($this->table);
+			->from($this->getTable());
 	}
 
 
@@ -58,7 +76,7 @@ trait Repository
 	 */
 	public function discoverId(int $id)
 	{
-		return $this->discover($this->columnId, $id);
+		return $this->discover($this->getColumnId(), $id);
 	}
 
 
@@ -71,7 +89,7 @@ trait Repository
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$this->columnId} = ?", $id)
+			->where("{$this->getColumnId()} = ?", $id)
 			->execute();
 	}
 
@@ -86,7 +104,7 @@ trait Repository
 		$query = $id === null
 			? $this->db->insert($this->table, $entity->getModify())
 			: $this->db->update($this->table, $entity->getModify())
-				->where("{$this->columnId} = ?", $id);
+				->where("{$this->getColumnId()} = ?", $id);
 
 		return $query->execute();
 	}
