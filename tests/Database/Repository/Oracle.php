@@ -6,15 +6,20 @@ use Drago\Database;
 use Examples\EntityConverter;
 
 
-class Oracle extends Database\Connect
+class Oracle extends Database\Connect implements Database\IRepo
 {
 	use Database\Repository;
 
-	/** @var string */
-	public $table = EntityConverter::TABLE;
+	public function setTable(): void
+	{
+		$this->table = EntityConverter::TABLE;
+	}
 
-	/** @var string */
-	public $columnId = EntityConverter::SAMPLE_ID;
+
+	public function setColumnId(): void
+	{
+		$this->columnId = EntityConverter::SAMPLE_ID;
+	}
 
 
 	/**
