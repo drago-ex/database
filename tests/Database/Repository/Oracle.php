@@ -11,10 +11,10 @@ class Oracle extends Database\Connect
 	use Database\Repository;
 
 	/** @var string */
-	private $table = EntityConverter::TABLE;
+	protected $table = EntityConverter::TABLE;
 
-	/** @var int */
-	private $primaryId = EntityConverter::SAMPLE_ID;
+	/** @var string */
+	protected $columnId = EntityConverter::SAMPLE_ID;
 
 
 	/**
