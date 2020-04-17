@@ -10,16 +10,11 @@ class Oracle extends Database\Connect
 {
 	use Database\Repository;
 
-	public function table(): string
-	{
-		return EntityConverter::TABLE;
-	}
+	/** @var string */
+	public $table = EntityConverter::TABLE;
 
-
-	public function columnId(): string
-	{
-		return EntityConverter::SAMPLE_ID;
-	}
+	/** @var string */
+	public $columnId = EntityConverter::SAMPLE_ID;
 
 
 	/**

@@ -10,16 +10,11 @@ class Mysql extends Database\Connect
 {
 	use Database\Repository;
 
-	public function table(): string
-	{
-		return Entity::TABLE;
-	}
+	/** @var string */
+	public $table = Entity::TABLE;
 
-
-	public function columnId(): string
-	{
-		return Entity::SAMPLE_ID;
-	}
+	/** @var string */
+	public $columnId = Entity::SAMPLE_ID;
 
 
 	/**
