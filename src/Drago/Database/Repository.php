@@ -70,13 +70,27 @@ trait Repository
 
 
 	/**
+	 * Saving an records by array.
+	 * @return Dibi\Result|int|null
+	 * @throws Dibi\Exception
+	 */
+	public function put(array $data, int $id = null)
+	{
+		$query = $id > 0
+			? $this->db->update($this->table, $data)->where("{$this->columnId} = ?", $id)
+			: $this->db->insert($this->table, $data);
+		return $query->execute();
+	}
+
+
+	/**
 	 * Saving an records by entity.
 	 * @return Dibi\Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function put(Entity $entity, int $id = null)
+	public function saveEntity(Entity $entity)
 	{
-		return $this->putValues($entity->getModify(), $id);
+		return $this->put($entity->getModify(), $entity->{$this->columnId});
 	}
 
 
@@ -85,14 +99,9 @@ trait Repository
 	 * @return Dibi\Result|int|null
 	 * @throws Dibi\Exception
 	 */
-	public function putValues(array $values, int $id = null)
+	public function saveValues(array $data)
 	{
-		$query = $id === null
-			? $this->db->insert($this->table, $values)
-			: $this->db->update($this->table, $values)
-				->where("{$this->columnId} = ?", $id);
-
-		return $query->execute();
+		return $this->put($data, (int) $data[$this->columnId]);
 	}
 
 
