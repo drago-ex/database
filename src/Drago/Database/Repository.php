@@ -45,7 +45,7 @@ trait Repository
 
 
 	/**
-	 * Find record by id. (Can only be used when a variable primaryId is set.)
+	 * Find record by id (Can only be used when a variable primaryId is set.)
 	 * @return Dibi\Result|int|null
 	 * @throws Dibi\Exception
 	 */
@@ -71,15 +71,24 @@ trait Repository
 
 	/**
 	 * Saving an records by entity.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @throws \Dibi\Exception
 	 */
-	public function put(Entity $entity, int $id = null)
+	public function put(Entity $entity, int $id = null): Fluent
+	{
+		return $this->putValues($entity->getModify(), $id);
+	}
+
+
+	/**
+	 * Saving an records by array.
+	 * @throws \Dibi\Exception
+	 */
+	public function putValues(array $values, int $id = null): Fluent
 	{
 		$query = $id === null
-			? $this->db->insert($this->table, $entity->getModify())
-			: $this->db->update($this->table, $entity->getModify())
-				->where("{$this->columnId} = ?", $id);
+			? $this->db->insert($this->table, $values)
+			: $this->db->update($this->table, $values)
+				->where("{$this->primaryId} = ?", $id);
 
 		return $query->execute();
 	}
