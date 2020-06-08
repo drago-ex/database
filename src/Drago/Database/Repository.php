@@ -90,7 +90,7 @@ trait Repository
 		$query = $id === null
 			? $this->db->insert($this->table, $values)
 			: $this->db->update($this->table, $values)
-				->where("{$this->primaryId} = ?", $id);
+				->where("{$this->columnId} = ?", $id);
 
 		return $query->execute();
 	}
