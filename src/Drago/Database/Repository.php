@@ -71,9 +71,10 @@ trait Repository
 
 	/**
 	 * Saving an records by entity.
-	 * @throws \Dibi\Exception
+	 * @return Dibi\Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function put(Entity $entity, int $id = null): Fluent
+	public function put(Entity $entity, int $id = null)
 	{
 		return $this->putValues($entity->getModify(), $id);
 	}
@@ -81,9 +82,10 @@ trait Repository
 
 	/**
 	 * Saving an records by array.
-	 * @throws \Dibi\Exception
+	 * @return Dibi\Result|int|null
+	 * @throws Dibi\Exception
 	 */
-	public function putValues(array $values, int $id = null): Fluent
+	public function putValues(array $values, int $id = null)
 	{
 		$query = $id === null
 			? $this->db->insert($this->table, $values)
