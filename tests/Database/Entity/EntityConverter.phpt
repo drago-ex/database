@@ -96,7 +96,7 @@ test(function () {
 
 test(function () {
 	$data = [
-		'sample_id' => null,
+		'SAMPLE_ID' => null,
 		'SAMPLE_STRING' => 'Insert'
 	];
 
@@ -115,4 +115,3 @@ test(function () {
 
 	Assert::same('Hello, World!', $row->getSampleString());
 });
-	
