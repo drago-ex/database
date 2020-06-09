@@ -81,6 +81,51 @@ test(function () {
 
 
 test(function () {
+	$entity = entity();
+	$entity->setSampleString('Insert');
+
+	$repository = repository();
+	$repository->saveEntity($entity);
+
+	$row = repository()->find(3);
+	Assert::same('Insert', $row->getSampleString());
+});
+
+
+test(function () {
+	$entity = entity();
+	$entity->setSampleId(3);
+	$entity->setSampleString('Modify');
+	repository()->saveEntity($entity);
+
+	$row = repository()->find(3);
+	Assert::same('Modify', $row->getSampleString());
+});
+
+
+test(function () {
+	$data = ['sampleString' => 'Insert'];
+	$repository = repository();
+	$repository->saveValues($data);
+
+	$row = repository()->find(4);
+	Assert::same('Insert', $row->getSampleString());
+});
+
+
+test(function () {
+	$data = [
+		'sampleId' => 4,
+		'sampleString' => 'Modify'
+	];
+	repository()->saveValues($data);
+
+	$row = repository()->find(4);
+	Assert::same('Modify', $row->getSampleString());
+});
+
+
+test(function () {
 	$row = repository()->find(1);
 
 	Assert::same(4, $row->count());
