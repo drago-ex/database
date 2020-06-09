@@ -109,19 +109,6 @@ test(function () {
 
 
 test(function () {
-	$data = [
-		strtoupper(EntityConverter::SAMPLE_ID)=> 4,
-		strtoupper(EntityConverter::SAMPLE_STRING) => 'Modify'
-	];
-
-	repository()->saveValues($data);
-	$find = repository()->find(4);
-
-	Assert::same('Modify', $find->getSampleString());
-});
-
-
-test(function () {
 	$row = repository()->find(1);
 	$row->setSampleString('Hello, World!');
 	repository()->save($row);
