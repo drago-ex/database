@@ -38,6 +38,6 @@ class Oracle extends Database\Connect
 	public function save(EntityConverter $entity)
 	{
 		$id = $entity->getSampleId();
-		return $this->put($entity, $id);
+		return $this->put($entity->getModify(), $id);
 	}
 }

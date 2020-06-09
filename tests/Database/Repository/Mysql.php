@@ -38,6 +38,6 @@ class Mysql extends Database\Connect
 	public function save(Entity $entity)
 	{
 		$id = $entity->getSampleId();
-		return $this->put($entity, $id);
+		return $this->put($entity->getModify(), $id);
 	}
 }
