@@ -96,7 +96,8 @@ test(function () {
 
 test(function () {
 	$data = [
-		strtoupper(EntityConverter::SAMPLE_STRING) => 'Insert'
+		'sample_id' => null,
+		'sample_string' => 'Insert'
 	];
 
 	$repository = repository();
