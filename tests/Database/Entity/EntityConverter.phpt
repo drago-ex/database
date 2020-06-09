@@ -97,7 +97,7 @@ test(function () {
 test(function () {
 	$data = [
 		'sample_id' => null,
-		'sample_string' => 'Insert'
+		'SAMPLE_STRING' => 'Insert'
 	];
 
 	$repository = repository();
@@ -115,3 +115,4 @@ test(function () {
 
 	Assert::same('Hello, World!', $row->getSampleString());
 });
+	
