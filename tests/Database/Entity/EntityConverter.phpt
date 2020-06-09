@@ -95,20 +95,6 @@ test(function () {
 
 
 test(function () {
-	$data = [
-		'SAMPLE_ID' => null,
-		'SAMPLE_STRING' => 'Insert'
-	];
-
-	$repository = repository();
-	$repository->saveValues($data);
-
-	$row = repository()->find(4);
-	Assert::same('Insert', $row->getSampleString());
-});
-
-
-test(function () {
 	$row = repository()->find(1);
 	$row->setSampleString('Hello, World!');
 	repository()->save($row);
