@@ -104,7 +104,7 @@ test(function () {
 
 
 test(function () {
-	$data = ['sampleString' => 'Insert'];
+	$data = [Entity::SAMPLE_STRING => 'Insert'];
 	$repository = repository();
 	$repository->saveValues($data);
 
@@ -115,8 +115,8 @@ test(function () {
 
 test(function () {
 	$data = [
-		'sampleId' => 4,
-		'sampleString' => 'Modify'
+		Entity::SAMPLE_ID => 4,
+		Entity::SAMPLE_STRING => 'Modify'
 	];
 	repository()->saveValues($data);
 

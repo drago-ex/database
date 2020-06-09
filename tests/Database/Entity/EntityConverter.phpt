@@ -94,7 +94,7 @@ test(function () {
 
 
 test(function () {
-	$data = ['sample_string' => 'Insert'];
+	$data = [EntityConverter::SAMPLE_STRING => 'Insert'];
 	$repository = repository();
 	$repository->saveValues($data);
 
@@ -105,8 +105,8 @@ test(function () {
 
 test(function () {
 	$data = [
-		'sample_id' => 4,
-		'sample_string' => 'Modify'
+		EntityConverter::SAMPLE_ID => 4,
+		EntityConverter::SAMPLE_STRING => 'Modify'
 	];
 	repository()->saveValues($data);
 
