@@ -96,7 +96,6 @@ test(function () {
 
 test(function () {
 	$data = [
-		strtoupper(EntityConverter::SAMPLE_ID) => null,
 		strtoupper(EntityConverter::SAMPLE_STRING) => 'Insert'
 	];
 
