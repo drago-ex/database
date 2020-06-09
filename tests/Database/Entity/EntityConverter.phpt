@@ -96,8 +96,8 @@ test(function () {
 
 test(function () {
 	$data = [
-		EntityConverter::SAMPLE_ID => null,
-		EntityConverter::SAMPLE_STRING => 'Insert'
+		strtoupper(EntityConverter::SAMPLE_ID) => null,
+		strtoupper(EntityConverter::SAMPLE_STRING) => 'Insert'
 	];
 
 	$repository = repository();
@@ -110,8 +110,8 @@ test(function () {
 
 test(function () {
 	$data = [
-		EntityConverter::SAMPLE_ID => 4,
-		EntityConverter::SAMPLE_STRING => 'Modify'
+		strtoupper(EntityConverter::SAMPLE_ID)=> 4,
+		strtoupper(EntityConverter::SAMPLE_STRING) => 'Modify'
 	];
 
 	repository()->saveValues($data);
