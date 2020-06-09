@@ -71,51 +71,6 @@ test(function () {
 
 
 test(function () {
-	$entity = entity();
-	$entity->setSampleString('Insert');
-
-	$repository = repository();
-	$repository->saveEntity($entity);
-
-	$row = repository()->find(3);
-	Assert::same('Insert', $row->getSampleString());
-});
-
-
-test(function () {
-	$entity = entity();
-	$entity->setSampleId(3);
-	$entity->setSampleString('Modify');
-	repository()->saveEntity($entity);
-
-	$row = repository()->find(3);
-	Assert::same('Modify', $row->getSampleString());
-});
-
-
-test(function () {
-	$data = [strtoupper(EntityConverter::SAMPLE_STRING) => 'Insert'];
-	$repository = repository();
-	$repository->saveValues($data);
-
-	$row = repository()->find(4);
-	Assert::same('Insert', $row->getSampleString());
-});
-
-
-test(function () {
-	$data = [
-		strtoupper(EntityConverter::SAMPLE_ID) => 4,
-		strtoupper(EntityConverter::SAMPLE_STRING) => 'Modify'
-	];
-	repository()->saveValues($data);
-
-	$row = repository()->find(4);
-	Assert::same('Modify', $row->getSampleString());
-});
-
-
-test(function () {
 	$row = repository()->find(1);
 	$row->setSampleString('Hello, World!');
 	repository()->save($row);
