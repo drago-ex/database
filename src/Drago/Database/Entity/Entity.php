@@ -59,13 +59,14 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 	 */
 	public function getIterator(): ArrayIterator
 	{
-		return new ArrayIterator($this);
+		$arr = (array) $this;
+		return new ArrayIterator($arr);
 	}
 
 
 	/**
 	 * Whether a offset exists.
-	 * @param  mixed  $offset
+	 * @param mixed $offset
 	 */
 	public function offsetExists($offset): bool
 	{
@@ -75,8 +76,7 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Offset to retrieve.
-	 * @param  mixed  $offse
-	 * @return mixed
+	 * @param mixed $offset
 	 */
 	public function offsetGet($offset)
 	{
@@ -86,8 +86,8 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Offset to set.
-	 * @param  mixed  $offset
-	 * @param  mixed  $value
+	 * @param mixed $offset
+	 * @param mixed $value
 	 */
 	public function offsetSet($offset, $value): void
 	{
@@ -98,7 +98,7 @@ class Entity implements ArrayAccess, IteratorAggregate, Countable
 
 	/**
 	 * Offset to unset.
-	 * @param  mixed  $offset
+	 * @param mixed $offset
 	 */
 	public function offsetUnset($offset): void
 	{

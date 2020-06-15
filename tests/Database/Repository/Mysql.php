@@ -2,13 +2,16 @@
 
 declare(strict_types = 1);
 
-use Drago\Database;
+use Dibi\Exception;
+use Dibi\Result;
+use Drago\Database\Connect;
+use Drago\Database\Repository;
 use Examples\Entity;
 
 
-class Mysql extends Database\Connect
+class Mysql extends Connect
 {
-	use Database\Repository;
+	use Repository;
 
 	/** @var string */
 	public $table = Entity::TABLE;
@@ -20,7 +23,7 @@ class Mysql extends Database\Connect
 	/**
 	 * Find by id.
 	 * @return array|Entity|null
-	 * @throws Dibi\Exception
+	 * @throws Exception
 	 */
 	public function find(int $id)
 	{
@@ -32,8 +35,8 @@ class Mysql extends Database\Connect
 
 	/**
 	 * Save record.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function save(Entity $entity)
 	{

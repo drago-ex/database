@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Drago\Database;
 
 use Dibi\Connection;
-use Nette;
+use Nette\SmartObject;
 
 
 /**
@@ -18,7 +18,7 @@ use Nette;
  */
 class Connect
 {
-	use Nette\SmartObject;
+	use SmartObject;
 
 	/** @var Connection */
 	protected $db;

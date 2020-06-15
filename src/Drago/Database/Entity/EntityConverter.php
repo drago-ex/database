@@ -43,8 +43,8 @@ class EntityConverter extends Entity
 
 	/**
 	 * Offset to set.
-	 * @param  mixed  $offset
-	 * @param  mixed  $value
+	 * @param mixed $offset
+	 * @param mixed $value
 	 */
 	public function offsetSet($offset, $value): void
 	{

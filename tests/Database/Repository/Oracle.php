@@ -2,13 +2,16 @@
 
 declare(strict_types = 1);
 
-use Drago\Database;
+use Dibi\Exception;
+use Dibi\Result;
+use Drago\Database\Connect;
+use Drago\Database\Repository;
 use Examples\EntityConverter;
 
 
-class Oracle extends Database\Connect
+class Oracle extends Connect
 {
-	use Database\Repository;
+	use Repository;
 
 	/** @var string */
 	public $table = EntityConverter::TABLE;
@@ -20,7 +23,7 @@ class Oracle extends Database\Connect
 	/**
 	 * Find by id.
 	 * @return array|EntityConverter|null
-	 * @throws Dibi\Exception
+	 * @throws Exception
 	 */
 	public function find(int $id)
 	{
@@ -32,8 +35,8 @@ class Oracle extends Database\Connect
 
 	/**
 	 * Save record.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function save(EntityConverter $entity)
 	{

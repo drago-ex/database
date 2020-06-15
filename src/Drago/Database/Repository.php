@@ -9,20 +9,23 @@ declare(strict_types = 1);
 
 namespace Drago\Database;
 
-use Dibi;
+use Dibi\Connection;
+use Dibi\Exception;
+use Dibi\Fluent;
+use Dibi\Result;
 use stdClass;
 
 
 /**
  * Repository base.
- * @property-read  Dibi\Connection|stdClass  $db
+ * @property-read  Connection|stdClass  $db
  */
 trait Repository
 {
 	/**
 	 * Get all records.
 	 */
-	public function all(): Dibi\Fluent
+	public function all(): Fluent
 	{
 		return $this->db
 			->select('*')
@@ -33,8 +36,8 @@ trait Repository
 	/**
 	 * Find a record by parameter.
 	 * @param  int|string  $args
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function discover(string $column, $args)
 	{
@@ -46,8 +49,8 @@ trait Repository
 
 	/**
 	 * Find record by id (Can only be used when a variable primaryId is set.)
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function discoverId(int $id)
 	{
@@ -57,8 +60,8 @@ trait Repository
 
 	/**
 	 * Deleting an records by the primary key.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function eraseId(int $id)
 	{
@@ -71,8 +74,8 @@ trait Repository
 
 	/**
 	 * Saving an records by array.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function put(array $data, int $id = null)
 	{
@@ -85,8 +88,8 @@ trait Repository
 
 	/**
 	 * Saving an records by entity.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function saveEntity(Entity $entity)
 	{
@@ -96,8 +99,8 @@ trait Repository
 
 	/**
 	 * Saving an records by array.
-	 * @return Dibi\Result|int|null
-	 * @throws Dibi\Exception
+	 * @return Result|int|null
+	 * @throws Exception
 	 */
 	public function saveValues(array $data)
 	{
@@ -107,7 +110,7 @@ trait Repository
 
 	/**
 	 * Get the id of the inserted record.
-	 * @throws Dibi\Exception
+	 * @throws Exception
 	 */
 	public function getInsertedId(string $sequence = null): int
 	{
