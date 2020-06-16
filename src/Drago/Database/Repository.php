@@ -104,7 +104,10 @@ trait Repository
 	 */
 	public function saveValues(array $data)
 	{
-		return $this->put($data, (int) $data[$this->columnId]);
+		if (!$data[$this->columnId]) {
+			unset($data[$this->columnId]);
+		}
+		return $this->put($data, $data[$this->columnId] ?? null);
 	}
 
 
