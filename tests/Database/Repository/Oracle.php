@@ -7,7 +7,7 @@ use Dibi\Result;
 use Drago\Database\Connect;
 use Drago\Database\Repository;
 use Examples\EntityConverter;
-use Examples\FormData;
+use Examples\FormDataOracle;
 
 
 class Oracle extends Connect
@@ -65,7 +65,7 @@ class Oracle extends Connect
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function saveFormData(FormData $data)
+	public function saveFormData(FormDataOracle $data)
 	{
 		$record = (array) $data;
 		$dataConverted = new EntityConverter($record);
