@@ -88,8 +88,8 @@ test(function () {
 
 test(function () {
 	$data = formData();
-	$data->sampleId = null;
-	$data->sampleString = 'Insert';
+	$data->sample_id = null;
+	$data->sample_string = 'Insert';
 
 	$repository = repository();
 	$repository->saveFormData($data);
@@ -101,8 +101,8 @@ test(function () {
 
 test(function () {
 	$data = formData();
-	$data->sampleId = 3;
-	$data->sampleString = 'Modify';
+	$data->sample_id = 3;
+	$data->sample_string = 'Modify';
 
 	repository()->saveFormData($data);
 
