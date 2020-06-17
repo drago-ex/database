@@ -67,11 +67,8 @@ class Oracle extends Connect
 	 */
 	public function saveFormData(FormData $data)
 	{
-		if (!$data->sampleId) {
-			unset($data->sampleId);
-		}
 		$record = (array) $data;
 		$dataConverted = new EntityConverter($record);
-		return $this->put($dataConverted->toArray(), $data->sampleId ?? null);
+		return $this->put($dataConverted->toArray(), $data[$this->columnId] ?? null);
 	}
 }
