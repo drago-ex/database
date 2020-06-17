@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Examples;
 
-use Drago;
 use Nette\Utils\ArrayHash;
 
 
