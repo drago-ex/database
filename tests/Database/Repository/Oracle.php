@@ -69,6 +69,6 @@ class Oracle extends Connect
 	{
 		$record = (array) $data;
 		$dataConverted = new EntityConverter($record);
-		return $this->put($dataConverted->toArray(), $data[$this->columnId] ?? null);
+		return $this->put($dataConverted->toArrayUpper(), $data[$this->columnId] ?? null);
 	}
 }
