@@ -89,31 +89,6 @@ trait Repository
 
 
 	/**
-	 * Saving an records by entity.
-	 * @return Result|int|null
-	 * @throws Exception
-	 */
-	public function saveEntity(Entity $entity)
-	{
-		return $this->put($entity->getModify(), $entity->{$this->columnId});
-	}
-
-
-	/**
-	 * Saving an records by array.
-	 * @return Result|int|null
-	 * @throws Exception
-	 */
-	public function saveValues(array $data)
-	{
-		if (!$data[$this->columnId]) {
-			unset($data[$this->columnId]);
-		}
-		return $this->put($data, $data[$this->columnId] ?? null);
-	}
-
-
-	/**
 	 * Get the id of the inserted record.
 	 * @throws Exception
 	 */

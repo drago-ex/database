@@ -7,6 +7,7 @@ use Dibi\Result;
 use Drago\Database\Connect;
 use Drago\Database\Repository;
 use Examples\EntityConverter;
+use Examples\FormData;
 
 
 class Oracle extends Connect
@@ -18,6 +19,20 @@ class Oracle extends Connect
 
 	/** @var string */
 	public $columnId = EntityConverter::SAMPLE_ID;
+
+
+	/**
+	 * Get all records.
+	 * @return array|array[]|EntityConverter[]
+	 * @throws Exception
+	 */
+	public function getAll()
+	{
+		return $this->all()
+			->execute()
+			->setRowClass(EntityConverter::class)
+			->fetchAll();
+	}
 
 
 	/**
@@ -38,9 +53,25 @@ class Oracle extends Connect
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function save(EntityConverter $entity)
+	public function saveEntity(EntityConverter $entity)
 	{
 		$id = $entity->getSampleId();
 		return $this->put($entity->getModify(), $id);
+	}
+
+
+	/**
+	 * Saving an records by form data.
+	 * @return Result|int|null
+	 * @throws Exception
+	 */
+	public function saveFormData(FormData $data)
+	{
+		if (!$data->sampleId) {
+			unset($data->sampleId);
+		}
+		$record = (array) $data;
+		$dataConverted = new EntityConverter($record);
+		return $this->put($dataConverted->toArray(), $data->sampleId ?? null);
 	}
 }

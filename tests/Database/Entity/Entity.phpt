@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use Examples\Entity;
+use Examples\FormData;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -18,6 +19,12 @@ function repository(): Mysql
 function entity(): Entity
 {
 	return new Entity;
+}
+
+
+function formData(): FormData
+{
+	return new FormData;
 }
 
 
@@ -42,7 +49,7 @@ test(function () {
 	], $entity->getModify());
 
 	$repository = repository();
-	$repository->save($entity);
+	$repository->saveEntity($entity);
 
 	Assert::same(2, $repository->getInsertedId());
 
@@ -55,7 +62,7 @@ test(function () {
 	$entity = entity();
 	$entity->setSampleId(2);
 	$entity->setSampleString('Modify');
-	repository()->save($entity);
+	repository()->saveEntity($entity);
 
 	$row = repository()->find(2);
 	Assert::same(2, $row->getSampleId());
@@ -66,7 +73,7 @@ test(function () {
 test(function () {
 	$row = repository()->find(1);
 	$row->setSampleString('Hello, World!');
-	repository()->save($row);
+	repository()->saveEntity($row);
 
 	Assert::same('Hello, World!', $row->getSampleString());
 });
@@ -81,11 +88,12 @@ test(function () {
 
 
 test(function () {
-	$entity = entity();
-	$entity->setSampleString('Insert');
+	$data = formData();
+	$data->sampleId = null;
+	$data->sampleString = 'Insert';
 
 	$repository = repository();
-	$repository->saveEntity($entity);
+	$repository->saveFormData($data);
 
 	$row = repository()->find(3);
 	Assert::same('Insert', $row->getSampleString());
@@ -93,38 +101,13 @@ test(function () {
 
 
 test(function () {
-	$entity = entity();
-	$entity->setSampleId(3);
-	$entity->setSampleString('Modify');
-	repository()->saveEntity($entity);
+	$data = formData();
+	$data->sampleId = 3;
+	$data->sampleString = 'Modify';
+
+	repository()->saveFormData($data);
 
 	$row = repository()->find(3);
-	Assert::same('Modify', $row->getSampleString());
-});
-
-
-test(function () {
-	$data = [
-		Entity::SAMPLE_ID => null,
-		Entity::SAMPLE_STRING => 'Insert'
-	];
-
-	$repository = repository();
-	$repository->saveValues($data);
-
-	$row = repository()->find(4);
-	Assert::same('Insert', $row->getSampleString());
-});
-
-
-test(function () {
-	$data = [
-		Entity::SAMPLE_ID => 4,
-		Entity::SAMPLE_STRING => 'Modify'
-	];
-	repository()->saveValues($data);
-
-	$row = repository()->find(4);
 	Assert::same('Modify', $row->getSampleString());
 });
 
