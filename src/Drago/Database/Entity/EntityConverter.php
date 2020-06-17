@@ -42,6 +42,19 @@ class EntityConverter extends Entity
 
 
 	/**
+	 * Convert to array by upper index.
+	 */
+	public function toArrayUpper(): array
+	{
+		$data = [];
+		foreach ($this->data as $k => $v) {
+			$data[Strings::upper($k)] = $v;
+		}
+		return $data;
+	}
+
+
+	/**
 	 * Offset to set.
 	 * @param mixed $offset
 	 * @param mixed $value
