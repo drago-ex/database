@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 use Examples\EntityConverter;
-use Examples\FormData;
+use Examples\FormDataOracle;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -22,9 +22,9 @@ function entity(): EntityConverter
 }
 
 
-function formData(): FormData
+function formData(): FormDataOracle
 {
-	return new FormData;
+	return new FormDataOracle;
 }
 
 
@@ -98,7 +98,7 @@ test(function () {
 	Assert::same('Insert', $row->getSampleString());
 });
 
-/*
+
 test(function () {
 	$data = formData();
 	$data->sampleId = 3;
@@ -108,4 +108,4 @@ test(function () {
 
 	$row = repository()->find(3);
 	Assert::same('Modify', $row->getSampleString());
-});*/
+});
