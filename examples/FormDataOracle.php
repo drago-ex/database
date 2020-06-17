@@ -7,7 +7,7 @@ namespace Examples;
 use Nette\Utils\ArrayHash;
 
 
-class FormData extends ArrayHash
+class FormDataOracle extends ArrayHash
 {
 	public const SAMPLE_ID = 'sample_id';
 	public const SAMPLE_STRING = 'sample_string';
