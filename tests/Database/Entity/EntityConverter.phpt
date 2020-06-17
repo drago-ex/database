@@ -98,7 +98,7 @@ test(function () {
 	Assert::same('Insert', $row->getSampleString());
 });
 
-
+/*
 test(function () {
 	$data = formData();
 	$data->sampleId = 3;
@@ -108,4 +108,4 @@ test(function () {
 
 	$row = repository()->find(3);
 	Assert::same('Modify', $row->getSampleString());
-});
+});*/
