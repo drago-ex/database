@@ -88,7 +88,6 @@ test(function () {
 
 test(function () {
 	$data = formData();
-	$data->sample_id = null;
 	$data->sample_string = 'Insert';
 
 	$repository = repository();
