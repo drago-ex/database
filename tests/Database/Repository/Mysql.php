@@ -66,10 +66,7 @@ class Mysql extends Connect
 	 */
 	public function saveFormData(FormData $data)
 	{
-		if (!$data->sampleId) {
-			unset($data->sampleId);
-		}
 		$data = (array) $data;
-		return $this->put($data, $data->sampleId ?? null);
+		return $this->put($data, $data[$this->columnId] ?? null);
 	}
 }
