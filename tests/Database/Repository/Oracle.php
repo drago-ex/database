@@ -49,7 +49,7 @@ class Oracle extends Connect
 
 
 	/**
-	 * Save record.
+	 * Save record by entity.
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
