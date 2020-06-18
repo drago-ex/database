@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Examples;
 
-use Nette\Utils\ArrayHash;
+use Drago\Utils\ExtraArrayHash;
 
 
-class FormData extends ArrayHash
+class FormData extends ExtraArrayHash
 {
 	public const SAMPLE_ID = 'sampleId';
 	public const SAMPLE_STRING = 'sampleString';
