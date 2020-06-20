@@ -19,8 +19,8 @@ use stdClass;
 /**
  * Repository base.
  * @property-read  Connection|stdClass  $db
- * @property string $table
- * @property string $columnId
+ * @property  string  $table
+ * @property  string  $columnId
  */
 trait Repository
 {

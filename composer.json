@@ -10,9 +10,8 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1",
-		"dibi/dibi": "^4.0",
-		"drago-ex/utils": "^1.0"
+		"php": ">=7.4",
+		"dibi/dibi": "^4.1"
 	},
 	"require-dev": {
 		"nette/bootstrap": "^3.0",

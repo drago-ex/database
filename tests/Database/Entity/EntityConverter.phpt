@@ -22,17 +22,11 @@ function entity(): EntityConverter
 }
 
 
-function formData(): FormDataOracle
-{
-	return new FormDataOracle;
-}
-
-
 test(function () {
 	$row = repository()->find(1);
 
-	Assert::same(1, $row->getSampleId());
-	Assert::same('Hello', $row->getSampleString());
+	Assert::same(1, $row->sample_id);
+	Assert::same('Hello', $row->sample_string);
 	Assert::equal([
 		EntityConverter::SAMPLE_ID => 1,
 		EntityConverter::SAMPLE_STRING => 'Hello',
@@ -42,39 +36,39 @@ test(function () {
 
 test(function () {
 	$entity = entity();
-	$entity->setSampleString('Insert');
+	$entity->sample_string = 'Insert';
 
 	Assert::equal([
 		strtoupper(EntityConverter::SAMPLE_STRING) => 'Insert',
 	], $entity->getModify());
 
 	$repository = repository();
-	$repository->saveEntity($entity);
+	$repository->save($entity);
 	Assert::same(2, $repository->getInsertedId('TEST_SEQ'));
 
 	$row = repository()->find(2);
-	Assert::same('Insert', $row->getSampleString());
+	Assert::same('Insert', $row->sample_string);
 });
 
 
 test(function () {
 	$entity = entity();
-	$entity->setSampleId(2);
-	$entity->setSampleString('Modify');
+	$entity->sample_id = 2;
+	$entity->sample_string = 'Modify';
 
-	repository()->saveEntity($entity);
+	repository()->save($entity);
 	$find = repository()->find(2);
 
-	Assert::same('Modify', $find->getSampleString());
+	Assert::same('Modify', $find->sample_string);
 });
 
 
 test(function () {
 	$row = repository()->find(1);
-	$row->setSampleString('Hello, World!');
-	repository()->saveEntity($row);
+	$row->sample_string = 'Hello, World!';
+	repository()->save($row);
 
-	Assert::same('Hello, World!', $row->getSampleString());
+	Assert::same('Hello, World!', $row->sample_string);
 });
 
 
@@ -83,28 +77,4 @@ test(function () {
 	$row = repository()->find(2);
 
 	Assert::null($row);
-});
-
-
-test(function () {
-	$data = formData();
-	$data->sample_string = 'Insert';
-
-	$repository = repository();
-	$repository->saveFormData($data);
-
-	$row = repository()->find(3);
-	Assert::same('Insert', $row->getSampleString());
-});
-
-
-test(function () {
-	$data = formData();
-	$data->sample_id = 3;
-	$data->sample_string = 'Modify';
-
-	repository()->saveFormData($data);
-
-	$row = repository()->find(3);
-	Assert::same('Modify', $row->getSampleString());
 });

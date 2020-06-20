@@ -7,18 +7,14 @@ use Dibi\Result;
 use Drago\Database\Connect;
 use Drago\Database\Repository;
 use Examples\Entity;
-use Examples\FormData;
 
 
 class Mysql extends Connect
 {
 	use Repository;
 
-	/** @var string */
-	public $table = Entity::TABLE;
-
-	/** @var string */
-	public $columnId = Entity::SAMPLE_ID;
+	public string $table = Entity::TABLE;
+	public string $columnId = Entity::SAMPLE_ID;
 
 
 	/**
@@ -53,19 +49,8 @@ class Mysql extends Connect
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function saveEntity(Entity $entity)
+	public function save(Entity $entity)
 	{
-		return $this->put($entity->getModify(), $entity->getSampleId());
-	}
-
-
-	/**
-	 * Saving an records by form data.
-	 * @return Result|int|null
-	 * @throws Exception
-	 */
-	public function saveFormData(FormData $data)
-	{
-		return $this->put($data->toArray(), $data->sampleId ?? null);
+		return $this->put($entity->getModify(), $entity->sampleId);
 	}
 }
