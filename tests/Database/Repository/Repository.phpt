@@ -25,12 +25,6 @@ function repository(): Repository
 
 
 test(function () {
-	$row = repository()->all()->fetchAll();
-	Assert::same('array', $row);
-});
-
-
-test(function () {
 	$row = repository()->discoverId(1)->fetch();
 
 	Assert::equal([
