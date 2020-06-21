@@ -79,12 +79,12 @@ trait Repository
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function put(array $data, int $id = null)
+	public function put(array $data)
 	{
-		$query = $id > 0
-			? $this->db->update($this->table, $data)->where("{$this->columnId} = ?", $id)
-			: $this->db->insert($this->table, $data);
-		return $query->execute();
+		$id = $data[$this->columnId] ?? null;
+		return $id > 0
+			? $this->db->update($this->table, $data)->where("{$this->columnId} = ?", $id)->execute()
+			: $this->db->insert($this->table, $data)->execute();
 	}
 
 

@@ -5,7 +5,7 @@ declare(strict_types = 1);
 use Drago\Database\Connect;
 use Tester\Assert;
 
-require __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
 
 function connect(): Connect
