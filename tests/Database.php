@@ -16,9 +16,9 @@ class Database
 		return new Connection([
 			'driver' => 'mysqli',
 			'host' => '127.0.0.1',
-			'username' => 'accgit',
-			'password' => 'root',
-			'database' => 'nette',
+			'username' => 'root',
+			'password' => '',
+			'database' => 'test',
 		]);
 	}
 }
