@@ -36,7 +36,7 @@ test(function () {
 
 test(function () {
 	$data = [
-		'sampleString' => 'Insert'
+		'sampleString' => 'Insert',
 	];
 	$repository = repository();
 	$repository->put($data);
@@ -48,7 +48,7 @@ test(function () {
 test(function () {
 	$data = [
 		'sampleId' => 2,
-		'sampleString' => 'Update'
+		'sampleString' => 'Update',
 	];
 
 	repository()->put($data, $data['sampleId']);
