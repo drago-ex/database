@@ -20,7 +20,7 @@ class Connect
 {
 	use SmartObject;
 
-	protected Connection $db;
+	public Connection $db;
 
 
 	public function __construct(Connection $db)
