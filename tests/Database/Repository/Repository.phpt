@@ -30,7 +30,7 @@ test(function () {
 	Assert::equal([
 		'sampleId' => 1,
 		'sampleString' => 'Hello',
-	], $row);
+	], $row->toArray());
 });
 
 
@@ -57,14 +57,14 @@ test(function () {
 	Assert::equal([
 		'sampleId' => 2,
 		'sampleString' => 'Update',
-	], $row);
+	], $row->toArray());
 });
 
 
 test(function () {
 	$row = repository()->discoverId(1)->fetch();
 	$row['sampleString'] = 'Hello, World!';
-	repository()->put($row);
+	repository()->put($row->toArray(), $row['sampleId']);
 
 	Assert::same('Hello, World!', $row['sampleString']);
 });
