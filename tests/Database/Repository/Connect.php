@@ -17,5 +17,5 @@ function connect(): Connect
 
 test(function () {
 	$row = connect()->db->isConnected();
-	Assert::same('bool', $row);
+	Assert::same('true', $row);
 });
