@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types = 1);
+
+
 class TestRepository extends Drago\Database\Connect
 {
 	use Drago\Database\Repository;
