@@ -11,7 +11,9 @@ require __DIR__ . '/../bootstrap.php';
 function repository(): TestRepository
 {
 	$db = new Database;
-	return new TestRepository($db->connection());
+	$repository = new TestRepository($db->connection());
+	$repository->table = 'test_entity';
+	return $repository;
 }
 
 
@@ -56,19 +58,19 @@ test(function () {
 	$entity->sampleString = 'Insert';
 
 	save($entity);
-	$row = find(3);
+	$row = find(2);
 
-	Assert::same(3, $row->sampleId);
+	Assert::same(2, $row->sampleId);
 	Assert::same('Insert', $row->sampleString);
 });
 
 
 test(function () {
-	$row = find(3);
+	$row = find(2);
 	$row->sampleString = 'Update';
 
 	save($row);
 
-	Assert::same(3, $row->sampleId);
+	Assert::same(2, $row->sampleId);
 	Assert::same('Update', $row->sampleString);
 });
