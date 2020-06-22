@@ -1,3 +1,7 @@
+language: php
+php:
+  - 7.4
+
 services:
   - mysql
 
@@ -16,29 +20,18 @@ jobs:
         - travis_retry composer create-project nette/code-checker temp/code-checker ^3 --no-progress
       script:
         - php temp/code-checker/code-checker --strict-types
-      language: php
-      php:
-        - 7.4
 
 
-    - name: Nette Coding Standard
-      install:
-        - travis_retry composer create-project nette/coding-standard temp/coding-standard ^2 --no-progress
+    - name: Static Analysis
       script:
-        - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php71.yml
-      language: php
-      php:
-        - 7.4
+        - composer run-script phpstan
 
 
-    - name: PHP 7.4
+    - stage: Nette Tester
       install:
         - travis_retry composer require nette/tester --dev
       script:
-        - vendor/bin/tester tests -s
-      language: php
-      php:
-        - 7.4
+        - composer run-script tester
 
 
     - stage: Code Coverage
@@ -47,6 +40,3 @@ jobs:
       after_script:
         - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
         - php coveralls.phar --verbose --config tests/.coveralls.yml
-      language: php
-      php:
-        - 7.4
