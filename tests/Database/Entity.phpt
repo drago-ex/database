@@ -74,3 +74,15 @@ test(function () {
 	Assert::same(2, $row->sampleId);
 	Assert::same('Update', $row->sampleString);
 });
+
+
+test(function () {
+	$entity = new TestEntity;
+	$entity->sampleId = 1;
+	$entity->sampleString = 'Hello';
+
+	Assert::equal([
+		'SAMPLEID' => 1,
+		'SAMPLESTRING' => 'Hello',
+	], $entity->toArrayUpper());
+});
