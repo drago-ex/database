@@ -1,7 +1,7 @@
 {
 	"name": "drago-ex/database",
 	"type": "library",
-	"description": "Connect and work with the database.",
+	"description": "Connecting to database for Nette Framework",
 	"license": ["MIT"],
 	"authors": [
 		{
