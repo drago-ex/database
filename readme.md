@@ -14,11 +14,12 @@ Connecting to database.
 [![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/database/badge)](https://www.codefactor.io/repository/github/drago-ex/database)
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
-## Requirements
+## Technology
 - PHP 7.4 or higher
 - composer
 
-## Requires knowledge
+## Knowledge
+- php
 - Nette Framework
 - dibi
 
