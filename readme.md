@@ -18,6 +18,10 @@ Connecting to database.
 - PHP 7.4 or higher
 - composer
 
+## Requires knowledge
+- Nette Framework
+- dibi
+
 ## Installation
 ```
 composer require drago-ex/database
