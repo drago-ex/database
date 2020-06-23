@@ -19,7 +19,6 @@ Connecting to database.
 - composer
 
 ## Knowledge
-- php
 - Nette Framework
 - dibi
 
