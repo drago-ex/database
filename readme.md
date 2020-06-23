@@ -43,25 +43,25 @@ $this->db;
 
 Returns all records.
 ```php
-$this->repository->all();
+$this->model->all();
 ```
 
 Search for a record by column name.
 ```php
-$this->repository->discover('email', 'email@email.com');
+$this->model->discover('email', 'email@email.com');
 ```
 
 Search for a record by id.
 ```php
-$this->repository->discoverId(1);
+$this->model->discoverId(1);
 ```
 
 Delete a record from the database.
 ```php
-$this->repository->eraseId(1);
+$this->model->eraseId(1);
 ```
 
 Save record (the update will be performed if a column with id is added).
 ```php
-$this->repository->put(['column' => 'record']);
+$this->model->put(['column' => 'record']);
 ```
