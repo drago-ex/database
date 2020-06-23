@@ -24,7 +24,7 @@ composer require drago-ex/database
 ```
 
 ## Use
-```
+```php
 class Model extends Drago\Database\Connect
 {
 	use Drago\Database\Repository;
@@ -35,33 +35,33 @@ class Model extends Drago\Database\Connect
 ```
 
 ## Creating queries
-```
+```php
 $this->db;
 ```
 
 ## Basic queries in the Repository
 
 Returns all records.
-```
+```php
 $this->repository->all();
 ```
 
 Search for a record by column name.
-```
+```php
 $this->repository->discover('email', 'email@email.com');
 ```
 
 Search for a record by id.
-```
+```php
 $this->repository->discoverId(1);
 ```
 
 Delete a record from the database.
-```
+```php
 $this->repository->eraseId(1);
 ```
 
 Save record (the update will be performed if a column with id is added).
-```
+```php
 $this->repository->put(['column' => 'record']);
 ```
