@@ -31,7 +31,7 @@ composer require drago-ex/database
 class Model extends Drago\Database\Connect
 {
 	use Drago\Database\Repository;
-	
+
 	public string $table = 'table';
 	public string $columnId = 'id';
 }
