@@ -65,3 +65,6 @@ Save record (the update will be performed if a column with id is added).
 ```php
 $this->model->put(['column' => 'record']);
 ```
+
+## Tips
+You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
