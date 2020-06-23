@@ -19,7 +19,7 @@ Connecting to database.
 - composer
 
 ## Knowledge
-- dibi
+- [Dibi - smart database layer for PHP](https://github.com/dg/dibi)
 
 ## Installation
 ```
