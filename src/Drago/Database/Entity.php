@@ -22,17 +22,4 @@ class Entity extends Row
 	{
 		parent::__construct($arr);
 	}
-
-
-	/**
-	 * Returns items as array with converted keys to uppercase.
-	 */
-	public function toArrayUpper(): array
-	{
-		$data = [];
-		foreach ($this as $k => $v) {
-			$data[Strings::upper($k)] = $v;
-		}
-		return $data;
-	}
 }
