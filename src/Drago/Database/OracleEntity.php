@@ -21,7 +21,7 @@ use Nette\Utils\Strings;
  */
 class OracleEntity implements ArrayAccess, IteratorAggregate, Countable
 {
-	public function __construct(array $arr)
+	public function __construct(array $arr = [])
 	{
 		foreach ($arr as $k => $v) {
 			$k = Strings::lower($k);
