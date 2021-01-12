@@ -13,7 +13,6 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
-use stdClass;
 
 
 /**
@@ -37,10 +36,8 @@ trait Repository
 
 	/**
 	 * Find record by id.
-	 * @return Fluent
-	 * @throws Exception
 	 */
-	public function get(int $id)
+	public function get(int $id): Fluent
 	{
 		return $this->all()
 			->where("{$this->primary} = ?", $id);

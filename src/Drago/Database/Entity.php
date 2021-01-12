@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Drago\Database;
 
 use Dibi\Row;
-use Nette\Utils\Strings;
 
 
 /**
@@ -18,7 +17,7 @@ use Nette\Utils\Strings;
  */
 class Entity extends Row
 {
-	public function __construct(array $arr = [])
+	public function __construct(array $arr)
 	{
 		parent::__construct($arr);
 	}
