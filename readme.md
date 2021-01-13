@@ -33,7 +33,7 @@ class Model extends Drago\Database\Connect
 	use Drago\Database\Repository;
 
 	public string $table = 'table';
-	public string $columnId = 'id';
+	public string $primary = 'id';
 }
 ```
 
@@ -56,12 +56,12 @@ $this->model->discover('email', 'email@email.com');
 
 Search for a record by id.
 ```php
-$this->model->discoverId(1);
+$this->model->get(1);
 ```
 
 Delete a record from the database.
 ```php
-$this->model->eraseId(1);
+$this->model->erase(1);
 ```
 
 Save record (the update will be performed if a column with id is added).
