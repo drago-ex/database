@@ -36,7 +36,7 @@ trait Repository
 
 	/**
 	 * Find a record by parameter.
-	 * @param  int|string $args
+	 * @param int|string $args
 	 */
 	public function discover(string $column, $args): Fluent
 	{
