@@ -18,7 +18,7 @@ class Database
 			'host' => '127.0.0.1',
 			'username' => 'root',
 			'password' => '',
-			'database' => 'test',
+			'database' => 'test_3',
 		]);
 	}
 }

@@ -18,7 +18,7 @@ use Nette\Utils\Strings;
  */
 class EntityOracle extends Row
 {
-	public function __construct(array $arr)
+	public function __construct(array $arr = [])
 	{
 		parent::__construct($arr);
 		foreach ($arr as $k => $v) {

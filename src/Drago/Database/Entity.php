@@ -17,7 +17,7 @@ use Dibi\Row;
  */
 class Entity extends Row
 {
-	public function __construct(array $arr)
+	public function __construct(array $arr = [])
 	{
 		parent::__construct($arr);
 	}

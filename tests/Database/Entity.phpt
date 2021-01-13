@@ -8,6 +8,9 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
+/**
+ * @throws \Dibi\Exception
+ */
 function repository(): TestRepository
 {
 	$db = new Database;
@@ -29,7 +32,7 @@ function entity(): TestEntity
  */
 function find(int $id)
 {
-	return repository()->discoverId($id)
+	return repository()->get($id)->execute()
 		->setRowClass(TestEntity::class)
 		->fetch();
 }
