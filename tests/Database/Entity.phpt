@@ -15,7 +15,7 @@ function repository(): TestRepository
 {
 	$db = new Database;
 	$repository = new TestRepository($db->connection());
-	$repository->table = 'test_entity';
+	$repository->table = 'test';
 	return $repository;
 }
 
