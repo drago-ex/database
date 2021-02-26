@@ -51,29 +51,29 @@ function save(TestEntity $entity)
 test(function () {
 	$row = find(1);
 
-	Assert::same(1, $row->sampleId);
-	Assert::same('Hello', $row->sampleString);
+	Assert::same(1, $row->id);
+	Assert::same('Hello', $row->sample);
 });
 
 
 test(function () {
 	$entity = new TestEntity;
-	$entity->sampleString = 'Insert';
+	$entity->sample = 'Insert';
 
 	save($entity);
 	$row = find(2);
 
-	Assert::same(2, $row->sampleId);
-	Assert::same('Insert', $row->sampleString);
+	Assert::same(2, $row->id);
+	Assert::same('Insert', $row->sample);
 });
 
 
 test(function () {
 	$row = find(2);
-	$row->sampleString = 'Update';
+	$row->sample = 'Update';
 
 	save($row);
 
-	Assert::same(2, $row->sampleId);
-	Assert::same('Update', $row->sampleString);
+	Assert::same(2, $row->id);
+	Assert::same('Update', $row->sample);
 });
