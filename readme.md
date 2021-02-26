@@ -70,11 +70,6 @@ $this->model->put(['column' => 'record']);
 ```
 
 ## Use in combination with an entity
-```php
-$this->model->erase(1);
-```
-
-## Use in combination with an entity
 
 ```php
 class Model extends Drago\Database\Connect
