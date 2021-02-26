@@ -69,5 +69,48 @@ Save record (the update will be performed if a column with id is added).
 $this->model->put(['column' => 'record']);
 ```
 
+## Use in combination with an entity
+```php
+$this->model->erase(1);
+```
+
+## Use in combination with an entity
+
+```php
+class Model extends Drago\Database\Connect
+{
+	use Drago\Database\Repository;
+
+	public string $table = 'table';
+	public string $primary = 'id';
+
+
+	/**
+	 * @return array|Entity|null
+	 * @throws Dibi\Exception
+	 */
+	function find(int $id)
+	{
+		return repository()->get($id)->execute()
+			->setRowClass(Entity::class)
+			->fetch();
+	}
+}
+```
+
+Search for a record by id.
+```php
+$row = $this->find(1);
+echo $row->columnName;
+```
+
+Save record.
+```php
+$entity = new Entity;
+$entity->columnName = 'value';
+
+$this->model->put($entity->toArray());
+```
+
 ## Tips
 You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
