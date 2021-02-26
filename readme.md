@@ -96,13 +96,13 @@ class Model extends Drago\Database\Connect
 Search for a record by id.
 ```php
 $row = $this->find(1);
-echo $row->columnName;
+echo $row->column_name;
 ```
 
 Save record.
 ```php
 $entity = new Entity;
-$entity->columnName = 'value';
+$entity->column_name = 'value';
 
 $this->model->put($entity->toArray());
 ```
