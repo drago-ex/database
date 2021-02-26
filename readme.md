@@ -99,7 +99,7 @@ $row = $this->find(1);
 echo $row->column_name;
 ```
 
-Save record.
+Save record (the update will be performed if a column with id is added).
 ```php
 $entity = new Entity;
 $entity->column_name = 'value';
