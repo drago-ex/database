@@ -7,6 +7,9 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
+/**
+ * @throws \Dibi\Exception
+ */
 function repository(): TestRepository
 {
 	$db = new Database;
@@ -15,7 +18,7 @@ function repository(): TestRepository
 
 
 test(function () {
-	$row = repository()->discoverId(1)->fetch();
+	$row = repository()->get(1)->fetch();
 
 	Assert::equal([
 		'sampleId' => 1,
@@ -31,12 +34,12 @@ test(function () {
 	$repository = repository();
 	$repository->put($data);
 
-	Assert::same(2, $repository->getInsertedId());
+	Assert::same(2, $repository->getInsertId());
 });
 
 
 test(function () {
-	$row = repository()->discoverId(2)->fetch();
+	$row = repository()->get(2)->fetch();
 	$row['sampleString'] = 'Update';
 	repository()->put($row->toArray());
 
@@ -45,8 +48,8 @@ test(function () {
 
 
 test(function () {
-	repository()->eraseId(2);
-	$row = repository()->discoverId(2)->fetch();
+	repository()->erase(2);
+	$row = repository()->get(2)->fetch();
 
 	Assert::null($row);
 });

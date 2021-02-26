@@ -13,14 +13,13 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
-use stdClass;
 
 
 /**
  * Repository base.
- * @property-read  Connection|stdClass  $db
+ * @property-read  Connection  $db
  * @property  string  $table
- * @property  string  $columnId
+ * @property  string  $primary
  */
 trait Repository
 {
@@ -37,26 +36,21 @@ trait Repository
 
 	/**
 	 * Find a record by parameter.
-	 * @param  int|string  $args
-	 * @return Result|int|null
-	 * @throws Exception
+	 * @param int|string $args
 	 */
-	public function discover(string $column, $args)
+	public function discover(string $column, $args): Fluent
 	{
 		return $this->all()
-			->where("{$column} = ?", $args)
-			->execute();
+			->where("{$column} = ?", $args);
 	}
 
 
 	/**
-	 * Find record by id (Can only be used when a variable primaryId is set.)
-	 * @return Result|int|null
-	 * @throws Exception
+	 * Find record by id.
 	 */
-	public function discoverId(int $id)
+	public function get(int $id): Fluent
 	{
-		return $this->discover($this->columnId, $id);
+		return $this->discover($this->primary, $id);
 	}
 
 
@@ -65,26 +59,27 @@ trait Repository
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function eraseId(int $id)
+	public function erase(int $id)
 	{
 		return $this->db
 			->delete($this->table)
-			->where("{$this->columnId} = ?", $id)
+			->where("{$this->primary} = ?", $id)
 			->execute();
 	}
 
 
 	/**
-	 * Saving an records by array.
+	 * Saving an records.
 	 * @return Result|int|null
 	 * @throws Exception
 	 */
 	public function put(array $data)
 	{
-		$id = $data[$this->columnId] ?? null;
-		return $id > 0
-			? $this->db->update($this->table, $data)->where("{$this->columnId} = ?", $id)->execute()
-			: $this->db->insert($this->table, $data)->execute();
+		$id = $data[$this->primary] ?? null;
+		$result = $id > 0
+			? $this->db->update($this->table, $data)->where("{$this->primary} = ?", $id)
+			: $this->db->insert($this->table, $data);
+		return $result->execute();
 	}
 
 
@@ -92,7 +87,7 @@ trait Repository
 	 * Get the id of the inserted record.
 	 * @throws Exception
 	 */
-	public function getInsertedId(string $sequence = null): int
+	public function getInsertId(string $sequence = null): int
 	{
 		return $this->db->getInsertId($sequence);
 	}
