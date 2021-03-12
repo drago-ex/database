@@ -81,10 +81,9 @@ class Model extends Drago\Database\Connect
 
 
 	/**
-	 * @return array|Entity|null
 	 * @throws Dibi\Exception
 	 */
-	function find(int $id)
+	function find(int $id): array|Entity|null
 	{
 		return repository()->get($id)->execute()
 			->setRowClass(Entity::class)
