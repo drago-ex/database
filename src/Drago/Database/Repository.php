@@ -36,9 +36,8 @@ trait Repository
 
 	/**
 	 * Find a record by parameter.
-	 * @param int|string $args
 	 */
-	public function discover(string $column, $args): Fluent
+	public function discover(string $column, int|string $args): Fluent
 	{
 		return $this->all()
 			->where("{$column} = ?", $args);
@@ -56,10 +55,9 @@ trait Repository
 
 	/**
 	 * Deleting an records by the primary key.
-	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function erase(int $id)
+	public function erase(int $id): Result|int|null
 	{
 		return $this->db
 			->delete($this->table)
@@ -70,10 +68,9 @@ trait Repository
 
 	/**
 	 * Saving an records.
-	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function put(array $data)
+	public function put(array $data): Result|int|null
 	{
 		$id = $data[$this->primary] ?? null;
 		$result = $id > 0

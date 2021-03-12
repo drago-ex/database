@@ -19,10 +19,9 @@ function repository(): TestRepository
 
 
 /**
- * @return array|TestEntity|null
  * @throws Dibi\Exception
  */
-function find(int $id)
+function find(int $id): array|TestEntity|null
 {
 	return repository()->get($id)->execute()
 		->setRowClass(TestEntity::class)
