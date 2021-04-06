@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Drago Extension
@@ -20,10 +20,8 @@ class Connect
 {
 	use SmartObject;
 
-
 	public function __construct(
-		protected Connection $db
+		public Connection $db
 	) {
-
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drago\Database\Connect;
 use Tester\Assert;
