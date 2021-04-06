@@ -80,9 +80,6 @@ class Model extends Drago\Database\Connect
 	public string $primary = 'id';
 
 
-	/**
-	 * @throws Dibi\Exception
-	 */
 	function find(int $id): array|Entity|null
 	{
 		return repository()->get($id)->execute()
