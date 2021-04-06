@@ -29,16 +29,16 @@ jobs:
         - php temp/coding-standard/ecs check src tests --preset php71
 
 
+    - name: Static Analysis
+      script:
+        - composer run-script phpstan
+
+
     - stage: Nette Tester
       install:
         - travis_retry composer require nette/tester --dev
       script:
         - composer run-script tester
-
-
-    - name: Static Analysis
-      script:
-        - composer run-script phpstan
 
 
     - stage: Code Coverage
