@@ -22,7 +22,7 @@ class Connect
 
 
 	public function __construct(
-		protected Connection $db
+		public Connection $db
 	) {
 
 	}
