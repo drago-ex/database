@@ -15,7 +15,7 @@ Connecting to database.
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
 ## Technology
-- PHP 7.4 or higher
+- PHP 8.0 or higher
 - composer
 
 ## Knowledge
