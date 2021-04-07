@@ -10,7 +10,7 @@ Connecting to database.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
-[![Build Status](https://travis-ci.com/drago-ex/database.svg?branch=master)](https://travis-ci.org/drago-ex/database)
+[![Build Status](https://travis-ci.com/drago-ex/database.svg?branch=master)](https://travis-ci.com/drago-ex/database)
 [![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/database/badge)](https://www.codefactor.io/repository/github/drago-ex/database)
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
