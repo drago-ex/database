@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Drago\Database;
 
-use Dibi\Row;
 use Nette\Utils\Strings;
 
 
