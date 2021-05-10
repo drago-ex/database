@@ -17,7 +17,7 @@ use Nette\Utils\Strings;
  */
 class EntityOracle implements \ArrayAccess, \IteratorAggregate, \Countable
 {
-	public function __construct(array $arr)
+	public function __construct(array $arr = [])
 	{
 		foreach ($arr as $k => $v) {
 			$this->{Strings::lower($k)} = $v;
