@@ -25,6 +25,12 @@ class EntityOracle implements \ArrayAccess, \IteratorAggregate, \Countable
 	}
 
 
+	public function toArray(): array
+	{
+		return (array) $this;
+	}
+
+
 	/**
 	 * Returns items as array with converted keys to uppercase.
 	 */
