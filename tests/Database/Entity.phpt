@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dibi\Row;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
@@ -20,11 +21,9 @@ function repository(): TestRepository
 /**
  * @throws Dibi\Exception
  */
-function find(int $id): array|TestEntity|null
+function find(int $id): array|TestEntity|Row|null
 {
-	return repository()->get($id)->execute()
-		->setRowClass(TestEntity::class)
-		->fetch();
+	return repository()->get($id)->fetch();
 }
 
 
