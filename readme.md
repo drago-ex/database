@@ -80,11 +80,9 @@ class Model extends Drago\Database\Connect
 	public string $primary = 'id';
 
 
-	function find(int $id): array|Entity|null
+	function find(int $id): array|Entity|Row|null
 	{
-		return repository()->get($id)->execute()
-			->setRowClass(Entity::class)
-			->fetch();
+		return repository()->get($id)->fetch();
 	}
 }
 ```
