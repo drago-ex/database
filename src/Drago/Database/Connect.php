@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Drago\Database;
 
 use Dibi\Connection;
+use Drago\Attr\Attributes;
 use Nette\SmartObject;
 
 
@@ -19,6 +20,8 @@ use Nette\SmartObject;
 class Connect
 {
 	use SmartObject;
+    use Attributes;
+    use Repository;
 
 	public Connection $db;
 
