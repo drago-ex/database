@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Dibi\Result;
 use Dibi\Row;
@@ -30,7 +30,9 @@ function entity(): TestEntity
  */
 function find(int $id): array|TestEntity|Row|null
 {
-	return repository()->get($id)->fetch();
+	return repository()->get($id)->execute()
+		->setRowClass(TestEntity::class)
+		->fetch();
 }
 
 
