@@ -3,7 +3,7 @@ services:
 
 language: php
 php:
-  - 7.4
+  - 8.0
 
 before_install:
   - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
