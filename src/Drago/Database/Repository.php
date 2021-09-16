@@ -13,11 +13,13 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
+use Drago\Attr\Attributes;
 
 
 /**
  * Repository base.
  * @property-read  Connection  $db
+ * @property-read  Attributes  $attributes
  */
 trait Repository
 {
@@ -72,10 +74,9 @@ trait Repository
 
 	/**
 	 * Deleting an records by the primary key.
-	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function erase(int $id)
+	public function erase(int $id): Result|int|null
 	{
 		return $this->db
 			->delete($this->getTable())
@@ -86,10 +87,9 @@ trait Repository
 
 	/**
 	 * Saving an records.
-	 * @return Result|int|null
 	 * @throws Exception
 	 */
-	public function put(array $data)
+	public function put(array $data): Result|int|null
 	{
 		$id = $data[$this->getPrimary()] ?? null;
 		$result = $id > 0

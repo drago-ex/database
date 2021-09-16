@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use Dibi\Result;
+use Dibi\Row;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
@@ -14,9 +15,7 @@ require __DIR__ . '/../bootstrap.php';
 function repository(): TestRepository
 {
 	$db = new Database;
-	$repository = new TestRepository($db->connection());
-	$repository->table = 'test';
-	return $repository;
+	return new TestRepository($db->connection());
 }
 
 
@@ -27,22 +26,18 @@ function entity(): TestEntity
 
 
 /**
- * @return array|TestEntity|null
  * @throws Dibi\Exception
  */
-function find(int $id)
+function find(int $id): array|TestEntity|Row|null
 {
-	return repository()->get($id)->execute()
-		->setRowClass(TestEntity::class)
-		->fetch();
+	return repository()->get($id)->fetch();
 }
 
 
 /**
- * @return Result|int|null
  * @throws Dibi\Exception
  */
-function save(TestEntity $entity)
+function save(TestEntity $entity): Result|int|null
 {
 	return repository()->put($entity->toArray());
 }

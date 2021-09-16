@@ -23,11 +23,9 @@ class Connect
 	use Attributes;
 	use Repository;
 
-	public Connection $db;
 
-
-	public function __construct(Connection $db)
-	{
-		$this->db = $db;
+	public function __construct(
+		public Connection $db
+	) {
 	}
 }
