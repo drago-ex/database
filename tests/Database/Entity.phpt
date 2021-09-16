@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dibi\Result;
 use Dibi\Row;
 use Tester\Assert;
 
@@ -18,12 +19,29 @@ function repository(): TestRepository
 }
 
 
+function entity(): TestEntity
+{
+	return new TestEntity;
+}
+
+
 /**
  * @throws Dibi\Exception
  */
 function find(int $id): array|TestEntity|Row|null
 {
-	return repository()->get($id)->fetch();
+	return repository()->get($id)->execute()
+		->setRowClass(TestEntity::class)
+		->fetch();
+}
+
+
+/**
+ * @throws Dibi\Exception
+ */
+function save(TestEntity $entity): Result|int|null
+{
+	return repository()->put($entity->toArray());
 }
 
 
@@ -39,5 +57,20 @@ test(function () {
 	$entity = new TestEntity;
 	$entity->sample = 'Insert';
 
-	Assert::same('Insert', $entity->sample);
+	save($entity);
+	$row = find(2);
+
+	Assert::same(2, $row->id);
+	Assert::same('Insert', $row->sample);
+});
+
+
+test(function () {
+	$row = find(2);
+	$row->sample = 'Update';
+
+	save($row);
+
+	Assert::same(2, $row->id);
+	Assert::same('Update', $row->sample);
 });

@@ -10,12 +10,12 @@ Connecting to database.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
-[![Build Status](https://travis-ci.com/drago-ex/database.svg?branch=master)](https://travis-ci.com/drago-ex/database)
+[![Build Status](https://travis-ci.org/drago-ex/database.svg?branch=master)](https://travis-ci.org/drago-ex/database)
 [![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/database/badge)](https://www.codefactor.io/repository/github/drago-ex/database)
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
 ## Technology
-- PHP 8.0 or higher
+- PHP 7.4 or higher
 - composer
 
 ## Knowledge
@@ -67,38 +67,6 @@ $this->model->erase(1);
 Save record (the update will be performed if a column with id is added).
 ```php
 $this->model->put(['column' => 'record']);
-```
-
-## Use in combination with an entity
-
-```php
-class Model extends Drago\Database\Connect
-{
-	use Drago\Database\Repository;
-
-	public string $table = 'table';
-	public string $primary = 'id';
-
-
-	function find(int $id): array|Entity|Row|null
-	{
-		return repository()->get($id)->fetch();
-	}
-}
-```
-
-Search for a record by id.
-```php
-$row = $this->find(1);
-echo $row->column_name;
-```
-
-Save record (the update will be performed if a column with id is added).
-```php
-$entity = new Entity;
-$entity->column_name = 'value';
-
-$this->model->put($entity->toArray());
 ```
 
 ## Tips

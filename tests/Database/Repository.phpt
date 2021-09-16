@@ -21,15 +21,15 @@ test(function () {
 	$row = repository()->get(1)->fetch();
 
 	Assert::equal([
-		'id' => 1,
-		'sample' => 'Hello',
+		'sampleId' => 1,
+		'sampleString' => 'Hello',
 	], $row->toArray());
 });
 
 
 test(function () {
 	$data = [
-		'sample' => 'Insert',
+		'sampleString' => 'Insert',
 	];
 	$repository = repository();
 	$repository->put($data);
@@ -40,10 +40,10 @@ test(function () {
 
 test(function () {
 	$row = repository()->get(2)->fetch();
-	$row['sample'] = 'Update';
+	$row['sampleString'] = 'Update';
 	repository()->put($row->toArray());
 
-	Assert::same('Update', $row['sample']);
+	Assert::same('Update', $row['sampleString']);
 });
 
 

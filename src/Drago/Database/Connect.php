@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Drago Extension
  * Package built on Nette Framework
  */
 
-declare(strict_types=1);
-
 namespace Drago\Database;
 
 use Dibi\Connection;
+use Drago\Attr\Attributes;
 use Nette\SmartObject;
 
 
@@ -19,6 +20,9 @@ use Nette\SmartObject;
 class Connect
 {
 	use SmartObject;
+	use Attributes;
+	use Repository;
+
 
 	public function __construct(
 		public Connection $db

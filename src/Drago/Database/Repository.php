@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Drago Extension
  * Package built on Nette Framework
  */
-
-declare(strict_types=1);
 
 namespace Drago\Database;
 
@@ -13,16 +13,34 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
+use Drago\Attr\Attributes;
 
 
 /**
  * Repository base.
  * @property-read  Connection  $db
- * @property  string  $table
- * @property  string  $primary
+ * @property-read  Attributes  $attributes
  */
 trait Repository
 {
+	/**
+	 * Table name.
+	 */
+	public function getTable(): string
+	{
+		return $this->attributes()[0];
+	}
+
+
+	/**
+	 * Table primary key.
+	 */
+	public function getPrimary(): string
+	{
+		return $this->attributes()[1];
+	}
+
+
 	/**
 	 * Get all records.
 	 */
@@ -30,14 +48,15 @@ trait Repository
 	{
 		return $this->db
 			->select('*')
-			->from($this->table);
+			->from($this->getTable());
 	}
 
 
 	/**
 	 * Find a record by parameter.
+	 * @param int|string $args
 	 */
-	public function discover(string $column, int|string $args): Fluent
+	public function discover(string $column, $args): Fluent
 	{
 		return $this->all()
 			->where("{$column} = ?", $args);
@@ -49,7 +68,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->discover($this->primary, $id);
+		return $this->discover($this->getPrimary(), $id);
 	}
 
 
@@ -60,8 +79,8 @@ trait Repository
 	public function erase(int $id): Result|int|null
 	{
 		return $this->db
-			->delete($this->table)
-			->where("{$this->primary} = ?", $id)
+			->delete($this->getTable())
+			->where("{$this->getPrimary()} = ?", $id)
 			->execute();
 	}
 
@@ -72,10 +91,10 @@ trait Repository
 	 */
 	public function put(array $data): Result|int|null
 	{
-		$id = $data[$this->primary] ?? null;
+		$id = $data[$this->getPrimary()] ?? null;
 		$result = $id > 0
-			? $this->db->update($this->table, $data)->where("{$this->primary} = ?", $id)
-			: $this->db->insert($this->table, $data);
+			? $this->db->update($this->getTable(), $data)->where("{$this->getPrimary()} = ?", $id)
+			: $this->db->insert($this->getTable(), $data);
 		return $result->execute();
 	}
 
