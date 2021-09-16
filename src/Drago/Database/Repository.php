@@ -21,22 +21,22 @@ use Dibi\Result;
  */
 trait Repository
 {
-    /**
-     * Table name.
-     */
-    public function getTable(): string
-    {
-        return $this->attributes()[0];
-    }
+	/**
+	 * Table name.
+	 */
+	public function getTable(): string
+	{
+		return $this->attributes()[0];
+	}
 
 
-    /**
-     * Table primary key.
-     */
-    public function getPrimary(): string
-    {
-        return $this->attributes()[1];
-    }
+	/**
+	 * Table primary key.
+	 */
+	public function getPrimary(): string
+	{
+		return $this->attributes()[1];
+	}
 
 
 	/**

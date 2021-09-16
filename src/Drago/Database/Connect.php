@@ -20,8 +20,8 @@ use Nette\SmartObject;
 class Connect
 {
 	use SmartObject;
-    use Attributes;
-    use Repository;
+	use Attributes;
+	use Repository;
 
 	public Connection $db;
 
