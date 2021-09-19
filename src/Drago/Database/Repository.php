@@ -54,9 +54,8 @@ trait Repository
 
 	/**
 	 * Find a record by parameter.
-	 * @param int|string $args
 	 */
-	public function discover(string $column, $args): Fluent
+	public function discover(string $column, int|string $args): Fluent
 	{
 		return $this->all()
 			->where("{$column} = ?", $args);
