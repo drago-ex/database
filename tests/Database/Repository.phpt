@@ -29,13 +29,11 @@ test(function () {
 
 test(function () {
 	$data = [
-		'id' => null,
 		'sample' => 'Insert',
 	];
-	$repository = repository();
-	$repository->put($data);
+	repository()->put($data);
 
-	Assert::same(2, $repository->getInsertId());
+	Assert::same(2, repository()->getInsertId());
 });
 
 
