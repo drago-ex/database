@@ -19,12 +19,6 @@ function repository(): TestRepository
 }
 
 
-function entity(): TestEntity
-{
-	return new TestEntity;
-}
-
-
 /**
  * @throws Dibi\Exception
  */
@@ -70,7 +64,8 @@ test(function () {
 	$row->sample = 'Update';
 
 	save($row);
+	$result = find(2);
 
-	Assert::same(2, $row->id);
-	Assert::same('Update', $row->sample);
+	Assert::same(2, $result->id);
+	Assert::same('Update', $result->sample);
 });
