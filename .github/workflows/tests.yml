@@ -35,6 +35,7 @@ jobs:
                   tools: ${{ env.php-tools }}
                   coverage: none
 
+            - run: mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
             - run: mysql -u root test < tests/db.sql
             - run: vendor/bin/tester tests -s -C
             - if: failure()
