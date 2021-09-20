@@ -32,9 +32,8 @@ test(function () {
 		'sample' => 'Insert',
 	];
 	repository()->put($data);
-	$id = repository()->getInsertId();
 
-	//Assert::same(2, $id);
+	//Assert::same(2, repository()->getInsertId());
 });
 
 
