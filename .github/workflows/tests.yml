@@ -35,8 +35,7 @@ jobs:
                   tools: ${{ env.php-tools }}
                   coverage: none
 
-            - run: sudo /etc/init.d/mysql start
-            - run: mysql -u root test < tests/db.sql
+            - run: sudo mysql -u root test < tests/db.sql
             - run: vendor/bin/tester tests -s -C
             - if: failure()
               uses: actions/upload-artifact@v2
