@@ -35,7 +35,6 @@ jobs:
                   tools: ${{ env.php-tools }}
                   coverage: none
 
-            - run: sudo systemctl start mysql
             - run: mysql -u root test < tests/db.sql
             - run: vendor/bin/tester tests -s -C
             - if: failure()
