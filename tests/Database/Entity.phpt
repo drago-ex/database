@@ -55,7 +55,6 @@ test(function () {
 
 test(function () {
 	$entity = new TestEntity;
-	$entity->id = null;
 	$entity->sample = 'Insert';
 
 	save($entity);
@@ -68,7 +67,6 @@ test(function () {
 
 test(function () {
 	$row = find(2);
-	$entity->id = null;
 	$row->sample = 'Update';
 
 	save($row);
