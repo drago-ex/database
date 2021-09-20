@@ -29,7 +29,7 @@ test(function () {
 
 test(function () {
 	$data = [
-		'sampleString' => 'Insert',
+		'sample' => 'Insert',
 	];
 	$repository = repository();
 	$repository->put($data);
