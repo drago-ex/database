@@ -16,7 +16,7 @@ jobs:
             fail-fast: false
 
         name: PHP ${{ matrix.php }} tests
-    
+
         services:
             mariadb:
                 image: mariadb:10.6
