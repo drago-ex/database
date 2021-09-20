@@ -3,7 +3,7 @@ name: Tests
 on: [push, pull_request]
 
 env:
-    php-extensions: mbstring, intl, mysqli
+    php-extensions: iconv, json, mbstring, xml, gd, intl, tokenizer, intl, mysqli
     php-tools: "composer:v2"
 
 jobs:
@@ -34,3 +34,11 @@ jobs:
                   extensions: ${{ env.php-extensions }}
                   tools: ${{ env.php-tools }}
                   coverage: none
+
+            - run: mysql -u root test < tests/db.sql
+            - run: vendor/bin/tester tests -s -C
+            - if: failure()
+              uses: actions/upload-artifact@v2
+              with:
+                  name: output
+                  path: tests/**/output
