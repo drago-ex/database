@@ -29,9 +29,10 @@ test(function () {
 
 test(function () {
 	$data = [
-		'sample' => 'Insert',
+		'sampleString' => 'Insert',
 	];
-	$repository = repository()->put($data);
+	$repository = repository();
+	$repository->put($data);
 
 	Assert::same(2, $repository->getInsertId());
 });
