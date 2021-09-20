@@ -18,8 +18,8 @@ jobs:
         name: PHP ${{ matrix.php }} tests
 
         services:
-            mariadb:
-                image: mariadb:10.6
+            mysql:
+                image: mysql:5.7
                 env:
                     MYSQL_ROOT_PASSWORD: root
                     MYSQL_DATABASE: test
@@ -35,7 +35,8 @@ jobs:
                   tools: ${{ env.php-tools }}
                   coverage: none
 
-            - run: sudo mysql -u root test < tests/db.sql
+            - run: sudo systemctl start mysql
+            - run: mysql -u root test < tests/db.sql
             - run: vendor/bin/tester tests -s -C
             - if: failure()
               uses: actions/upload-artifact@v2
