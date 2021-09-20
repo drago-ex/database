@@ -29,6 +29,7 @@ test(function () {
 
 test(function () {
 	$data = [
+		'id' => null,
 		'sample' => 'Insert',
 	];
 	repository()->put($data);
