@@ -55,7 +55,7 @@ test(function () {
 	$row = find(2);
 
 	//Assert::same(2, $row->id);
-	Assert::same('Insert', $row->sample);
+	//Assert::same('Insert', $row->sample);
 });
 
 
