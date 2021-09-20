@@ -53,3 +53,11 @@ jobs:
               with:
                   name: output
                   path: tests/**/output
+
+            - name: Save Code Coverage
+              if: ${{ matrix.php == '8.0' }}
+              env:
+                  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.4.3/php-coveralls.phar
+                  php php-coveralls.phar --verbose --config tests/.coveralls.yml
