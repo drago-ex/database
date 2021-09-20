@@ -91,10 +91,9 @@ trait Repository
 	public function put(array $data): Result|int|null
 	{
 		$id = $data[$this->getPrimary()] ?? null;
-		$result = $id > 0
-			? $this->db->update($this->getTable(), $data)->where("{$this->getPrimary()} = ?", $id)
-			: $this->db->insert($this->getTable(), $data);
-		return $result->execute();
+		return $id > 0
+			? $this->db->update($this->getTable(), $data)->where("{$this->getPrimary()} = ?", $id)->execute()
+			: $this->db->insert($this->getTable(), $data)->execute();
 	}
 
 
