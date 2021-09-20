@@ -20,7 +20,7 @@ trait Attributes
 	 */
 	public function attributes(): array
 	{
-		$reflection = new \ReflectionClass(get_class($this));
+		$reflection = new \ReflectionClass(static::class);
 		$attrs = $reflection->getAttributes();
 
 		$arr = [];
