@@ -23,7 +23,6 @@ class Connect
 	use Repository;
 	use SmartObject;
 
-
 	public function __construct(
 		public Connection $db
 	) {
