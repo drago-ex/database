@@ -19,9 +19,9 @@ use Nette\SmartObject;
  */
 class Connect
 {
-	use SmartObject;
 	use Attributes;
 	use Repository;
+	use SmartObject;
 
 
 	public function __construct(
