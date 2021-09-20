@@ -64,8 +64,7 @@ test(function () {
 	$row->sample = 'Update';
 
 	save($row);
-	$result = find(2);
 
-	Assert::same(2, $result->id);
-	Assert::same('Update', $result->sample);
+	Assert::same(2, $row->id);
+	Assert::same('Update', $row->sample);
 });
