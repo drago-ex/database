@@ -33,7 +33,7 @@ test(function () {
 	];
 	repository()->put($data);
 
-	//Assert::same(2, repository()->getInsertId());
+	Assert::same(2, repository()->getInsertId());
 });
 
 
