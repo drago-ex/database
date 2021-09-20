@@ -1,0 +1,36 @@
+name: Tests
+
+on: [push, pull_request]
+
+env:
+    php-extensions: mbstring, intl, mysqli
+    php-tools: "composer:v2"
+
+jobs:
+    tests:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: ['8.0']
+
+            fail-fast: false
+
+        name: PHP ${{ matrix.php }} tests
+    
+        services:
+            mariadb:
+                image: mariadb:10.6
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: test
+                ports:
+                    - 3306:3306
+
+        steps:
+            - uses: actions/checkout@v2
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: ${{ env.php-extensions }}
+                  tools: ${{ env.php-tools }}
+                  coverage: none
