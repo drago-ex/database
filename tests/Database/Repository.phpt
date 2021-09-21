@@ -13,7 +13,6 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../Database.php';
 require __DIR__ . '/../TestRepository.php';
-require __DIR__ . '/../TestEntity.php';
 
 
 function repository(): TestRepository
@@ -26,7 +25,7 @@ function repository(): TestRepository
 test('Get table name', function () {
 	$table = repository()->getTable();
 
-	Assert::same('test', $table);
+	Assert::same('test_repository', $table);
 });
 
 

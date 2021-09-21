@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-#[\Drago\Attr\Table(TestEntity::TABLE, TestEntity::PRIMARY)]
+use Drago\Attr\Table;
+
+
+#[Table('test_repository', 'id')]
 class TestRepository extends Drago\Database\Connect
 {
 }
