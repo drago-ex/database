@@ -13,14 +13,14 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../Database.php';
-require __DIR__ . '/../TestRepository.php';
+require __DIR__ . '/../TestRepositoryEntity.php';
 require __DIR__ . '/../TestEntity.php';
 
 
-function repository(): TestRepository
+function repository(): TestRepositoryEntity
 {
 	$db = new Database;
-	return new TestRepository($db->connection());
+	return new TestRepositoryEntity($db->connection());
 }
 
 
