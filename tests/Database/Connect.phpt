@@ -15,7 +15,7 @@ require __DIR__ . '/../Database.php';
 
 
 test('Database connection', function () {
-	$db = new Database();
+	$db = new Database;
 	$connect = new Connect($db->connection());
 
 	Assert::type('bool', $connect->db->isConnected());
