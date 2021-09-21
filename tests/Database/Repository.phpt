@@ -22,6 +22,22 @@ function repository(): TestRepository
 }
 
 
+test('Get table name', function () {
+	$table = repository()->getTable();
+
+	Assert::same('string', $table);
+	Assert::same('test', $table);
+});
+
+
+test('Get table column primary key', function () {
+	$priamry = repository()->getPrimary();
+
+	Assert::same('string', $priamry);
+	Assert::same('test', $priamry);
+});
+
+
 test('Get record by id', function () {
 	$row = repository()->get(1)->fetch();
 
