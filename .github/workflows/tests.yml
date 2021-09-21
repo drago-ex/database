@@ -63,8 +63,6 @@ jobs:
             - name: MySQL connection
               run: |
                 sudo apt-get install -y mysql-client
-                sudo service mysqld start
-                mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
 
             - run: composer install --no-progress --prefer-dist
             - run: vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
