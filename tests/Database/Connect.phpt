@@ -1,9 +1,14 @@
 <?php
 
+/**
+ * Test: Drago\Database\Connect
+ */
+
 declare(strict_types=1);
 
 use Drago\Database\Connect;
 use Tester\Assert;
+
 
 require __DIR__ . '/../bootstrap.php';
 
