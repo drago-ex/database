@@ -41,3 +41,20 @@ test('Insert record', function () {
 
 	Assert::same(2, $repository->getInsertId());
 });
+
+
+test('Get and update record', function () {
+	$row = repository()->get(2)->fetch();
+	$row['sample'] = 'Update';
+	repository()->put($row->toArray());
+
+	Assert::same('Update', $row['sample']);
+});
+
+
+test('Delete record', function () {
+	repository()->erase(2);
+	$row = repository()->get(2)->fetch();
+
+	Assert::null($row);
+});
