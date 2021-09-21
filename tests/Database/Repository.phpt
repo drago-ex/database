@@ -40,7 +40,7 @@ test('Get table column primary key', function () {
 test('Get all records', function () {
 	$row = repository()->all();
 
-	Assert::same(Fluent::class, $row);
+	Assert::type(Fluent::class, $row);
 });
 
 
