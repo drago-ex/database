@@ -11,6 +11,7 @@ use Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../Database.php';
 
 
 test('Database connection', function () {
