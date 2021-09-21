@@ -30,3 +30,14 @@ test('Get record by id', function () {
 		'sample' => 'Hello',
 	], $row->toArray());
 });
+
+
+test('Insert record', function () {
+	$data = [
+		'sample' => 'Insert',
+	];
+	$repository = repository();
+	$repository->put($data);
+
+	Assert::same(2, $repository->getInsertId());
+});
