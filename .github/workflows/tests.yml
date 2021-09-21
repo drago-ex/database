@@ -40,7 +40,12 @@ jobs:
                   extensions: ${{ env.php-extensions }}
                   tools: ${{ env.php-tools }}
                   coverage: none
-            - run: mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
+
+            - name: MySQL connection
+              run: |
+                sudo apt-get install -y mysql-client
+                mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
+
             - run: composer install --no-progress --prefer-dist
             - run: vendor/bin/tester tests -s -C
 
@@ -56,9 +61,7 @@ jobs:
                   coverage: none
 
             - name: MySQL connection
-              run: |
-                sudo apt-get install -y mysql-client
-                mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
+            - run: mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
 
             - run: composer install --no-progress --prefer-dist
             - run: vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
