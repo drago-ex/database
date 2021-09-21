@@ -6,6 +6,7 @@
 
 declare(strict_types=1);
 
+use Dibi\Fluent;
 use Tester\Assert;
 
 
@@ -25,7 +26,6 @@ function repository(): TestRepository
 test('Get table name', function () {
 	$table = repository()->getTable();
 
-	Assert::same('string', $table);
 	Assert::same('test', $table);
 });
 
@@ -33,8 +33,14 @@ test('Get table name', function () {
 test('Get table column primary key', function () {
 	$priamry = repository()->getPrimary();
 
-	Assert::same('string', $priamry);
 	Assert::same('id', $priamry);
+});
+
+
+test('Get all records', function () {
+	$row = repository()->all();
+
+	Assert::same(Fluent::class, Fluent::class);
 });
 
 
