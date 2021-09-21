@@ -34,7 +34,7 @@ test('Get table column primary key', function () {
 	$priamry = repository()->getPrimary();
 
 	Assert::same('string', $priamry);
-	Assert::same('test', $priamry);
+	Assert::same('id', $priamry);
 });
 
 
