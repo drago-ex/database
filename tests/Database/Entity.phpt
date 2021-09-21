@@ -1,17 +1,22 @@
 <?php
 
+/**
+ * Test: Drago\Database\Entity
+ */
+
 declare(strict_types=1);
 
 use Dibi\Result;
 use Dibi\Row;
 use Tester\Assert;
 
+
 require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../Database.php';
+require __DIR__ . '/../TestRepository.php';
+require __DIR__ . '/../TestEntity.php';
 
 
-/**
- * @throws \Dibi\Exception
- */
 function repository(): TestRepository
 {
 	$db = new Database;
@@ -19,9 +24,6 @@ function repository(): TestRepository
 }
 
 
-/**
- * @throws Dibi\Exception
- */
 function find(int $id): array|TestEntity|Row|null
 {
 	return repository()->get($id)->execute()
@@ -30,16 +32,13 @@ function find(int $id): array|TestEntity|Row|null
 }
 
 
-/**
- * @throws Dibi\Exception
- */
 function save(TestEntity $entity): Result|int|null
 {
 	return repository()->put($entity->toArray());
 }
 
 
-test(function () {
+test('Find record by id', function () {
 	$row = find(1);
 
 	Assert::same(1, $row->id);
@@ -47,24 +46,24 @@ test(function () {
 });
 
 
-test(function () {
+test('Insert a record with an entity', function () {
 	$entity = new TestEntity;
 	$entity->sample = 'Insert';
 
 	save($entity);
 	$row = find(2);
 
-	//Assert::same(2, $row->id);
-	//Assert::same('Insert', $row->sample);
+	Assert::same(2, $row->id);
+	Assert::same('Insert', $row->sample);
 });
 
 
-test(function () {
+test('Update the record with the entity', function () {
 	$row = find(2);
 	$row->sample = 'Update';
 
 	save($row);
 
 	Assert::same(2, $row->id);
-	//Assert::same('Update', $row->sample);
+	Assert::same('Update', $row->sample);
 });
