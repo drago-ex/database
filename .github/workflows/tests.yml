@@ -48,4 +48,3 @@ jobs:
 
             - run: composer install --no-progress --prefer-dist
             - run: vendor/bin/tester tests -s -C
-
