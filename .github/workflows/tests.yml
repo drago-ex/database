@@ -53,6 +53,11 @@ jobs:
         name: Code Coverage
         runs-on: ubuntu-latest
         steps:
+            - name: MySQL connection
+              run: |
+                sudo apt-get install -y mysql-client
+                mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
+
             - uses: actions/checkout@v2
             - uses: shivammathur/setup-php@v2
               with:
