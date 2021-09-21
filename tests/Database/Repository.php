@@ -44,6 +44,13 @@ test('Get all records', function () {
 });
 
 
+test('Find a record by parameter', function () {
+	$row = repository()->discover(TestEntity::SAMPLE, 'Hello')->fetch();
+
+	Assert::same('Hello', $row['sample']);
+});
+
+
 test('Get record by id', function () {
 	$row = repository()->get(1)->fetch();
 
