@@ -53,17 +53,17 @@ jobs:
         name: Code Coverage
         runs-on: ubuntu-latest
         steps:
-            - name: MySQL connection
-              run: |
-                sudo apt-get install -y mysql-client
-                mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
-
             - uses: actions/checkout@v2
             - uses: shivammathur/setup-php@v2
               with:
                   php-version: 8.0
                   extensions: iconv, json, mbstring, xml, gd, intl, tokenizer, mysqli
                   coverage: none
+
+            - name: MySQL connection
+              run: |
+                sudo apt-get install -y mysql-client
+                mysql --host 127.0.0.1 --port 3306 -uroot -proot test < tests/db.sql
 
             - run: composer install --no-progress --prefer-dist
             - run: vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
