@@ -34,4 +34,8 @@ test('Extract data from an entity', function () {
 
 	Assert::same(1, $entity->id);
 	Assert::same('sample', $entity->sample);
+	Assert::equal([
+		'id' => 1,
+		'sample' => 'sample',
+	], $entity->toArray());
 });

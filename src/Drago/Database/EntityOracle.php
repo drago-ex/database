@@ -20,7 +20,7 @@ class EntityOracle extends Row
 {
 	public function __construct(array $arr = [])
 	{
-		parent::__construct($arr);
+		parent::__construct([]);
 		foreach ($arr as $k => $v) {
 			$k = Strings::lower($k);
 			$this->$k = $v;
