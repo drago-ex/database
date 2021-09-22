@@ -77,6 +77,12 @@ class SampleEntity extends Drago\Database\Entity
 }
 ```
 
+Basic repository.
+```php
+#[Table(SampleEntity::TABLE, SampleEntity::PRIMARY)]
+class Repository extends Drago\Database\Connect {}
+```
+
 Use of an entity in a repository.
 ```php
 function find(int $id): array|SampleEntity|Row|null
