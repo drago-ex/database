@@ -64,5 +64,50 @@ Save record (the update will be performed if a column with id is added).
 $this->model->put(['column' => 'record']);
 ```
 
+## Use of entity
+```php
+class SampleEntity extends Drago\Database\Entity
+{
+	public const TABLE = 'table';
+	public const PRIMARY = 'id';
+	public const SAMPLE = 'sample';
+
+	public int $id;
+	public string $sample;
+}
+```
+
+Use of an entity in a repository.
+```php
+function find(int $id): array|SampleEntity|Row|null
+{
+	return $this->get($id)->fetch();
+}
+```
+
+Reading data.
+```php
+$row = $this->find(1);
+echo $row->id;
+echo $row->sample;
+```
+
+Save records across an entity (to update the record we add id).
+```php
+$entity = new SampleEntity;
+$entity->id = 1;
+$entity->sample = 'sample';
+
+$this->save($entity);
+```
+
+The save method saves the record to the database.
+```php
+function save(SampleEntity $entity): Result|int|null
+{
+	return $this->put($entity->toArray());
+}
+```
+
 ## Tips
 You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
