@@ -20,11 +20,8 @@ class EntityOracle extends Row
 {
 	public function __construct(array $arr = [])
 	{
-		parent::__construct([]);
-		foreach ($arr as $k => $v) {
-			$k = Strings::lower($k);
-			$this->$k = $v;
-		}
+		$arr = array_change_key_case($arr, CASE_LOWER);
+		parent::__construct($arr);
 	}
 
 
