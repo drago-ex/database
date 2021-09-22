@@ -32,7 +32,7 @@ test('Extract data from an entity', function () {
 	];
 	$entity = new TestEntityOracle($arr);
 
-	Assert::same('id', $entity->id);
+	Assert::same(1, $entity->id);
 	Assert::same('sample', $entity->sample);
 	Assert::equal([
 		'id' => 1,
