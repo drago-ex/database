@@ -30,10 +30,7 @@ class EntityOracle extends Row
 	 */
 	public function toArrayUpper(): array
 	{
-		$data = [];
-		foreach ($this as $k => $v) {
-			$data[Strings::upper($k)] = $v;
-		}
-		return $data;
+		$data = (array) $this;
+		return array_change_key_case($data, CASE_UPPER);
 	}
 }
