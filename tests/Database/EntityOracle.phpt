@@ -10,7 +10,6 @@ use Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';
-require __DIR__ . '/../TestEntityOracle.php';
 
 
 test('Inserting data into an entity', function () {
