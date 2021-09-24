@@ -13,6 +13,7 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
+
 function repository(): TestRepositoryEntity
 {
 	$db = new Database;
