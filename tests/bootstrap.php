@@ -16,7 +16,7 @@ const TEMP_DIR = __DIR__ . '/tmp';
 @mkdir(dirname(TEMP_DIR));
 @mkdir(TEMP_DIR);
 
-$boot = new Configurator;
+$boot = new Nette\Configurator;
 $boot->setTempDirectory(TEMP_DIR);
 $boot->createRobotLoader()
 	->addDirectory(__DIR__)
