@@ -12,10 +12,6 @@ use Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';
-require __DIR__ . '/../Database.php';
-require __DIR__ . '/../TestRepositoryEntity.php';
-require __DIR__ . '/../TestEntity.php';
-
 
 function repository(): TestRepositoryEntity
 {
