@@ -19,10 +19,10 @@ class Table
 	public string $table;
 
 	/** Table primary key. */
-	public string $primary;
+	public ?string $primary = null;
 
 
-	public function __construct(string $table, string $primary)
+	public function __construct(string $table, ?string $primary = null)
 	{
 		$this->table = $table;
 		$this->primary = $primary;
