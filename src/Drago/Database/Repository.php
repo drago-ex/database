@@ -28,6 +28,9 @@ trait Repository
 	 */
 	public function getTable(): string
 	{
+		if (!isset($this->attributes()[0])) {
+			throw new \Exception('In the repository ' . static::class . ' you do not have a table name in the Table attribute.');
+		}
 		return $this->attributes()[0];
 	}
 
@@ -37,6 +40,9 @@ trait Repository
 	 */
 	public function getPrimary(): string
 	{
+		if (!isset($this->attributes()[1])) {
+			throw new \Exception('In the repository ' . static::class . ' you do not have the primary key of the table in the Table attribute.');
+		}
 		return $this->attributes()[1];
 	}
 
