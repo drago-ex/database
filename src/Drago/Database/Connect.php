@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Drago\Database;
 
 use Dibi\Connection;
-use Drago\Attr\Attributes;
+use Drago\Attr\AttributeDetection;
 use Nette\SmartObject;
 
 
@@ -19,7 +19,7 @@ use Nette\SmartObject;
  */
 class Connect
 {
-	use Attributes;
+	use AttributeDetection;
 	use Repository;
 	use SmartObject;
 

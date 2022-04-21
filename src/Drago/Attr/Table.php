@@ -15,10 +15,10 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 class Table
 {
-	/** Table name. */
+	/** Attr name. */
 	public string $table;
 
-	/** Table primary key. */
+	/** Attr primary key. */
 	public ?string $primary = null;
 
 

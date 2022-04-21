@@ -13,42 +13,18 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
-use Drago\Attr\Attributes;
+use Drago\Attr\AttributeDetectionException;
 
 
 /**
  * Repository base.
  * @property-read  Connection  $db
- * @property-read  Attributes  $attributes
  */
 trait Repository
 {
 	/**
-	 * Table name.
-	 */
-	public function getTable(): string
-	{
-		if (!isset($this->attributes()[0])) {
-			throw new \Exception('In the repository ' . static::class . ' you do not have a table name in the Table attribute.');
-		}
-		return $this->attributes()[0];
-	}
-
-
-	/**
-	 * Table primary key.
-	 */
-	public function getPrimary(): string
-	{
-		if (!isset($this->attributes()[1])) {
-			throw new \Exception('In the repository ' . static::class . ' you do not have the primary key of the table in the Table attribute.');
-		}
-		return $this->attributes()[1];
-	}
-
-
-	/**
 	 * Get all records.
+	 * @throws AttributeDetectionException
 	 */
 	public function all(): Fluent
 	{
@@ -60,6 +36,7 @@ trait Repository
 
 	/**
 	 * Find a record by parameter.
+	 * @throws AttributeDetectionException
 	 */
 	public function discover(string $column, int|string $args): Fluent
 	{
@@ -70,6 +47,7 @@ trait Repository
 
 	/**
 	 * Find record by id.
+	 * @throws AttributeDetectionException
 	 */
 	public function get(int $id): Fluent
 	{
@@ -79,6 +57,7 @@ trait Repository
 
 	/**
 	 * Deleting an records by the primary key.
+	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
 	public function erase(int $id): Result|int|null
@@ -92,6 +71,7 @@ trait Repository
 
 	/**
 	 * Saving an records.
+	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
 	public function put(array $data): Result|int|null

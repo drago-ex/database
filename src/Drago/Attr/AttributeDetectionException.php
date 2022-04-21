@@ -9,15 +9,13 @@ declare(strict_types=1);
 
 namespace Drago\Attr;
 
+use Exception;
+
 
 /**
- * Get table information.
+ * Exception for attributes class.
  */
-class Attributes
+class AttributeDetectionException extends Exception
 {
-	public function __construct(
-		public string $name,
-		public string $primary,
-	) {
-	}
+
 }
