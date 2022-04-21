@@ -28,7 +28,8 @@ trait AttributeDetection
 			$arr = $attr->getArguments();
 		}
 		return new Attributes(
-			name: $arr[0], primary: $arr[1],
+			name: $arr[0],
+			primary: $arr[1],
 		);
 	}
 
