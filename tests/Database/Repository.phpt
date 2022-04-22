@@ -79,7 +79,7 @@ test('Get and update record', function () {
 
 
 test('Delete record', function () {
-	repository()->erase(2);
+	repository()->remove(2);
 	$row = repository()->get(2)->fetch();
 
 	Assert::null($row);

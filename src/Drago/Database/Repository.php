@@ -13,15 +13,18 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
+use Drago\Attr\AttributeDetection;
 use Drago\Attr\AttributeDetectionException;
 
 
 /**
  * Repository base.
- * @property-read  Connection  $db
+ * @property-read Connection $db
  */
-trait Repository
+class Repository
 {
+	use AttributeDetection;
+
 	/**
 	 * Get all records.
 	 * @throws AttributeDetectionException
@@ -60,7 +63,7 @@ trait Repository
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function erase(int $id): Result|int|null
+	public function remove(int $id): Result|int|null
 	{
 		return $this->db
 			->delete($this->getTable())
