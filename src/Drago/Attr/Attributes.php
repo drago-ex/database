@@ -17,7 +17,7 @@ class Attributes
 {
 	public function __construct(
 		public string $name,
-		public string $primary,
+		public ?string $primary = null,
 	) {
 	}
 }
