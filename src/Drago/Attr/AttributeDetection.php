@@ -29,7 +29,7 @@ trait AttributeDetection
 		}
 		return new Attributes(
 			name: $arr[0],
-			primary: $arr[1],
+			primary: $arr[1] ?? null,
 		);
 	}
 
