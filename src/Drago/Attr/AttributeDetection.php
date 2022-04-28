@@ -40,9 +40,9 @@ trait AttributeDetection
 	 */
 	public function getTable(): string
 	{
-		if (!isset($this->attributes()->name)) {
-			throw new AttributeDetectionException('In the repository ' . static::class . ' you do not have a table name in the Table attribute.');
-		}
+		$this->attributes()->name ?? throw new AttributeDetectionException(
+			'In the repository ' . static::class . ' you do not have a table name in the Table attribute.'
+		);
 		return $this->attributes()->name;
 	}
 
@@ -53,9 +53,9 @@ trait AttributeDetection
 	 */
 	public function getPrimary(): string
 	{
-		if (!isset($this->attributes()->primary)) {
-			throw new AttributeDetectionException('In the repository ' . static::class . ' you do not have the primary key of the table in the Table attribute.');
-		}
+		$this->attributes()->primary ?? throw new AttributeDetectionException(
+			'In the repository ' . static::class . ' you do not have the primary key of the table in the Table attribute.'
+		);
 		return $this->attributes()->primary;
 	}
 }

@@ -21,7 +21,7 @@ use Drago\Attr\AttributeDetectionException;
  * Repository base.
  * @property-read Connection $db
  */
-class Repository
+trait Repository
 {
 	use AttributeDetection;
 
@@ -60,8 +60,8 @@ class Repository
 
 	/**
 	 * Deleting an records by the primary key.
-	 * @throws AttributeDetectionException
 	 * @throws Exception
+	 * @throws AttributeDetectionException
 	 */
 	public function remove(int $id): Result|int|null
 	{
@@ -74,8 +74,8 @@ class Repository
 
 	/**
 	 * Saving an records.
-	 * @throws AttributeDetectionException
 	 * @throws Exception
+	 * @throws AttributeDetectionException
 	 */
 	public function put(array $data): Result|int|null
 	{
