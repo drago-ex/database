@@ -56,7 +56,7 @@ $this->model->get(1);
 
 Delete a record from the database.
 ```php
-$this->model->erase(1);
+$this->model->remove(1);
 ```
 
 Save record (the update will be performed if a column with id is added).
