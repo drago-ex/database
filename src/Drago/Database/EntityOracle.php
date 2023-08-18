@@ -20,6 +20,7 @@ class EntityOracle extends Row
 	public function __construct(array $arr = [])
 	{
 		$arr = array_change_key_case($arr, CASE_LOWER);
+		unset($arr['__rnum']);
 		parent::__construct($arr);
 	}
 
