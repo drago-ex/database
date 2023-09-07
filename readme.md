@@ -23,12 +23,7 @@ composer require drago-ex/database
 ## Use
 ```php
 #[Table('table', 'id')]
-class Model extends Drago\Database\Connect {}
-```
-
-## Creating queries
-```php
-$this->db;
+class Model {}
 ```
 
 ## Basic queries in the Repository
@@ -62,9 +57,9 @@ $this->model->put(['column' => 'record']);
 ```php
 class SampleEntity extends Drago\Database\Entity
 {
-	public const TABLE = 'table';
-	public const PRIMARY = 'id';
-	public const SAMPLE = 'sample';
+	public const table = 'table';
+	public const id = 'id';
+	public const sample = 'sample';
 
 	public int $id;
 	public string $sample;
@@ -73,8 +68,8 @@ class SampleEntity extends Drago\Database\Entity
 
 Basic repository.
 ```php
-#[Table(SampleEntity::TABLE, SampleEntity::PRIMARY)]
-class Repository extends Drago\Database\Connect {}
+#[Table(SampleEntity::table, SampleEntity::id)]
+class Repository {}
 ```
 
 Use of an entity in a repository.
