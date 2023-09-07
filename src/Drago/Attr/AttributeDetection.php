@@ -28,8 +28,8 @@ trait AttributeDetection
 			$arr = $attr->getArguments();
 		}
 		return new Attributes(
-			name: $arr[0],
-			primary: $arr[1] ?? null,
+			table: $arr[0],
+            id: $arr[1] ?? null,
 		);
 	}
 
@@ -40,12 +40,12 @@ trait AttributeDetection
 	 */
 	public function getTable(): string
 	{
-		if (!isset($this->attributes()->name)) {
+		if (!isset($this->attributes()->table)) {
 			throw new AttributeDetectionException(
 				'In the repository ' . static::class . ' you do not have a table name in the Table attribute.',
 			);
 		}
-		return $this->attributes()->name;
+		return $this->attributes()->table;
 	}
 
 
@@ -53,13 +53,13 @@ trait AttributeDetection
 	 * Table primary key.
 	 * @throws AttributeDetectionException
 	 */
-	public function getPrimary(): string
+	public function getId(): string
 	{
-		if (!isset($this->attributes()->primary)) {
+		if (!isset($this->attributes()->id)) {
 			throw new AttributeDetectionException(
 				'In the repository ' . static::class . ' you do not have the primary key of the table in the Table attribute.',
 			);
 		}
-		return $this->attributes()->primary;
+		return $this->attributes()->id;
 	}
 }

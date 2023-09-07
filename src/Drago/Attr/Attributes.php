@@ -16,8 +16,8 @@ namespace Drago\Attr;
 class Attributes
 {
 	public function __construct(
-		public string $name,
-		public ?string $primary = null,
+		public string $table,
+		public ?string $id = null,
 	) {
 	}
 }

@@ -44,7 +44,7 @@ trait Repository
 	public function discover(string $column, int|string $args): Fluent
 	{
 		return $this->all()
-			->where("{$column} = ?", $args);
+			->where("$column = ?", $args);
 	}
 
 
@@ -54,12 +54,12 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->discover($this->getPrimary(), $id);
+		return $this->discover($this->getId(), $id);
 	}
 
 
 	/**
-	 * Deleting an records by the primary key.
+	 * Deleting a records by the primary key.
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
@@ -67,22 +67,23 @@ trait Repository
 	{
 		return $this->db
 			->delete($this->getTable())
-			->where("{$this->getPrimary()} = ?", $id)
+			->where("{$this->getId()} = ?", $id)
 			->execute();
 	}
 
 
 	/**
-	 * Saving an records.
+	 * Saving a records.
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
 	public function put(array $data): Result|int|null
 	{
-		$id = $data[$this->getPrimary()] ?? null;
-		return $id > 0
-			? $this->db->update($this->getTable(), $data)->where("{$this->getPrimary()} = ?", $id)->execute()
-			: $this->db->insert($this->getTable(), $data)->execute();
+		$id = $data[$this->getId()] ?? null;
+		$query = $id > 0
+			? $this->db->update($this->getTable(), $data)->where("{$this->getId()} = ?", $id)
+			: $this->db->insert($this->getTable(), $data);
+        return $query->execute();
 	}
 
 
@@ -90,7 +91,7 @@ trait Repository
 	 * Get the id of the inserted record.
 	 * @throws Exception
 	 */
-	public function getInsertId(string $sequence = null): int
+	public function getInsertId(?string $sequence = null): int
 	{
 		return $this->db->getInsertId($sequence);
 	}

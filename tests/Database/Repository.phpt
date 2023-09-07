@@ -28,7 +28,7 @@ test('Get table name', function () {
 
 
 test('Get table column primary key', function () {
-	$priamry = repository()->getPrimary();
+	$priamry = repository()->getId();
 
 	Assert::same('id', $priamry);
 });
