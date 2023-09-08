@@ -7,7 +7,7 @@ use Drago\Attr\Table;
 use Drago\Database\Repository;
 
 
-#[Table(TestEntity::table, TestEntity::id)]
+#[Table(TestEntity::Table, TestEntity::Id)]
 class TestRepositoryEntity
 {
 	use Repository;
