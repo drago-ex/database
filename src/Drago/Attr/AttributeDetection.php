@@ -29,7 +29,7 @@ trait AttributeDetection
 		}
 		return new Attributes(
 			table: $arr[0],
-            id: $arr[1] ?? null,
+			id: $arr[1] ?? null,
 		);
 	}
 

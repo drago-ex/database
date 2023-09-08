@@ -83,7 +83,7 @@ trait Repository
 		$query = $id > 0
 			? $this->db->update($this->getTable(), $data)->where("{$this->getId()} = ?", $id)
 			: $this->db->insert($this->getTable(), $data);
-        return $query->execute();
+		return $query->execute();
 	}
 
 

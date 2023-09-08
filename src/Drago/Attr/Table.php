@@ -16,8 +16,8 @@ use Attribute;
 class Table
 {
 	public function __construct(
-        public string $table,
-        public ?string $id = null
-    ) {
+		public string $table,
+		public ?string $id = null,
+	) {
 	}
 }
