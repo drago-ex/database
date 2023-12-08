@@ -73,7 +73,7 @@ class Repository {}
 
 Use of an entity in a repository.
 ```php
-function find(int $id): array|SampleEntity|Row|null
+function find(int $id): array|SampleEntity|null
 {
 	return $this->get($id)->fetch();
 }
