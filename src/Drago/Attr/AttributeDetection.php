@@ -51,15 +51,9 @@ trait AttributeDetection
 
 	/**
 	 * Table primary key.
-	 * @throws AttributeDetectionException
 	 */
-	public function getId(): string
+	public function getId(): string|null
 	{
-		if (!isset($this->attributes()->id)) {
-			throw new AttributeDetectionException(
-				'In the repository ' . static::class . ' you do not have the primary key of the table in the Table attribute.',
-			);
-		}
 		return $this->attributes()->id;
 	}
 }

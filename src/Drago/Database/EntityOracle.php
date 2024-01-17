@@ -19,7 +19,7 @@ class EntityOracle extends Row
 {
 	public function __construct(array $arr = [])
 	{
-		parent::__construct(array_change_key_case($arr));
+		parent::__construct($this->changeKey($arr));
 	}
 
 
@@ -29,6 +29,15 @@ class EntityOracle extends Row
 	public function toArrayUpper(): array
 	{
 		$data = (array) $this;
-		return array_change_key_case($data, CASE_UPPER);
+		return $this->changeKey($data, CASE_UPPER);
+	}
+
+
+	/**
+	 * Changes the case of all keys in an array.
+	 */
+	public function changeKey(array $data, int $case = CASE_LOWER): array
+	{
+		return array_change_key_case($data, $case);
 	}
 }

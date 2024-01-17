@@ -9,6 +9,6 @@ class TestEntity extends Drago\Database\Entity
 	public const Id = 'id';
 	public const Sample = 'sample';
 
-	public int $id;
+	public ?int $id = null;
 	public string $sample;
 }

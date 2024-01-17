@@ -35,14 +35,14 @@ test('Get table column primary key', function () {
 
 
 test('Get all records', function () {
-	$row = repository()->all();
+	$row = repository()->table();
 
 	Assert::type(Fluent::class, $row);
 });
 
 
 test('Find a record by parameter', function () {
-	$row = repository()->discover('sample', 'Hello')->fetch();
+	$row = repository()->table('sample', 'Hello')->fetch();
 
 	Assert::same('Hello', $row['sample']);
 });

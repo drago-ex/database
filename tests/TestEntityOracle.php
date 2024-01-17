@@ -9,6 +9,6 @@ class TestEntityOracle extends Drago\Database\EntityOracle
 	public const Id = 'id';
 	public const Sample = 'sample';
 
-	public int $id;
+	public ?int $id = null;
 	public string $sample;
 }
