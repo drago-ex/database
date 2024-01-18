@@ -1,5 +1,5 @@
 ## Drago Database
-Connecting to database.
+Connecting to database. Simple recurring questions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
