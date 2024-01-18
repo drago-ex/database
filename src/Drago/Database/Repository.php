@@ -25,6 +25,7 @@ trait Repository
 {
 	use AttributeDetection;
 
+
 	/**
 	 * Get records from table.
 	 * @throws AttributeDetectionException
@@ -40,6 +41,17 @@ trait Repository
 		}
 
 		return $query;
+	}
+
+
+	/**
+	 * Get records by table name.
+	 */
+	public function of(string $table, ...$args): Fluent
+	{
+		return $this->db
+			->select('*')
+			->from($table, $args);
 	}
 
 

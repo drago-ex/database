@@ -38,6 +38,11 @@ Search for a record by column name.
 $this->model->table('email', 'email@email.com');
 ```
 
+Get records by table name.
+```php
+$this->model->of('table');
+```
+
 Search for a record by id.
 ```php
 $this->model->get(1);
