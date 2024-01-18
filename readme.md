@@ -28,14 +28,14 @@ class Model {}
 
 ## Basic queries in the Repository
 
-Returns all records.
+Get records from table.
 ```php
-$this->model->all();
+$this->model->table();
 ```
 
 Search for a record by column name.
 ```php
-$this->model->discover('email', 'email@email.com');
+$this->model->table('email', 'email@email.com');
 ```
 
 Search for a record by id.
@@ -60,7 +60,7 @@ class SampleEntity extends Drago\Database\Entity
 	public const Table = 'table';
 	public const Id = 'id';
 
-	public int $id;
+	public ?int $id = null;
 	public string $sample;
 }
 ```

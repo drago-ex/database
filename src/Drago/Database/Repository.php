@@ -34,9 +34,11 @@ trait Repository
 		$query = $this->db
 			->select('*')
 			->from($this->getTable());
+
 		if ($column && $args) {
 			$query->where("$column = ?", $args);
 		}
+
 		return $query;
 	}
 
@@ -72,7 +74,7 @@ trait Repository
 	 */
 	public function put(array $data): Result|int|null
 	{
-		$id = $data[$this->getId()];
+		$id = $data[$this->getId()] ?? null;
 		$query = $id > 0
 			? $this->db->update($this->getTable(), $data)->where("{$this->getId()} = ?", $id)
 			: $this->db->insert($this->getTable(), $data);
