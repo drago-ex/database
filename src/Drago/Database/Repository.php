@@ -25,7 +25,6 @@ trait Repository
 {
 	use AttributeDetection;
 
-
 	/**
 	 * Get records from table.
 	 * @throws AttributeDetectionException
