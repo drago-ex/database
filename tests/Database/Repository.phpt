@@ -48,6 +48,13 @@ test('Find a record by parameter', function () {
 });
 
 
+test('Get records by table name', function () {
+	repository()->of('test_entity')->fetchAll();
+
+	Assert::true(true);
+});
+
+
 test('Get record by id', function () {
 	$row = repository()->get(1)->fetch();
 
