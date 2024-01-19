@@ -38,7 +38,7 @@ trait AttributeDetection
 	 * The name of the table.
 	 * @throws AttributeDetectionException
 	 */
-	public function getTableName(): string
+	public function getTable(): string
 	{
 		if (!isset($this->databaseTable()->name)) {
 			throw new AttributeDetectionException(

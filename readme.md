@@ -30,17 +30,17 @@ class Model {}
 
 Get records from table.
 ```php
-$this->model->table();
+$this->model->query();
 ```
 
-Search for a record by column name.
+Search for a record by column name in the table.
 ```php
-$this->model->table('email', 'email@email.com');
+$this->model->query('email', 'email@email.com');
 ```
 
 Get records by table name.
 ```php
-$this->model->of('table');
+$this->model->queryOf('table');
 ```
 
 Search for a record by id.

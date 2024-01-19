@@ -21,35 +21,35 @@ function repository(): TestRepository
 
 
 test('Get table name', function () {
-	$table = repository()->getTableName();
+	$table = repository()->getTable();
 
 	Assert::same('test_repository', $table);
 });
 
 
 test('Get table column primary key', function () {
-	$primaryKey = repository()->getPrimaryKey();
+	$id = repository()->getPrimaryKey();
 
-	Assert::same('id', $primaryKey);
+	Assert::same('id', $id);
 });
 
 
 test('Get all records', function () {
-	$row = repository()->table();
+	$row = repository()->query();
 
 	Assert::type(Fluent::class, $row);
 });
 
 
 test('Find a record by parameter', function () {
-	$row = repository()->table('sample', 'Hello')->fetch();
+	$row = repository()->query('sample', 'Hello')->fetch();
 
 	Assert::same('Hello', $row['sample']);
 });
 
 
 test('Get records by table name', function () {
-	$row = repository()->of('test_entity');
+	$row = repository()->queryOf('test_entity');
 
 	Assert::type(Fluent::class, $row);
 });

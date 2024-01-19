@@ -29,11 +29,11 @@ trait Repository
 	 * Get records from table.
 	 * @throws AttributeDetectionException
 	 */
-	public function table(?string $column = null, ...$args): Fluent
+	public function query(?string $column = null, ...$args): Fluent
 	{
 		$query = $this->db
 			->select('*')
-			->from($this->getTableName());
+			->from($this->getTable());
 
 		if ($column && $args) {
 			$query->where("$column = ?", $args);
@@ -46,7 +46,7 @@ trait Repository
 	/**
 	 * Get records by table name.
 	 */
-	public function of(string $table, ...$args): Fluent
+	public function queryOf(string $table, ...$args): Fluent
 	{
 		return $this->db
 			->select('*')
@@ -60,7 +60,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->table($this->getPrimaryKey(), $id);
+		return $this->query($this->getPrimaryKey(), $id);
 	}
 
 
@@ -72,7 +72,7 @@ trait Repository
 	public function remove(int $id): Result|int|null
 	{
 		return $this->db
-			->delete($this->getTableName())
+			->delete($this->getTable())
 			->where("{$this->getPrimaryKey()} = ?", $id)
 			->execute();
 	}
@@ -87,8 +87,8 @@ trait Repository
 	{
 		$id = $data[$this->getPrimaryKey()] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getTableName(), $data)->where("{$this->getPrimaryKey()} = ?", $id)
-			: $this->db->insert($this->getTableName(), $data);
+			? $this->db->update($this->getTable(), $data)->where("{$this->getPrimaryKey()} = ?", $id)
+			: $this->db->insert($this->getTable(), $data);
 		return $query->execute();
 	}
 
