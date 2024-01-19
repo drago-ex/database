@@ -20,7 +20,7 @@ trait AttributeDetection
 	/**
 	 * Attribute detection.
 	 */
-	private function attributes(): Attributes
+	private function databaseTable(): Attributes
 	{
 		$ref = new ReflectionClass(static::class);
 		$arr = [];
@@ -28,32 +28,32 @@ trait AttributeDetection
 			$arr = $attr->getArguments();
 		}
 		return new Attributes(
-			table: $arr[0],
-			id: $arr[1] ?? null,
+			name: $arr[0],
+			primaryKey: $arr[1] ?? null,
 		);
 	}
 
 
 	/**
-	 * Table name.
+	 * The name of the table.
 	 * @throws AttributeDetectionException
 	 */
-	public function getTable(): string
+	public function getTableName(): string
 	{
-		if (!isset($this->attributes()->table)) {
+		if (!isset($this->databaseTable()->name)) {
 			throw new AttributeDetectionException(
-				'In the repository ' . static::class . ' you do not have a table name in the Table attribute.',
+				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
 			);
 		}
-		return $this->attributes()->table;
+		return $this->databaseTable()->name;
 	}
 
 
 	/**
-	 * Table primary key.
+	 * The primary key of the table.
 	 */
-	public function getId(): string|null
+	public function getPrimaryKey(): string|null
 	{
-		return $this->attributes()->id;
+		return $this->databaseTable()->primaryKey;
 	}
 }

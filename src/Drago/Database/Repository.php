@@ -33,7 +33,7 @@ trait Repository
 	{
 		$query = $this->db
 			->select('*')
-			->from($this->getTable());
+			->from($this->getTableName());
 
 		if ($column && $args) {
 			$query->where("$column = ?", $args);
@@ -60,7 +60,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->table($this->getId(), $id);
+		return $this->table($this->getPrimaryKey(), $id);
 	}
 
 
@@ -72,8 +72,8 @@ trait Repository
 	public function remove(int $id): Result|int|null
 	{
 		return $this->db
-			->delete($this->getTable())
-			->where("{$this->getId()} = ?", $id)
+			->delete($this->getTableName())
+			->where("{$this->getPrimaryKey()} = ?", $id)
 			->execute();
 	}
 
@@ -85,10 +85,10 @@ trait Repository
 	 */
 	public function put(array $data): Result|int|null
 	{
-		$id = $data[$this->getId()] ?? null;
+		$id = $data[$this->getPrimaryKey()] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getTable(), $data)->where("{$this->getId()} = ?", $id)
-			: $this->db->insert($this->getTable(), $data);
+			? $this->db->update($this->getTableName(), $data)->where("{$this->getPrimaryKey()} = ?", $id)
+			: $this->db->insert($this->getTableName(), $data);
 		return $query->execute();
 	}
 
