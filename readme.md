@@ -58,7 +58,7 @@ $this->model->put(['column' => 'record']);
 class SampleEntity extends Drago\Database\Entity
 {
 	public const Table = 'table';
-	public const Id = 'id';
+	public const PrimaryKey = 'id';
 
 	public int $id;
 	public string $sample;
@@ -67,7 +67,7 @@ class SampleEntity extends Drago\Database\Entity
 
 Basic repository.
 ```php
-#[Table(SampleEntity::Table, SampleEntity::Id)]
+#[Table(SampleEntity::Table, SampleEntity::PrimarKey)]
 class Repository {}
 ```
 
