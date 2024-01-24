@@ -28,23 +28,30 @@ test('Get table name', function () {
 
 
 test('Get table column primary key', function () {
-	$priamry = repository()->getId();
+	$id = repository()->getPrimaryKey();
 
-	Assert::same('id', $priamry);
+	Assert::same('id', $id);
 });
 
 
 test('Get all records', function () {
-	$row = repository()->all();
+	$row = repository()->query();
 
 	Assert::type(Fluent::class, $row);
 });
 
 
 test('Find a record by parameter', function () {
-	$row = repository()->discover('sample', 'Hello')->fetch();
+	$row = repository()->query('sample', 'Hello')->fetch();
 
 	Assert::same('Hello', $row['sample']);
+});
+
+
+test('Get records by table name', function () {
+	$row = repository()->queryOf('test_entity');
+
+	Assert::type(Fluent::class, $row);
 });
 
 

@@ -1,5 +1,5 @@
 ## Drago Database
-Connecting to database.
+Simple recurring questions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
@@ -28,14 +28,19 @@ class Model {}
 
 ## Basic queries in the Repository
 
-Returns all records.
+Get records from table.
 ```php
-$this->model->all();
+$this->model->query();
 ```
 
-Search for a record by column name.
+Search for a record by column name in the table.
 ```php
-$this->model->discover('email', 'email@email.com');
+$this->model->query('email', 'email@email.com');
+```
+
+Get records by table name.
+```php
+$this->model->queryOf('table');
 ```
 
 Search for a record by id.
@@ -60,7 +65,7 @@ class SampleEntity extends Drago\Database\Entity
 	public const Table = 'table';
 	public const PrimaryKey = 'id';
 
-	public int $id;
+	public ?int $id = null;
 	public string $sample;
 }
 ```

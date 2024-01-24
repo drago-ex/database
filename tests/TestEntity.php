@@ -6,9 +6,9 @@ declare(strict_types=1);
 class TestEntity extends Drago\Database\Entity
 {
 	public const Table = 'test_entity';
-	public const Id = 'id';
-	public const Sample = 'sample';
+	public const PrimaryKey = 'id';
+	public const ColumnSample = 'sample';
 
-	public int $id;
+	public ?int $id = null;
 	public string $sample;
 }

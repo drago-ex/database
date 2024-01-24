@@ -26,25 +26,31 @@ trait Repository
 	use AttributeDetection;
 
 	/**
-	 * Get all records.
+	 * Get records from table.
 	 * @throws AttributeDetectionException
 	 */
-	public function all(): Fluent
+	public function query(?string $column = null, ...$args): Fluent
 	{
-		return $this->db
+		$query = $this->db
 			->select('*')
 			->from($this->getTable());
+
+		if ($column && $args) {
+			$query->where("$column = ?", $args);
+		}
+
+		return $query;
 	}
 
 
 	/**
-	 * Find a record by parameter.
-	 * @throws AttributeDetectionException
+	 * Get records by table name.
 	 */
-	public function discover(string $column, int|string $args): Fluent
+	public function queryOf(string $table, ...$args): Fluent
 	{
-		return $this->all()
-			->where("$column = ?", $args);
+		return $this->db
+			->select('*')
+			->from($table, $args);
 	}
 
 
@@ -54,7 +60,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->discover($this->getId(), $id);
+		return $this->query($this->getPrimaryKey(), $id);
 	}
 
 
@@ -67,7 +73,7 @@ trait Repository
 	{
 		return $this->db
 			->delete($this->getTable())
-			->where("{$this->getId()} = ?", $id)
+			->where("{$this->getPrimaryKey()} = ?", $id)
 			->execute();
 	}
 
@@ -79,9 +85,9 @@ trait Repository
 	 */
 	public function put(array $data): Result|int|null
 	{
-		$id = $data[$this->getId()] ?? null;
+		$id = $data[$this->getPrimaryKey()] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getTable(), $data)->where("{$this->getId()} = ?", $id)
+			? $this->db->update($this->getTable(), $data)->where("{$this->getPrimaryKey()} = ?", $id)
 			: $this->db->insert($this->getTable(), $data);
 		return $query->execute();
 	}
