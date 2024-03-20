@@ -31,7 +31,7 @@ function find(int $id): array|TestEntity|Row|null
 
 function save(TestEntity $entity): Result|int|null
 {
-	return repository()->put($entity->toArray());
+	return repository()->put($entity);
 }
 
 

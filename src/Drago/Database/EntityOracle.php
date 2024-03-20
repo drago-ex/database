@@ -36,7 +36,7 @@ class EntityOracle extends Row
 	/**
 	 * Changes the case of all keys in an array.
 	 */
-	public function changeKey(array $data, int $case = CASE_LOWER): array
+	private function changeKey(array $data, int $case = CASE_LOWER): array
 	{
 		return array_change_key_case($data, $case);
 	}
