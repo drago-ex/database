@@ -21,7 +21,7 @@ function repository(): TestRepository
 
 
 test('Get table name', function () {
-	$table = repository()->getTable();
+	$table = repository()->getDatabaseTable();
 
 	Assert::same('test_repository', $table);
 });
@@ -35,23 +35,16 @@ test('Get table column primary key', function () {
 
 
 test('Get all records', function () {
-	$row = repository()->query();
+	$row = repository()->table();
 
 	Assert::type(Fluent::class, $row);
 });
 
 
 test('Find a record by parameter', function () {
-	$row = repository()->query('sample', 'Hello')->fetch();
+	$row = repository()->table('sample', 'Hello')->fetch();
 
 	Assert::same('Hello', $row['sample']);
-});
-
-
-test('Get records by table name', function () {
-	$row = repository()->queryOf('test_entity');
-
-	Assert::type(Fluent::class, $row);
 });
 
 
