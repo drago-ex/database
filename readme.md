@@ -30,17 +30,12 @@ class Model {}
 
 Get records from table.
 ```php
-$this->model->query();
+$this->model->table();
 ```
 
 Search for a record by column name in the table.
 ```php
-$this->model->query('email', 'email@email.com');
-```
-
-Get records by table name.
-```php
-$this->model->queryOf('table');
+$this->model->table('email', 'email@email.com');
 ```
 
 Search for a record by id.
@@ -104,7 +99,7 @@ The save method saves the record to the database.
 ```php
 function save(SampleEntity $entity): Result|int|null
 {
-	return $this->put($entity->toArray());
+	return $this->put($entity);
 }
 ```
 
