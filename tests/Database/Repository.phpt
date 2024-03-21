@@ -7,7 +7,6 @@
 declare(strict_types=1);
 
 use Dibi\Fluent;
-use Dibi\Row;
 use Tester\Assert;
 
 
