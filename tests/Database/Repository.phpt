@@ -80,7 +80,7 @@ test('Get and update record', function () {
 
 
 test('Find a records by ids', function () {
-	$rows = repository()->table('id IN (?)',  [1, 2])->fetchAll();
+	$rows = repository()->table('id IN (?)', [1, 2])->fetchAll();
 
 	Assert::type('array', $rows);
 });
