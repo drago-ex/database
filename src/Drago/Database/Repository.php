@@ -80,7 +80,6 @@ trait Repository
 
 		} elseif ($data instanceof EntityOracle) {
 			$data = $data->toArrayUpper();
-			$primaryKey = strtoupper($primaryKey);
 		}
 
 		$id = $data[$primaryKey] ?? null;
