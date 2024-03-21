@@ -34,7 +34,7 @@ trait Repository
 		$query = $this->db->select('*')
 			->from($this->getDatabaseTable());
 
-		if ($args) {
+		if ($cond) {
 			$query->where(...$cond);
 		}
 
