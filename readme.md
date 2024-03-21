@@ -35,7 +35,7 @@ $this->model->table();
 
 Search for a record by column name in the table.
 ```php
-$this->model->table('email', 'email@email.com');
+$this->model->table('email = ?', 'email@email.com');
 ```
 
 Search for a record by id.
