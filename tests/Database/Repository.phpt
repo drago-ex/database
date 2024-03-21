@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Dibi\Fluent;
+use Dibi\Row;
 use Tester\Assert;
 
 
@@ -75,6 +76,13 @@ test('Get and update record', function () {
 	repository()->put($row->toArray());
 
 	Assert::same('Update', $row['sample']);
+});
+
+
+test('Find a records by ids', function () {
+	$rows = repository()->table('id IN (?)',  [1, 2])->fetchAll();
+
+	Assert::type('array', $rows);
 });
 
 
