@@ -74,16 +74,18 @@ trait Repository
 	 */
 	public function put(mixed $data): Result|int|null
 	{
+		$primaryKey = $this->getPrimaryKey();
 		if ($data instanceof Entity) {
 			$data = $data->toArray();
 
 		} elseif ($data instanceof EntityOracle) {
 			$data = $data->toArrayUpper();
+			$primaryKey = strtoupper($primaryKey);
 		}
 
-		$id = $data[$this->getPrimaryKey()] ?? null;
+		$id = $data[$primaryKey] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getDatabaseTable(), $data)->where("{$this->getPrimaryKey()} = ?", $id)
+			? $this->db->update($this->getDatabaseTable(), $data)->where("$primaryKey = ?", $id)
 			: $this->db->insert($this->getDatabaseTable(), $data);
 		return $query->execute();
 	}
