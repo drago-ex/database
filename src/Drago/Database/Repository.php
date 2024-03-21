@@ -29,13 +29,13 @@ trait Repository
 	 * Get records from table.
 	 * @throws AttributeDetectionException
 	 */
-	public function table(...$args): Fluent
+	public function table(...$cond): Fluent
 	{
 		$query = $this->db->select('*')
 			->from($this->getDatabaseTable());
 
 		if ($args) {
-			$query->where(...$args);
+			$query->where(...$cond);
 		}
 
 		return $query;
