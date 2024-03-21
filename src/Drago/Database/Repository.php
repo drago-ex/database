@@ -48,7 +48,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->table($this->getPrimaryKey(), $id);
+		return $this->table($this->getPrimaryKey(), '= ?', $id);
 	}
 
 
