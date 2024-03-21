@@ -35,7 +35,7 @@ trait Repository
 			->from($this->getDatabaseTable());
 
 		if ($args) {
-			$query->where($args);
+			$query->where(...$args);
 		}
 
 		return $query;
