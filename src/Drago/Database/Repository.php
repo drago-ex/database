@@ -29,14 +29,13 @@ trait Repository
 	 * Get records from table.
 	 * @throws AttributeDetectionException
 	 */
-	public function table(?string $column = null, ...$args): Fluent
+	public function table(...$args): Fluent
 	{
-		$query = $this->db
-			->select('*')
+		$query = $this->db->select('*')
 			->from($this->getDatabaseTable());
 
-		if ($column && $args) {
-			$query->where("$column = ?", $args);
+		if ($args) {
+			$query->where($args);
 		}
 
 		return $query;
@@ -60,8 +59,7 @@ trait Repository
 	 */
 	public function remove(int $id): Result|int|null
 	{
-		return $this->db
-			->delete($this->getDatabaseTable())
+		return $this->db->delete($this->getDatabaseTable())
 			->where("{$this->getPrimaryKey()} = ?", $id)
 			->execute();
 	}
@@ -72,21 +70,21 @@ trait Repository
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
-	public function put(mixed $data): Result|int|null
+	public function put(mixed $values): Result|int|null
 	{
-		$primaryKey = $this->getPrimaryKey();
-		if ($data instanceof Entity) {
-			$data = $data->toArray();
+		$key = $this->getPrimaryKey();
+		if ($values instanceof Entity) {
+			$values = $values->toArray();
 
-		} elseif ($data instanceof EntityOracle) {
-			$data = $data->toArrayUpper();
-			$primaryKey = strtoupper($primaryKey);
+		} elseif ($values instanceof EntityOracle) {
+			$values = $values->toArrayUpper();
+			$key = strtoupper($key);
 		}
 
-		$id = $data[$primaryKey] ?? null;
+		$id = $values[$key] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getDatabaseTable(), $data)->where("$primaryKey = ?", $id)
-			: $this->db->insert($this->getDatabaseTable(), $data);
+			? $this->db->update($this->getDatabaseTable(), $values)->where("$key = ?", $id)
+			: $this->db->insert($this->getDatabaseTable(), $values);
 		return $query->execute();
 	}
 

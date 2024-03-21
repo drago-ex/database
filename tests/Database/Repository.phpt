@@ -42,7 +42,7 @@ test('Get all records', function () {
 
 
 test('Find a record by parameter', function () {
-	$row = repository()->table('sample', 'Hello')->fetch();
+	$row = repository()->table('sample = ?', 'Hello')->fetch();
 
 	Assert::same('Hello', $row['sample']);
 });
