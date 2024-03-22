@@ -32,7 +32,7 @@ trait Repository
 	public function table(...$cond): Fluent
 	{
 		$query = $this->db->select('*')
-			->from($this->getDatabaseTable());
+			->from($this->getTaleName());
 
 		if ($cond) {
 			$query->where(...$cond);
@@ -48,7 +48,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->table("{$this->getPrimaryKey()} = ?", $id);
+		return $this->table("%n = ?", $this->getPrimaryKey(), $id);
 	}
 
 
@@ -59,8 +59,8 @@ trait Repository
 	 */
 	public function remove(int $id): Result|int|null
 	{
-		return $this->db->delete($this->getDatabaseTable())
-			->where("{$this->getPrimaryKey()} = ?", $id)
+		return $this->db->delete($this->getTaleName())
+			->where("%n = ?", $this->getPrimaryKey(), $id)
 			->execute();
 	}
 
@@ -83,8 +83,8 @@ trait Repository
 
 		$id = $values[$key] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getDatabaseTable(), $values)->where("$key = ?", $id)
-			: $this->db->insert($this->getDatabaseTable(), $values);
+			? $this->db->update($this->getTaleName(), $values)->where("%n = ?", $key, $id)
+			: $this->db->insert($this->getTaleName(), $values);
 		return $query->execute();
 	}
 
