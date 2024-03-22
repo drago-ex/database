@@ -48,7 +48,7 @@ trait Repository
 	 */
 	public function get(int $id): Fluent
 	{
-		return $this->table("%n = ?", $this->getPrimaryKey(), $id);
+		return $this->table("{$this->getPrimaryKey()} = ?", $id);
 	}
 
 
@@ -60,7 +60,7 @@ trait Repository
 	public function remove(int $id): Result|int|null
 	{
 		return $this->db->delete($this->getTaleName())
-			->where("%n = ?", $this->getPrimaryKey(), $id)
+			->where("{$this->getPrimaryKey()} = ?", $id)
 			->execute();
 	}
 
@@ -83,7 +83,7 @@ trait Repository
 
 		$id = $values[$key] ?? null;
 		$query = $id > 0
-			? $this->db->update($this->getTaleName(), $values)->where("%n = ?", $key, $id)
+			? $this->db->update($this->getTaleName(), $values)->where("{$this->getPrimaryKey()} = ?", $id)
 			: $this->db->insert($this->getTaleName(), $values);
 		return $query->execute();
 	}
