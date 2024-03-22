@@ -19,6 +19,7 @@ trait AttributeDetection
 {
 	/**
 	 * Attribute detection.
+	 * @throws AttributeDetectionException
 	 */
 	private function getTableInfo(): Attributes
 	{
@@ -27,6 +28,13 @@ trait AttributeDetection
 		foreach ($ref->getAttributes() as $attr) {
 			$arr = $attr->getArguments();
 		}
+
+		if (!isset($arr[0])) {
+			throw new AttributeDetectionException(
+				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
+			);
+		}
+
 		return new Attributes(
 			name: $arr[0],
 			primaryKey: $arr[1] ?? null,
@@ -40,17 +48,13 @@ trait AttributeDetection
 	 */
 	public function getTableName(): string
 	{
-		if (!isset($this->getTableInfo()->name)) {
-			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
-			);
-		}
 		return $this->getTableInfo()->name;
 	}
 
 
 	/**
 	 * The primary key of the table.
+	 * @throws AttributeDetectionException
 	 */
 	public function getPrimaryKey(): string|null
 	{
