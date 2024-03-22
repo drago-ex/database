@@ -19,24 +19,16 @@ trait AttributeDetection
 {
 	/**
 	 * Attribute detection.
-	 * @throws AttributeDetectionException
 	 */
-	private function getTableInfo(): Attributes
+	private function databaseTable(): Attributes
 	{
-		$class = new ReflectionClass(static::class);
-		$table = [];
-		foreach ($class->getAttributes() as $attribute) {
-			$table = $attribute->getArguments();
+		$ref = new ReflectionClass(static::class);
+		$arr = [];
+		foreach ($ref->getAttributes() as $attr) {
+			$arr = $attr->getArguments();
 		}
-
-		if (!isset($table[0])) {
-			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
-			);
-		}
-
 		return new Attributes(
-			name: $table[0],
+			name: $arr[0],
 			primaryKey: $arr[1] ?? null,
 		);
 	}
@@ -46,20 +38,22 @@ trait AttributeDetection
 	 * The name of the table.
 	 * @throws AttributeDetectionException
 	 */
-	public function getTaleName(): string
+	public function getDatabaseTable(): string
 	{
-		return $this->getTableInfo()
-			->name;
+		if (!isset($this->databaseTable()->name)) {
+			throw new AttributeDetectionException(
+				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
+			);
+		}
+		return $this->databaseTable()->name;
 	}
 
 
 	/**
 	 * The primary key of the table.
-	 * @throws AttributeDetectionException
 	 */
 	public function getPrimaryKey(): string|null
 	{
-		return $this->getTableInfo()
-			->primaryKey;
+		return $this->databaseTable()->primaryKey;
 	}
 }

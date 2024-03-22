@@ -21,7 +21,7 @@ function repository(): TestRepository
 
 
 test('Get table name', function () {
-	$table = repository()->getTaleName();
+	$table = repository()->getDatabaseTable();
 
 	Assert::same('test_repository', $table);
 });
