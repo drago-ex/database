@@ -38,7 +38,7 @@ trait AttributeDetection
 		return new Attributes(
 			name: $arr[0],
 			primaryKey: $arr[1] ?? null,
-			entity: $ref->getConstant('Entity') ?? null,
+			entity: $ref->getConstant('Entity') ?: null,
 		);
 	}
 
