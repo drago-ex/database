@@ -13,6 +13,7 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Dibi\Result;
+use Drago\Attr\AttributeDetection;
 use Drago\Attr\AttributeDetectionException;
 
 
@@ -21,6 +22,9 @@ use Drago\Attr\AttributeDetectionException;
  */
 trait Query
 {
+	use AttributeDetection;
+
+
 	/**
 	 * Get records from table.
 	 * @throws AttributeDetectionException

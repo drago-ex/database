@@ -21,7 +21,7 @@ trait AttributeDetection
 	 * Attribute detection.
 	 * @throws AttributeDetectionException
 	 */
-	private function getTableInfo(): Attributes
+	private function getAttributes(): Attributes
 	{
 		$ref = new ReflectionClass(static::class);
 		$arr = [];
@@ -31,13 +31,14 @@ trait AttributeDetection
 
 		if (!isset($arr[0])) {
 			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
+				'In the model ' . static::class . ' you do not have a table name in the From attribute.',
 			);
 		}
 
 		return new Attributes(
 			name: $arr[0],
 			primaryKey: $arr[1] ?? null,
+			entity: $ref->getConstant('Entity') ?? null,
 		);
 	}
 
@@ -48,7 +49,7 @@ trait AttributeDetection
 	 */
 	public function getTableName(): string
 	{
-		return $this->getTableInfo()->name;
+		return $this->getAttributes()->name;
 	}
 
 
@@ -56,8 +57,27 @@ trait AttributeDetection
 	 * The primary key of the table.
 	 * @throws AttributeDetectionException
 	 */
-	public function getPrimaryKey(): string|null
+	public function getPrimaryKey(): string
 	{
-		return $this->getTableInfo()->primaryKey;
+		if ($this->getAttributes()->primaryKey === null) {
+			throw new AttributeDetectionException(
+				'In the model ' . static::class . ' you do not have a primary key name in the From attribute.',
+			);
+		}
+		return $this->getAttributes()->primaryKey;
+	}
+
+
+	/**
+	 * @throws AttributeDetectionException
+	 */
+	public function getClassName(): string
+	{
+		if ($this->getAttributes()->entity === null) {
+			throw new AttributeDetectionException(
+				'In the model ' . static::class . ' you are missing the Entity constant and its associated class.',
+			);
+		}
+		return $this->getAttributes()->entity;
 	}
 }
