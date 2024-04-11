@@ -25,24 +25,24 @@ trait Records
 	use Query;
 
 	/**
-	 * Get records from table.
+	 * Get record from table.
 	 * @return T
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function one(...$cond): mixed
+	public function find(...$cond): mixed
 	{
 		return $this->fetch($this->table(...$cond));
 	}
 
 
 	/**
-	 * Find record by id.
+	 * Get record by id.
 	 * @return T
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function find(int $id): mixed
+	public function one(int $id): mixed
 	{
 		return $this->fetch($this->get($id));
 	}
