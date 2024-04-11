@@ -72,7 +72,7 @@ test('Insert record', function () {
 test('Get and update record', function () {
 	$row = query()->get(2)->fetch();
 	$row['sample'] = 'Update';
-	records()->put($row->toArray());
+	query()->put($row->toArray());
 
 	Assert::same('Update', $row['sample']);
 });
