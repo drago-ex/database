@@ -65,7 +65,7 @@ trait Records
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
-	protected function fetch(Fluent $fluent): mixed
+	public function fetch(Fluent $fluent): mixed
 	{
 		return $fluent->execute()
 			->setRowClass($this->getClassName())
@@ -78,7 +78,7 @@ trait Records
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
-	protected function fetchAll(Fluent $fluent, ?int $offset = null, ?int $limit = null): array
+	public function fetchAll(Fluent $fluent, ?int $offset = null, ?int $limit = null): array
 	{
 		return $fluent->execute()
 			->setRowClass($this->getClassName())
