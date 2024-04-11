@@ -37,18 +37,6 @@ trait Records
 
 
 	/**
-	 * Get all records from table.
-	 * @return T[]
-	 * @throws Exception
-	 * @throws AttributeDetectionException
-	 */
-	public function all(?int $offset = null, ?int $limit = null, ...$cond): array
-	{
-		return $this->fetchAll($this->table(...$cond), $offset, $limit);
-	}
-
-
-	/**
 	 * Find record by id.
 	 * @return T
 	 * @throws AttributeDetectionException
@@ -57,6 +45,18 @@ trait Records
 	public function find(int $id): mixed
 	{
 		return $this->fetch($this->get($id));
+	}
+
+
+	/**
+	 * Get all records from table.
+	 * @return T[]
+	 * @throws Exception
+	 * @throws AttributeDetectionException
+	 */
+	public function all(?int $offset = null, ?int $limit = null): array
+	{
+		return $this->fetchAll($this->table(), $offset, $limit);
 	}
 
 

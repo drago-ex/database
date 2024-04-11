@@ -18,6 +18,7 @@ class From
 	public function __construct(
 		public string $name,
 		public ?string $primaryKey = null,
+		public ?string $class = null,
 	) {
 	}
 }

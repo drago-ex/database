@@ -38,7 +38,7 @@ trait AttributeDetection
 		return new Attributes(
 			name: $arr[0],
 			primaryKey: $arr[1] ?? null,
-			entity: $ref->getConstant('Entity') ?: null,
+			class: $arr['class'] ?: null,
 		);
 	}
 
@@ -73,11 +73,11 @@ trait AttributeDetection
 	 */
 	public function getClassName(): string
 	{
-		if ($this->getAttributes()->entity === null) {
+		if ($this->getAttributes()->class === null) {
 			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you are missing the Entity constant and its associated class.',
+				'In the model ' . static::class . ' you do not have a class name in the From attribute.',
 			);
 		}
-		return $this->getAttributes()->entity;
+		return $this->getAttributes()->class;
 	}
 }

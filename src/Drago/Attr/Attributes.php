@@ -18,7 +18,7 @@ class Attributes
 	public function __construct(
 		public string $name,
 		public ?string $primaryKey = null,
-		public ?string $entity = null,
+		public ?string $class = null,
 	) {
 	}
 }
