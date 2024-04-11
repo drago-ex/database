@@ -38,7 +38,7 @@ trait AttributeDetection
 		return new Attributes(
 			name: $arr[0],
 			primaryKey: $arr[1] ?? null,
-			class: $arr['class'] ?: null,
+			class: $arr['class'] ?? null,
 		);
 	}
 
