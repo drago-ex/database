@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Database\Entity
+ * Test: Drago\Database\Records
  */
 
 declare(strict_types=1);
@@ -14,31 +14,35 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
-function repository(): TestRepositoryEntity
+function records(): TestRecords
 {
 	$db = new Database;
-	return new TestRepositoryEntity($db->connection());
+	return new TestRecords($db->connection());
 }
 
 
-function find(int $id): array|TestEntity|Row|null
+function search(int $id): array|TestEntity|Row|null
 {
-	return repository()->get($id)->execute()
-		->setRowClass(TestEntity::class)
-		->fetch();
+	return records()->find($id);
 }
 
 
 function save(TestEntity $entity): Result|int|null
 {
-	return repository()->put($entity);
+	return records()->put($entity);
 }
 
 
 test('Find record by id', function () {
-	$row = find(1);
+	$row = search(1);
 
 	Assert::same(1, $row->id);
+	Assert::same('Hello', $row->sample);
+});
+
+test('Find column name', function () {
+	$row = records()->one('sample = ?', 'Hello');
+
 	Assert::same('Hello', $row->sample);
 });
 
@@ -48,7 +52,7 @@ test('Insert a record with an entity', function () {
 	$entity->sample = 'Insert';
 
 	save($entity);
-	$row = find(2);
+	$row = search(2);
 
 	Assert::same(2, $row->id);
 	Assert::same('Insert', $row->sample);
@@ -56,7 +60,7 @@ test('Insert a record with an entity', function () {
 
 
 test('Update the record with the entity', function () {
-	$row = find(2);
+	$row = search(2);
 	$row->sample = 'Update';
 
 	save($row);
