@@ -24,7 +24,6 @@ trait Query
 {
 	use AttributeDetection;
 
-
 	/**
 	 * Get records from table.
 	 * @throws AttributeDetectionException
