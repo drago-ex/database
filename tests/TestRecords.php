@@ -6,9 +6,10 @@ use Dibi\Connection;
 use Drago\Attr\From;
 use Drago\Database\Records;
 
-/** @extends TestRepositoryEntity<TestEntity> */
+
+/** @extends TestRecords<TestEntity> */
 #[From(TestEntity::Table, TestEntity::PrimaryKey, class: TestEntity::class)]
-class TestRepositoryEntity
+class TestRecords
 {
 	use Records;
 

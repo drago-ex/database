@@ -8,7 +8,7 @@ use Drago\Database\Query;
 
 
 #[From('test_repository', 'id')]
-class TestRepository
+class TestQuery
 {
 	use Query;
 

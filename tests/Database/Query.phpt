@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Database\Repository
+ * Test: Drago\Database\Query
  */
 
 declare(strict_types=1);
@@ -13,43 +13,43 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
-function repository(): TestRepository
+function query(): TestQuery
 {
 	$db = new Database;
-	return new TestRepository($db->connection());
+	return new TestQuery($db->connection());
 }
 
 
 test('Get table name', function () {
-	$table = repository()->getTableName();
+	$table = query()->getTableName();
 
 	Assert::same('test_repository', $table);
 });
 
 
 test('Get table column primary key', function () {
-	$id = repository()->getPrimaryKey();
+	$id = query()->getPrimaryKey();
 
 	Assert::same('id', $id);
 });
 
 
 test('Get all records', function () {
-	$row = repository()->table();
+	$row = query()->table();
 
 	Assert::type(Fluent::class, $row);
 });
 
 
 test('Find a record by parameter', function () {
-	$row = repository()->table('sample = ?', 'Hello')->fetch();
+	$row = query()->table('sample = ?', 'Hello')->fetch();
 
 	Assert::same('Hello', $row['sample']);
 });
 
 
 test('Get record by id', function () {
-	$row = repository()->get(1)->fetch();
+	$row = query()->get(1)->fetch();
 
 	Assert::equal([
 		'id' => 1,
@@ -62,7 +62,7 @@ test('Insert record', function () {
 	$data = [
 		'sample' => 'Insert',
 	];
-	$repository = repository();
+	$repository = query();
 	$repository->put($data);
 
 	Assert::same(2, $repository->getInsertId());
@@ -70,24 +70,24 @@ test('Insert record', function () {
 
 
 test('Get and update record', function () {
-	$row = repository()->get(2)->fetch();
+	$row = query()->get(2)->fetch();
 	$row['sample'] = 'Update';
-	repository()->put($row->toArray());
+	records()->put($row->toArray());
 
 	Assert::same('Update', $row['sample']);
 });
 
 
 test('Find a records by ids', function () {
-	$rows = repository()->table('id IN (?)', [1, 2])->fetchAll();
+	$rows = query()->table('id IN (?)', [1, 2])->fetchAll();
 
 	Assert::type('array', $rows);
 });
 
 
 test('Delete record', function () {
-	repository()->remove(2);
-	$row = repository()->get(2)->fetch();
+	query()->remove(2);
+	$row = query()->get(2)->fetch();
 
 	Assert::null($row);
 });
