@@ -32,7 +32,7 @@ trait Records
 	 */
 	public function find(...$cond): mixed
 	{
-		return $this->fetch($this->table($cond));
+		return $this->fetch($this->table(...$cond));
 	}
 
 
