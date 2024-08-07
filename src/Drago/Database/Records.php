@@ -30,7 +30,7 @@ trait Records
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function find...$cond): mixed
+	public function find(...$cond): mixed
 	{
 		return $this->fetch($this->table($cond));
 	}
