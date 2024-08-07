@@ -28,13 +28,13 @@ trait Query
 	 * Get records from table.
 	 * @throws AttributeDetectionException
 	 */
-	public function table(...$cond): Fluent
+	public function table(array|string ...$cond): Fluent
 	{
 		$query = $this->db->select('*')
 			->from($this->getTableName());
 
 		if ($cond) {
-			$query->where(...$cond);
+			$query->where($cond);
 		}
 
 		return $query;
