@@ -28,7 +28,7 @@ trait Query
 	 * Get records from table.
 	 * @throws AttributeDetectionException
 	 */
-	public function table(array|string ...$cond): Fluent
+	public function table(...$cond): Fluent
 	{
 		$query = $this->db->select('*')
 			->from($this->getTableName());
