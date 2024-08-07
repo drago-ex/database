@@ -34,7 +34,7 @@ trait Query
 			->from($this->getTableName());
 
 		if ($cond) {
-			$query->where($cond);
+			$query->where(...$cond);
 		}
 
 		return $query;
