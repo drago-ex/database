@@ -55,12 +55,14 @@ trait Query
 	 * Deleting a records.
 	 * @throws AttributeDetectionException
 	 */
-	public function remove(int|array ...$cond): Fluent
+	public function remove(int|string|array ...$cond): Fluent
 	{
-		$delete = $this->db->delete($this->getTableName());
-		if (is_int($cond)) $delete->where('%n = ?', $this->getPrimaryKey(), $cond); else {
-			$delete->where(...$cond);
-		}
+		$delete = $this->db->delete(
+			$this->getTableName(),
+		);
+		is_int($cond)
+			? $delete->where('%n = ?', $this->getPrimaryKey(), $cond)
+			: $delete->where(...$cond);
 		return $delete;
 	}
 
