@@ -50,7 +50,7 @@ $this->model->delete('column = ?', 'value');
 
 Delete a record by id.
 ```php
-$this->model->deleteById(1);
+$this->model->delete(1);
 ```
 
 Save record (the update will be performed if a column with id is added).
