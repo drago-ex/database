@@ -42,7 +42,7 @@ test('Find record by id', function () {
 
 
 test('Find record by column name', function () {
-	$row = records()->getOne('sample = ?', 'Hello');
+	$row = records()->one('sample = ?', 'Hello');
 
 	Assert::same('Hello', $row->sample);
 });

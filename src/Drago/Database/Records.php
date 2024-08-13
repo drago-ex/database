@@ -30,7 +30,7 @@ trait Records
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function getOne(...$cond): mixed
+	public function one(...$cond): mixed
 	{
 		return $this->fetch($this->table(...$cond));
 	}
@@ -54,7 +54,7 @@ trait Records
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
-	public function getAll(?int $offset = null, ?int $limit = null): array
+	public function all(?int $offset = null, ?int $limit = null): array
 	{
 		return $this->fetchAll($this->table(), $offset, $limit);
 	}
