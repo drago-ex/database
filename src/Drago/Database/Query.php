@@ -55,7 +55,7 @@ trait Query
 	 * Deleting a records
 	 * @throws AttributeDetectionException
 	 */
-	public function delete(...$cond): Result|int|null
+	public function remove(...$cond): Result|int|null
 	{
 		return $this->db->delete($this->getTableName())
 			->where(...$cond)
@@ -68,7 +68,7 @@ trait Query
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
-	public function deleteById(int $id): Result|int|null
+	public function removeById(int $id): Result|int|null
 	{
 		return $this->db->delete($this->getTableName())
 			->where('%n = ?', $this->getPrimaryKey(), $id)
