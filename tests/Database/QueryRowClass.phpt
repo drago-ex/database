@@ -23,7 +23,7 @@ function records(): TestQueryRowClass
 
 function search(int $id): array|TestEntity|Row|null
 {
-	return records()->fetch(records()->get(1));
+	return records()->fetch(records()->get($id));
 }
 
 
