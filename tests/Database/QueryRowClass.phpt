@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Database\Records
+ * Test: Drago\Database\QueryRowClass
  */
 
 declare(strict_types=1);
@@ -14,16 +14,16 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
-function records(): TestRecords
+function records(): TestQueryRowClass
 {
 	$db = new Database;
-	return new TestRecords($db->connection());
+	return new TestQueryRowClass($db->connection());
 }
 
 
 function search(int $id): array|TestEntity|Row|null
 {
-	return records()->getById($id);
+	return records()->fetch(records()->get(1));
 }
 
 
@@ -42,7 +42,7 @@ test('Find record by id', function () {
 
 
 test('Find record by column name', function () {
-	$row = records()->one('sample = ?', 'Hello');
+	$row = records()->fetch(records()->table('sample = ?', 'Hello'));
 
 	Assert::same('Hello', $row->sample);
 });

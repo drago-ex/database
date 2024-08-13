@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Drago\Database;
 
-use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Fluent;
 use Drago\Attr\AttributeDetectionException;
@@ -18,47 +17,10 @@ use Drago\Attr\AttributeDetectionException;
 /**
  * Repository base.
  * @template T
- * @property-read Connection $db
  */
-trait Records
+trait QueryRowClass
 {
-	use Query;
-
-	/**
-	 * Get record from table.
-	 * @return T
-	 * @throws AttributeDetectionException
-	 * @throws Exception
-	 */
-	public function one(...$cond): mixed
-	{
-		return $this->fetch($this->table(...$cond));
-	}
-
-
-	/**
-	 * Get record by id.
-	 * @return T
-	 * @throws AttributeDetectionException
-	 * @throws Exception
-	 */
-	public function getById(int $id): mixed
-	{
-		return $this->fetch($this->get($id));
-	}
-
-
-	/**
-	 * Get all records from table.
-	 * @return T[]
-	 * @throws Exception
-	 * @throws AttributeDetectionException
-	 */
-	public function all(?int $offset = null, ?int $limit = null): array
-	{
-		return $this->fetchAll($this->table(), $offset, $limit);
-	}
-
+	use QueryTable;
 
 	/**
 	 * @return T

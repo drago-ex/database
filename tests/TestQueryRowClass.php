@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 use Dibi\Connection;
 use Drago\Attr\From;
-use Drago\Database\Records;
+use Drago\Database\QueryRowClass;
 
 
-/** @extends TestRecords<TestEntity> */
+/** @extends TestEntity<TestEntity> */
 #[From(TestEntity::Table, TestEntity::PrimaryKey, class: TestEntity::class)]
-class TestRecords
+class TestQueryRowClass
 {
-	use Records;
+	use QueryRowClass;
 
 	public function __construct(
 		public Connection $db,

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 use Dibi\Connection;
 use Drago\Attr\From;
-use Drago\Database\Query;
+use Drago\Database\QueryTable;
 
 
 #[From('test_repository', 'id')]
-class TestQuery
+class TestQueryTable
 {
-	use Query;
+	use QueryTable;
 
 	public function __construct(
 		public Connection $db,

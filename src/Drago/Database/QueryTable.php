@@ -20,7 +20,7 @@ use Drago\Attr\AttributeDetectionException;
 /**
  * @property-read Connection $db
  */
-trait Query
+trait QueryTable
 {
 	use AttributeDetection;
 

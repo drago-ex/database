@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Database\Query
+ * Test: Drago\Database\QueryTable
  */
 
 declare(strict_types=1);
@@ -13,10 +13,10 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
-function query(): TestQuery
+function query(): TestQueryTable
 {
 	$db = new Database;
-	return new TestQuery($db->connection());
+	return new TestQueryTable($db->connection());
 }
 
 
