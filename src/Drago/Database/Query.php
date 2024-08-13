@@ -52,11 +52,23 @@ trait Query
 
 
 	/**
-	 * Deleting a records by the primary key.
+	 * Deleting a records
+	 * @throws AttributeDetectionException
+	 */
+	public function delete(...$cond): Result|int|null
+	{
+		return $this->db->delete($this->getTableName())
+			->where(...$cond)
+			->execute();
+	}
+
+
+	/**
+	 * Deleting a record by the primary key.
 	 * @throws Exception
 	 * @throws AttributeDetectionException
 	 */
-	public function remove(int $id): Result|int|null
+	public function deleteById(int $id): Result|int|null
 	{
 		return $this->db->delete($this->getTableName())
 			->where('%n = ?', $this->getPrimaryKey(), $id)

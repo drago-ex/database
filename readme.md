@@ -35,7 +35,7 @@ $this->model->table();
 
 Search for a record by column name in the table.
 ```php
-$this->model->table('email = ?', 'email@email.com');
+$this->model->table('column = ?', 'value');
 ```
 
 Search for a record by id.
@@ -43,9 +43,14 @@ Search for a record by id.
 $this->model->get(1);
 ```
 
-Delete a record from the database.
+Delete by where.
 ```php
-$this->model->remove(1);
+$this->model->delete('column = ?', 'value');
+```
+
+Delete a record by id.
+```php
+$this->model->deleteById(1);
 ```
 
 Save record (the update will be performed if a column with id is added).

@@ -23,7 +23,7 @@ function records(): TestRecords
 
 function search(int $id): array|TestEntity|Row|null
 {
-	return records()->one($id);
+	return records()->findById($id);
 }
 
 
@@ -42,7 +42,7 @@ test('Find record by id', function () {
 
 
 test('Find record by column name', function () {
-	$row = records()->find('sample = ?', 'Hello');
+	$row = records()->findOne('sample = ?', 'Hello');
 
 	Assert::same('Hello', $row->sample);
 });
