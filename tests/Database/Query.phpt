@@ -86,7 +86,7 @@ test('Find a records by ids', function () {
 
 
 test('Delete record', function () {
-	query()->remove(2);
+	query()->remove(2)->execute();
 	$row = query()->get(2)->fetch();
 
 	Assert::null($row);
