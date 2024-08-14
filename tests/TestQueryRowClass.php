@@ -7,7 +7,7 @@ use Drago\Attr\From;
 use Drago\Database\QueryRowClass;
 
 
-/** @extends TestEntity<TestEntity> */
+/** @extends QueryRowClass<TestEntity> */
 #[From(TestEntity::Table, TestEntity::PrimaryKey, class: TestEntity::class)]
 class TestQueryRowClass
 {
