@@ -22,7 +22,7 @@ composer require drago-ex/database
 
 ## Use
 ```php
-#[Table('table', 'id')]
+#[From('table', 'id')]
 class Model {}
 ```
 
@@ -72,7 +72,7 @@ class SampleEntity extends Drago\Database\Entity
 
 Basic repository.
 ```php
-#[Table(SampleEntity::Table, SampleEntity::PrimarKey)]
+#[From(SampleEntity::Table, SampleEntity::PrimarKey)]
 class Repository {}
 ```
 
@@ -105,6 +105,15 @@ The save method saves the record to the database.
 function save(SampleEntity $entity): Result|int|null
 {
 	return $this->put($entity);
+}
+```
+
+Repository using generics.
+```php
+/** @extends QueryRowClass<SampleEntity> */
+#[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
+class Repository {
+	use QueryRowClass;
 }
 ```
 
