@@ -26,7 +26,7 @@ composer require drago-ex/database
 class Model {}
 ```
 
-## Basic queries in the Repository
+## Basic queries in the Model
 
 Get records from table.
 ```php
