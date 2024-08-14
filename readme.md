@@ -73,7 +73,10 @@ class SampleEntity extends Drago\Database\Entity
 Basic repository.
 ```php
 #[From(SampleEntity::Table, SampleEntity::PrimarKey)]
-class Repository {}
+class Repository
+{
+	use QueryTable;
+}
 ```
 
 Use of an entity in a repository.
