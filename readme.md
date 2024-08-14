@@ -112,7 +112,8 @@ Repository using generics.
 ```php
 /** @extends QueryRowClass<SampleEntity> */
 #[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
-class Repository {
+class Repository
+{
 	use QueryRowClass;
 }
 ```
