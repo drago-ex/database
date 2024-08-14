@@ -121,5 +121,12 @@ class Repository
 }
 ```
 
+Method for generics types.
+
+```php
+$this->fetch(...);
+$this->fetchAll(...);
+```
+
 ## Tips
 You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
