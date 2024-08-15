@@ -64,7 +64,8 @@ trait AttributeDetection
 				'In the model ' . static::class . ' you do not have a primary key name in the From attribute.',
 			);
 		}
-		return $this->getAttributes()->primaryKey;
+		return $this->getAttributes()
+            ->primaryKey;
 	}
 
 
@@ -78,6 +79,7 @@ trait AttributeDetection
 				'In the model ' . static::class . ' you do not have a class name in the From attribute.',
 			);
 		}
-		return $this->getAttributes()->class;
+		return $this->getAttributes()
+            ->class;
 	}
 }

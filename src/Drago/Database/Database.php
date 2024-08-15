@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\src\Drago\Database;
+namespace Drago\Database;
 
 use Dibi\Connection;
 use Dibi\Exception;
@@ -56,23 +56,29 @@ abstract class Database
 	}
 
 
-	/**
-	 * @throws AttributeDetectionException
-	 */
-	public function delete(): FluentExtra
-	{
-		return $this->command()->delete()
-			->from($this->getTableName());
-	}
+    /**
+     * @return FluentExtra<T>
+     */
+    public function find(string $column, int|string $args): FluentExtra
+    {
+        return $this->command()
+            ->where('%n = ?', $column, $args);
+    }
 
 
 	/**
 	 * @throws AttributeDetectionException
 	 */
-	public function deleteById(int $id): FluentExtra
+	public function delete(int $id = null): FluentExtra
 	{
-		return $this->delete()
-			->where('%n = ?', $this->getPrimaryKey(), $id);
+		$command = $this->command()->delete()
+            ->from($this->getTableName());
+
+        if ($id > 0) {
+            $command->where('%n = ?', $this->getPrimaryKey(), $id);
+        }
+
+        return $command;
 	}
 
 
@@ -97,4 +103,15 @@ abstract class Database
 			: $this->getConnection()->insert($this->getTableName(), $values);
 		return $query->execute();
 	}
+
+
+    /**
+     * Get the id of the inserted record.
+     * @throws Exception
+     */
+    public function getInsertId(?string $sequence = null): int
+    {
+        return $this->getConnection()
+            ->getInsertId($sequence);
+    }
 }

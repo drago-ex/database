@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\src\Drago\Database;
+namespace Drago\Database;
 
 use Dibi\Exception;
 use Dibi\Fluent;
@@ -38,18 +38,6 @@ class FluentExtra extends Fluent
 	public function or(...$cond): FluentExtra
 	{
 		parent::or(...$cond);
-		return $this;
-	}
-
-
-	/**
-	 * Find record by id.
-	 * @throws AttributeDetectionException
-	 */
-	public function findById(int $id): FluentExtra
-	{
-		$key = $this->db->getPrimaryKey();
-		$this->where('%n = ?', $key, $id);
 		return $this;
 	}
 
