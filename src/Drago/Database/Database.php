@@ -9,8 +9,6 @@ use Dibi\Exception;
 use Dibi\Result;
 use Drago\Attr\AttributeDetection;
 use Drago\Attr\AttributeDetectionException;
-use Drago\Database\Entity;
-use Drago\Database\EntityOracle;
 
 
 /**
@@ -107,10 +105,10 @@ abstract class Database
 	}
 
 
-    /**
-     * Get the id of the inserted record.
-     * @throws Exception
-     */
+	/**
+	 * Get the id of the inserted record.
+	 * @throws Exception
+	 */
 	public function getInsertId(?string $sequence = null): int
 	{
 		return $this->getConnection()
