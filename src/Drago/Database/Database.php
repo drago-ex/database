@@ -58,10 +58,12 @@ abstract class Database
 
     /**
      * @return FluentExtra<T>
+     * @throws AttributeDetectionException
      */
     public function find(string $column, int|string $args): FluentExtra
     {
-        return $this->command()
+        return $this->command()->select('*')
+            ->from($this->getTableName())
             ->where('%n = ?', $column, $args);
     }
 
