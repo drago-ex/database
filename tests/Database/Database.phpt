@@ -20,7 +20,7 @@ function database(): TestDatabase
 }
 
 
-function find(int $id): TestEntity
+function find(int $id): TestEntity|null
 {
 	return database()->find(TestEntity::PrimaryKey, $id)->record();
 }
