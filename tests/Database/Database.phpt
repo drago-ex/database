@@ -73,21 +73,21 @@ test('Update the record with the entity', function () {
 test('Get table name', function () {
 	$table = database()->getTableName();
 
-    Assert::same('test', $table);
+	Assert::same('test', $table);
 });
 
 
 test('Get table column primary key', function () {
 	$primaryKey = database()->getPrimaryKey();
 
-    Assert::same('id', $primaryKey);
+	Assert::same('id', $primaryKey);
 });
 
 
 test('Get class name', function () {
 	$className = database()->getClassName();
 
-    Assert::same(TestEntity::class, $className);
+	Assert::same(TestEntity::class, $className);
 });
 
 
