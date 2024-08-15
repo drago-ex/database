@@ -49,7 +49,8 @@ trait AttributeDetection
 	 */
 	public function getTableName(): string
 	{
-		return $this->getAttributes()->name;
+		return $this->getAttributes()
+            ->name;
 	}
 
 
