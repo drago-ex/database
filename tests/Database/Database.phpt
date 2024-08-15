@@ -92,7 +92,7 @@ test('Get class name', function () {
 
 
 test('Delete record by where', function () {
-	database()->delete()->where('id = ?', 1);
+	database()->delete()->where('id = ?', 1)->execute();
 	$row = find(1);
 
 	Assert::null($row);
