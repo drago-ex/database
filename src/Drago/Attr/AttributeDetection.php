@@ -50,7 +50,7 @@ trait AttributeDetection
 	public function getTableName(): string
 	{
 		return $this->getAttributes()
-            ->name;
+			->name;
 	}
 
 
@@ -66,7 +66,7 @@ trait AttributeDetection
 			);
 		}
 		return $this->getAttributes()
-            ->primaryKey;
+			->primaryKey;
 	}
 
 
@@ -81,6 +81,6 @@ trait AttributeDetection
 			);
 		}
 		return $this->getAttributes()
-            ->class;
+			->class;
 	}
 }
