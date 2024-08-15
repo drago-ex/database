@@ -43,7 +43,7 @@ test('Find record by id', function () {
 test('Find all records', function () {
 	$row = database()->read()->recordAll();
 
-	Assert::same('array', $row);
+	Assert::same(array(), $row);
 });
 
 
