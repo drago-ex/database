@@ -41,7 +41,7 @@ test('Find record by id', function () {
 
 
 test('Find record by column name', function () {
-    $row = database()->find('sample', 'hello')->record();
+	$row = database()->find('sample', 'hello')->record();
 
 	Assert::same('Hello', $row->sample);
 });
@@ -71,37 +71,37 @@ test('Update the record with the entity', function () {
 
 
 test('Get table name', function () {
-    $table = database()->getTableName();
+	$table = database()->getTableName();
 
     Assert::same('test', $table);
 });
 
 
 test('Get table column primary key', function () {
-    $primaryKey = database()->getPrimaryKey();
+	$primaryKey = database()->getPrimaryKey();
 
     Assert::same('id', $primaryKey);
 });
 
 
 test('Get class name', function () {
-    $className = database()->getClassName();
+	$className = database()->getClassName();
 
     Assert::same(TestEntity::class, $className);
 });
 
 
 test('Delete record by where', function () {
-    database()->delete()->where('id = ?', 1);
-    $row = find(1);
+	database()->delete()->where('id = ?', 1);
+	$row = find(1);
 
-    Assert::null($row);
+	Assert::null($row);
 });
 
 
 test('Delete record', function () {
-    database()->delete(2)->execute();
-    $row = find(2);
+	database()->delete(2)->execute();
+	$row = find(2);
 
-    Assert::null($row);
+	Assert::null($row);
 });

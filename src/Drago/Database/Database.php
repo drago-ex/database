@@ -60,12 +60,12 @@ abstract class Database
      * @return FluentExtra<T>
      * @throws AttributeDetectionException
      */
-    public function find(string $column, int|string $args): FluentExtra
-    {
-        return $this->command()->select('*')
-            ->from($this->getTableName())
-            ->where('%n = ?', $column, $args);
-    }
+	public function find(string $column, int|string $args): FluentExtra
+	{
+		return $this->command()->select('*')
+			->from($this->getTableName())
+			->where('%n = ?', $column, $args);
+	}
 
 
 	/**
@@ -74,13 +74,13 @@ abstract class Database
 	public function delete(int $id = null): FluentExtra
 	{
 		$command = $this->command()->delete()
-            ->from($this->getTableName());
+			->from($this->getTableName());
 
-        if ($id > 0) {
-            $command->where('%n = ?', $this->getPrimaryKey(), $id);
-        }
+		if ($id > 0) {
+			$command->where('%n = ?', $this->getPrimaryKey(), $id);
+		}
 
-        return $command;
+		return $command;
 	}
 
 
@@ -111,9 +111,9 @@ abstract class Database
      * Get the id of the inserted record.
      * @throws Exception
      */
-    public function getInsertId(?string $sequence = null): int
-    {
-        return $this->getConnection()
-            ->getInsertId($sequence);
-    }
+	public function getInsertId(?string $sequence = null): int
+	{
+		return $this->getConnection()
+			->getInsertId($sequence);
+	}
 }
