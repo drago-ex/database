@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test_repository` (
+CREATE TABLE `test` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sample` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
