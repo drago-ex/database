@@ -40,6 +40,13 @@ test('Find record by id', function () {
 });
 
 
+test('Find all records', function () {
+	$row = database()->read()->recordAll();
+
+	Assert::same('array', $row);
+});
+
+
 test('Find record by column name', function () {
 	$row = database()->find('sample', 'hello')->record();
 
@@ -99,7 +106,7 @@ test('Delete record by where', function () {
 });
 
 
-test('Delete record', function () {
+test('Delete record by id', function () {
 	database()->delete(2)->execute();
 	$row = find(2);
 
