@@ -47,6 +47,13 @@ class FluentExtra extends Fluent
 	}
 
 
+	public function orderBy(...$field): FluentExtra
+	{
+		parent::orderBy(...$field);
+		return $this;
+	}
+
+
 	/**
 	 * @return T
 	 * @throws Exception
