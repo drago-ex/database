@@ -26,28 +26,28 @@ class FluentExtra extends Fluent
 	}
 
 
-	public function where(...$cond): FluentExtra
+	public function where(...$cond): self
 	{
 		parent::where(...$cond);
 		return $this;
 	}
 
 
-	public function and(...$cond): FluentExtra
+	public function and(...$cond): self
 	{
 		parent::and(...$cond);
 		return $this;
 	}
 
 
-	public function or(...$cond): FluentExtra
+	public function or(...$cond): self
 	{
 		parent::or(...$cond);
 		return $this;
 	}
 
 
-	public function orderBy(...$field): FluentExtra
+	public function orderBy(...$field): self
 	{
 		parent::orderBy(...$field);
 		return $this;
