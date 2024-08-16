@@ -78,7 +78,7 @@ abstract class Database
 	{
 		return $this->command()->delete()
 			->from($this->getTableName())
-			->where('%n = ?', $column, $args)
+			->where('%n = ?', $column, $args);
 	}
 
 
