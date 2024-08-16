@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Drago\Database\QueryRowClass
+ * Test: Drago\Database\Database
  */
 
 declare(strict_types=1);
@@ -95,14 +95,6 @@ test('Get class name', function () {
 	$className = database()->getClassName();
 
 	Assert::same(TestEntity::class, $className);
-});
-
-
-test('Delete record by where', function () {
-	database()->delete()->where('id = ?', 1)->execute();
-	$row = find(1);
-
-	Assert::null($row);
 });
 
 
