@@ -74,16 +74,11 @@ abstract class Database
 	/**
 	 * @throws AttributeDetectionException
 	 */
-	public function delete(int $id = null): FluentExtra
+	public function delete(string $column, int|string $args): FluentExtra
 	{
-		$command = $this->command()->delete()
-			->from($this->getTableName());
-
-		if ($id > 0) {
-			$command->where('%n = ?', $this->getPrimaryKey(), $id);
-		}
-
-		return $command;
+		return $this->command()->delete()
+			->from($this->getTableName())
+			->where('%n = ?', $column, $args)
 	}
 
 
