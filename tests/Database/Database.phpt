@@ -107,7 +107,7 @@ test('Delete record by where', function () {
 
 
 test('Delete record by id', function () {
-	database()->delete(2)->execute();
+	database()->delete('id', 2)->execute();
 	$row = find(2);
 
 	Assert::null($row);
