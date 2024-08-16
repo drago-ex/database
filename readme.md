@@ -67,6 +67,7 @@ class SampleEntity extends Drago\Database\Entity
 
 Basic repository.
 ```php
+/** @extends Database<SampleEntity> **/
 #[From(SampleEntity::Table, SampleEntity::PrimarKey)]
 class Repository extends Database {}
 ```
