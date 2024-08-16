@@ -23,39 +23,34 @@ composer require drago-ex/database
 ## Use
 ```php
 #[From('table', 'id')]
-class Model {}
+class Model extends Database {}
 ```
 
 ## Basic queries in the Model
 
-Get records from table.
+Get all columns from table.
 ```php
-$this->model->table();
+$this->model->read();
 ```
 
-Search for a record by column name in the table.
+Get specific columns from table.
 ```php
-$this->model->table('column = ?', 'value');
+$this->model->read('column');
 ```
 
-Search for a record by id.
+Find record by column name in the table.
 ```php
-$this->model->get(1);
+$this->model->find('column, 'value');
 ```
 
-Delete by where.
+Delete record.
 ```php
-$this->model->delete('column = ?', 'value');
-```
-
-Delete a record by id.
-```php
-$this->model->delete(1);
+$this->model->delete('column, 'value');
 ```
 
 Save record (the update will be performed if a column with id is added).
 ```php
-$this->model->put(['column' => 'record']);
+$this->model->save(['column' => 'record']);
 ```
 
 ## Use of entity
@@ -73,23 +68,20 @@ class SampleEntity extends Drago\Database\Entity
 Basic repository.
 ```php
 #[From(SampleEntity::Table, SampleEntity::PrimarKey)]
-class Repository
-{
-	use QueryTable;
-}
+class Repository extends Database {}
 ```
 
 Use of an entity in a repository.
 ```php
-function find(int $id): array|SampleEntity|null
+function findById(int $id): SampleEntity|null
 {
-	return $this->get($id)->fetch();
+	return $this->find(SampleEntity::PrimarKey, $id)->record();
 }
 ```
 
 Reading data.
 ```php
-$row = $this->find(1);
+$row = $this->findById(1);
 echo $row->id;
 echo $row->sample;
 ```
@@ -101,31 +93,6 @@ $entity->id = 1;
 $entity->sample = 'sample';
 
 $this->save($entity);
-```
-
-The save method saves the record to the database.
-```php
-function save(SampleEntity $entity): Result|int|null
-{
-	return $this->put($entity);
-}
-```
-
-Repository using generics.
-```php
-/** @extends QueryRowClass<SampleEntity> */
-#[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
-class Repository
-{
-	use QueryRowClass;
-}
-```
-
-Method for generics types.
-
-```php
-$this->fetch(...);
-$this->fetchAll(...);
 ```
 
 ## Tips
