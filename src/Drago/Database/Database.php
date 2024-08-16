@@ -65,8 +65,7 @@ abstract class Database
 	 */
 	public function find(string $column, int|string $args): FluentExtra
 	{
-		return $this->command()->select('*')
-			->from($this->getTableName())
+		return $this->read()
 			->where('%n = ?', $column, $args);
 	}
 
