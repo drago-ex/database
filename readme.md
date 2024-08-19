@@ -38,7 +38,7 @@ Get specific columns from table.
 $this->model->read('column');
 ```
 
-Find record by column name in the table.
+Find record by column name.
 ```php
 $this->model->find('column, 'value');
 ```
