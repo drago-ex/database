@@ -78,5 +78,14 @@ A model with an entity and a class of fetched object.
 class Repository extends Database {}
 ```
 
+Save records across an entity (to update the record we add id).
+```php
+$entity = new SampleEntity;
+$entity->id = 1;
+$entity->sample = 'sample';
+
+$this->save($entity);
+```
+
 ## Tips
 You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
