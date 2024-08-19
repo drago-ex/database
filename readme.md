@@ -50,7 +50,7 @@ $this->model->delete('column, 'value');
 
 Save record (the update will be performed if a column with id is added).
 ```php
-$this->model->save(['column' => 'record']);
+$this->model->save(['column' => 'value']);
 ```
 
 ## Use of entity
@@ -65,35 +65,17 @@ class SampleEntity extends Drago\Database\Entity
 }
 ```
 
-Basic repository.
+Use a model with an entity.
 ```php
-/** @extends Database<SampleEntity> **/
 #[From(SampleEntity::Table, SampleEntity::PrimarKey)]
+class Model extends Database {}
+```
+
+A model with an entity and a class of fetched object.
+```php
+/** @extends Database<SampleEntity> */
+#[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
 class Repository extends Database {}
-```
-
-Use of an entity in a repository.
-```php
-function findById(int $id): SampleEntity|null
-{
-	return $this->find(SampleEntity::PrimarKey, $id)->record();
-}
-```
-
-Reading data.
-```php
-$row = $this->findById(1);
-echo $row->id;
-echo $row->sample;
-```
-
-Save records across an entity (to update the record we add id).
-```php
-$entity = new SampleEntity;
-$entity->id = 1;
-$entity->sample = 'sample';
-
-$this->save($entity);
 ```
 
 ## Tips
