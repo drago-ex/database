@@ -75,7 +75,17 @@ A model with an entity and a class of fetched object.
 ```php
 /** @extends Database<SampleEntity> */
 #[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
-class Repository extends Database {}
+class Model extends Database {}
+
+// We can directly call the model and the object.
+$row = $this->model->find('id', 1)->record();
+
+// Objects with hints.
+echo $row->id;
+echo $row->sample;
+
+// Or get all records.
+$this->model->read()->recordAll();
 ```
 
 Save records across an entity (to update the record we add id).
