@@ -48,7 +48,7 @@ Delete record.
 $this->model->delete('column, 'value');
 ```
 
-Save record (the update will be performed if a column with id is added).
+Save records as an array (the update will be performed if a column with id is added).
 ```php
 $this->model->save(['column' => 'value']);
 ```
