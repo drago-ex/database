@@ -18,7 +18,7 @@ use Dibi\Fluent;
  */
 class FluentExtra extends Fluent
 {
-	public string $className;
+	public ?string $className = null;
 
 
 	public function where(...$cond): self
