@@ -11,7 +11,6 @@ namespace Drago\Database;
 
 use Dibi\Exception;
 use Dibi\Fluent;
-use Drago\Attr\AttributeDetectionException;
 
 
 /**
@@ -19,11 +18,7 @@ use Drago\Attr\AttributeDetectionException;
  */
 class FluentExtra extends Fluent
 {
-	public function __construct(
-		private readonly Database $db,
-	) {
-		parent::__construct($db->getConnection());
-	}
+	public string $className;
 
 
 	public function where(...$cond): self
@@ -57,12 +52,11 @@ class FluentExtra extends Fluent
 	/**
 	 * @return T
 	 * @throws Exception
-	 * @throws AttributeDetectionException
 	 */
 	public function record(): mixed
 	{
 		return $this->execute()
-			->setRowClass($this->db->getClassName())
+			->setRowClass($this->className)
 			->fetch();
 	}
 
@@ -70,12 +64,11 @@ class FluentExtra extends Fluent
 	/**
 	 * @return T[]
 	 * @throws Exception
-	 * @throws AttributeDetectionException
 	 */
 	public function recordAll(?int $offset = null, ?int $limit = null): array
 	{
 		return $this->execute()
-			->setRowClass($this->db->getClassName())
+			->setRowClass($this->className)
 			->fetchAll($offset, $limit);
 	}
 }

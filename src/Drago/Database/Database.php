@@ -40,10 +40,13 @@ abstract class Database
 
 	/**
 	 * @return FluentExtra<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function command(): FluentExtra
 	{
-		return new FluentExtra($this);
+		$fluent = new FluentExtra($this->getConnection());
+		$fluent->className = $this->getClassName();
+		return $fluent;
 	}
 
 
