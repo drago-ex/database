@@ -58,13 +58,8 @@ trait AttributeDetection
 	 * The primary key of the table.
 	 * @throws AttributeDetectionException
 	 */
-	public function getPrimaryKey(): string
+	public function getPrimaryKey(): string|null
 	{
-		if ($this->getAttributes()->primaryKey === null) {
-			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you do not have a primary key name in the From attribute.',
-			);
-		}
 		return $this->getAttributes()
 			->primaryKey;
 	}
@@ -73,13 +68,8 @@ trait AttributeDetection
 	/**
 	 * @throws AttributeDetectionException
 	 */
-	public function getClassName(): string
+	public function getClassName(): string|null
 	{
-		if ($this->getAttributes()->class === null) {
-			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you do not have a class name in the From attribute.',
-			);
-		}
 		return $this->getAttributes()
 			->class;
 	}
