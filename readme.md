@@ -94,7 +94,7 @@ echo $row->id;
 echo $row->sample;
 
 // Or get all records.
-$this->model->read()->recordAll();
+$this->model->read('*')->recordAll();
 ```
 
 Save records across an entity (to update the record we add id).
