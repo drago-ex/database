@@ -58,17 +58,23 @@ trait AttributeDetection
 	 * The primary key of the table.
 	 * @throws AttributeDetectionException
 	 */
-	public function getPrimaryKey(): string|null
+	public function getPrimaryKey(): string
 	{
-		return $this->getAttributes()
-			->primaryKey;
+		$key = $this->getAttributes()->primaryKey;
+		if ($key === null) {
+			throw new AttributeDetectionException(
+				'In the model ' . static::class . ' you do not have a primary key in the From attribute.',
+			);
+		}
+		return $key;
 	}
 
 
 	/**
+	 * Row class for fetching object.
 	 * @throws AttributeDetectionException
 	 */
-	public function getClassName(): string|null
+	public function getClassName(): ?string
 	{
 		return $this->getAttributes()
 			->class;

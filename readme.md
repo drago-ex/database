@@ -22,28 +22,36 @@ composer require drago-ex/database
 
 ## Use
 ```php
-#[From('table', 'id')]
-class Model extends Database {}
+#[Table('table_name', 'primary_key')]
+class Model
+{
+    use Database;
+}
 ```
 
 ## Basic queries in the Model
 
-Get all columns from table.
+Reading records from table.
 ```php
 $this->model->read();
 ```
 
-Get specific columns from table.
+Reading records from specific columns.
 ```php
 $this->model->read('column');
 ```
 
-Find record by column name.
+Find records by column name.
 ```php
 $this->model->find('column, 'value');
 ```
 
-Delete record.
+Get record by id (if a primary key is available).
+```php
+$this->model->get(1);
+```
+
+Delete record by column name.
 ```php
 $this->model->delete('column, 'value');
 ```
@@ -57,7 +65,7 @@ $this->model->save(['column' => 'value']);
 ```php
 class SampleEntity extends Drago\Database\Entity
 {
-	public const Table = 'table';
+	public const Table = 'name';
 	public const PrimaryKey = 'id';
 
 	public ?int $id = null;
@@ -68,14 +76,20 @@ class SampleEntity extends Drago\Database\Entity
 Use a model with an entity.
 ```php
 #[From(SampleEntity::Table, SampleEntity::PrimarKey)]
-class Model extends Database {}
+class Model
+{
+    use Database;
+}
 ```
 
 A model with an entity and a class of fetched object.
 ```php
 /** @extends Database<SampleEntity> */
 #[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
-class Model extends Database {}
+class Model
+{
+    use Database;
+}
 
 // We can directly call the model and the object.
 $row = $this->model->find('id', 1)->record();

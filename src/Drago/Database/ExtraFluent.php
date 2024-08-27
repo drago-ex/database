@@ -16,9 +16,23 @@ use Dibi\Fluent;
 /**
  * @template T
  */
-class FluentExtra extends Fluent
+class ExtraFluent extends Fluent
 {
 	public ?string $className = null;
+
+
+	public function from($table, ...$args): self
+	{
+		parent::from($table, ...$args);
+		return $this;
+	}
+
+
+	public function select(...$field): self
+	{
+		parent::select(...$field);
+		return $this;
+	}
 
 
 	public function where(...$cond): self
@@ -45,6 +59,13 @@ class FluentExtra extends Fluent
 	public function orderBy(...$field): self
 	{
 		parent::orderBy(...$field);
+		return $this;
+	}
+
+
+	public function delete(...$cond): self
+	{
+		parent::delete(...$cond);
 		return $this;
 	}
 

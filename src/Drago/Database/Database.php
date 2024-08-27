@@ -18,43 +18,39 @@ use Drago\Attr\AttributeDetectionException;
 
 /**
  * @template T
+ * @property-read Connection $connection
  */
-abstract class Database
+trait Database
 {
 	use AttributeDetection;
-
-	public function __construct(
-		protected Connection $db,
-	) {
-	}
-
 
 	/**
 	 * Database connection.
 	 */
 	public function getConnection(): Connection
 	{
-		return $this->db;
+		return $this->connection;
 	}
 
 
 	/**
-	 * @return FluentExtra<T>
+	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function command(): FluentExtra
+	public function command(): ExtraFluent
 	{
-		$fluent = new FluentExtra($this->getConnection());
+		$fluent = new ExtraFluent($this->getConnection());
 		$fluent->className = $this->getClassName();
 		return $fluent;
 	}
 
 
 	/**
-	 * @return FluentExtra<T>
+	 * Reading records from table.
+	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function read(...$args): FluentExtra
+	public function read(...$args): ExtraFluent
 	{
 		$command = $this->command();
 		$command = $args ? $command->select(...$args) : $command->select('*');
@@ -63,10 +59,11 @@ abstract class Database
 
 
 	/**
-	 * @return FluentExtra<T>
+	 * Find records by column name.
+	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function find(string $column, int|string $args): FluentExtra
+	public function find(string $column, int|string $args): ExtraFluent
 	{
 		return $this->read()
 			->where('%n = ?', $column, $args);
@@ -74,9 +71,22 @@ abstract class Database
 
 
 	/**
+	 * Get record by id (if a primary key is available).
+	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function delete(string $column, int|string $args): FluentExtra
+	public function get(int $id): ExtraFluent
+	{
+		return $this->read()
+			->where('%n = ?', $this->getPrimaryKey(), $id);
+	}
+
+
+	/**
+	 * Delete record by column name.
+	 * @throws AttributeDetectionException
+	 */
+	public function delete(string $column, int|string $args): ExtraFluent
 	{
 		return $this->command()->delete()
 			->from($this->getTableName())
@@ -85,6 +95,7 @@ abstract class Database
 
 
 	/**
+	 * Insert or update.
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */

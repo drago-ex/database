@@ -20,20 +20,8 @@ function database(): TestDatabase
 }
 
 
-function find(int $id): TestEntity|null
-{
-	return database()->find(TestEntity::PrimaryKey, $id)->record();
-}
-
-
-function save(TestEntity $entity): Result|int|null
-{
-	return database()->save($entity);
-}
-
-
-test('Find record by id', function () {
-	$row = find(1);
+test('Get record by id', function () {
+	$row = database()->get(1)->record();
 
 	Assert::same(1, $row->id);
 	Assert::same('Hello', $row->sample);
@@ -58,8 +46,8 @@ test('Insert a record with an entity', function () {
 	$entity = new TestEntity;
 	$entity->sample = 'Insert';
 
-	save($entity);
-	$row = find(2);
+	database()->save($entity);
+	$row = database()->get(2)->record();
 
 	Assert::same(2, $row->id);
 	Assert::same('Insert', $row->sample);
@@ -67,10 +55,10 @@ test('Insert a record with an entity', function () {
 
 
 test('Update the record with the entity', function () {
-	$row = find(2);
+	$row = database()->get(2)->record();
 	$row->sample = 'Update';
 
-	save($row);
+	database()->save($row);
 
 	Assert::same(2, $row->id);
 	Assert::same('Update', $row->sample);
@@ -100,7 +88,7 @@ test('Get class name', function () {
 
 test('Delete record by id', function () {
 	database()->delete('id', 2)->execute();
-	$row = find(2);
+	$row = database()->get(2)->record();
 
 	Assert::null($row);
 });
