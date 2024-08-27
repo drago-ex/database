@@ -33,12 +33,7 @@ class Model
 
 Reading records from table.
 ```php
-$this->model->read();
-```
-
-Reading records from specific columns.
-```php
-$this->model->read('column');
+$this->model->read('*');
 ```
 
 Find records by column name.

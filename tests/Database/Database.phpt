@@ -20,7 +20,9 @@ function database(): TestDatabase
 
 
 test('Get record by id', function () {
-	$row = database()->get(1)->record();
+	$row = database()
+		->get(1)
+		->record();
 
 	Assert::same(1, $row->id);
 	Assert::same('Hello', $row->sample);
@@ -28,7 +30,9 @@ test('Get record by id', function () {
 
 
 test('Find all records', function () {
-	$row = database()->read()->recordAll();
+	$row = database()
+		->read('*')
+		->recordAll();
 
 	Assert::type('array', $row);
 });
@@ -46,7 +50,9 @@ test('Insert a record with an entity', function () {
 	$entity->sample = 'Insert';
 
 	database()->save($entity);
-	$row = database()->get(2)->record();
+	$row = database()
+		->get(2)
+		->record();
 
 	Assert::same(2, $row->id);
 	Assert::same('Insert', $row->sample);
@@ -54,9 +60,11 @@ test('Insert a record with an entity', function () {
 
 
 test('Update the record with the entity', function () {
-	$row = database()->get(2)->record();
-	$row->sample = 'Update';
+	$row = database()
+		->get(2)
+		->record();
 
+	$row->sample = 'Update';
 	database()->save($row);
 
 	Assert::same(2, $row->id);
@@ -65,21 +73,24 @@ test('Update the record with the entity', function () {
 
 
 test('Get table name', function () {
-	$table = database()->getTableName();
+	$table = database()
+		->getTableName();
 
 	Assert::same('test', $table);
 });
 
 
 test('Get table column primary key', function () {
-	$primaryKey = database()->getPrimaryKey();
+	$primaryKey = database()
+		->getPrimaryKey();
 
 	Assert::same('id', $primaryKey);
 });
 
 
 test('Get class name', function () {
-	$className = database()->getClassName();
+	$className = database()
+		->getClassName();
 
 	Assert::same(TestEntity::class, $className);
 });
@@ -87,7 +98,9 @@ test('Get class name', function () {
 
 test('Delete record by id', function () {
 	database()->delete('id', 2)->execute();
-	$row = database()->get(2)->record();
+	$row = database()
+		->get(2)
+		->record();
 
 	Assert::null($row);
 });

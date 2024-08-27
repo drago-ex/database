@@ -52,9 +52,9 @@ trait Database
 	 */
 	public function read(...$args): ExtraFluent
 	{
-		$command = $this->command();
-		$command = $args ? $command->select(...$args) : $command->select('*');
-		return $command->from($this->getTableName());
+		return $this->command()
+			->select(...$args)
+			->from($this->getTableName());
 	}
 
 
@@ -65,7 +65,7 @@ trait Database
 	 */
 	public function find(string $column, int|string $args): ExtraFluent
 	{
-		return $this->read()
+		return $this->read('*')
 			->where('%n = ?', $column, $args);
 	}
 
@@ -77,7 +77,7 @@ trait Database
 	 */
 	public function get(int $id): ExtraFluent
 	{
-		return $this->read()
+		return $this->read('*')
 			->where('%n = ?', $this->getPrimaryKey(), $id);
 	}
 
@@ -88,7 +88,8 @@ trait Database
 	 */
 	public function delete(string $column, int|string $args): ExtraFluent
 	{
-		return $this->command()->delete()
+		return $this->command()
+			->delete()
 			->from($this->getTableName())
 			->where('%n = ?', $column, $args);
 	}
@@ -102,6 +103,7 @@ trait Database
 	public function save(mixed $values): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
+		$table = $this->getTableName();
 		if ($values instanceof Entity) {
 			$values = $values->toArray();
 
@@ -112,8 +114,8 @@ trait Database
 
 		$id = $values[$key] ?? null;
 		$query = $id > 0
-			? $this->getConnection()->update($this->getTableName(), $values)->where('%n = ?', $key, $id)
-			: $this->getConnection()->insert($this->getTableName(), $values);
+			? $this->getConnection()->update($table, $values)->where('%n = ?', $key, $id)
+			: $this->getConnection()->insert($table, $values);
 		return $query->execute();
 	}
 
