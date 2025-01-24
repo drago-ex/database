@@ -13,7 +13,7 @@ use Exception;
 
 
 /**
- * Exception for attributes repository.
+ * Exception thrown when there is an error with attribute detection in the repository.
  */
 class AttributeDetectionException extends Exception
 {

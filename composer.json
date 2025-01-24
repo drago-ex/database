@@ -1,7 +1,7 @@
 {
 	"name": "drago-ex/database",
 	"type": "library",
-	"description": "Connecting to database for Nette Framework",
+	"description": "Simple and flexible database abstraction layer built on Dibi for PHP, with support for entities and repositories.",
 	"license": ["MIT"],
 	"authors": [
 		{
@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": ">=8.1 <8.4",
+		"php": ">=8.3 <9",
 		"dibi/dibi": "^5.0"
 	},
 	"require-dev": {
