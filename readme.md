@@ -1,4 +1,4 @@
-## Database
+## Drago Database
 A simple and powerful database library for PHP built on top of Dibi.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license.md)
