@@ -13,10 +13,13 @@ use Dibi\Row;
 
 
 /**
- * Base for oracle entity.
+ * Base class for Oracle entity.
  */
 class EntityOracle extends Row
 {
+	/**
+	 * Constructor for Oracle entity, changes array keys to uppercase.
+	 */
 	public function __construct(array $arr = [])
 	{
 		parent::__construct($this->changeKey($arr));
@@ -24,7 +27,7 @@ class EntityOracle extends Row
 
 
 	/**
-	 * Returns items as array with converted keys to uppercase.
+	 * Returns items as an array with converted keys to uppercase.
 	 */
 	public function toArrayUpper(): array
 	{

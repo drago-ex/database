@@ -9,7 +9,7 @@ Simple recurring questions.
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
 ## Technology
-- PHP 8.1 or higher
+- PHP 8.3 or higher
 - composer
 
 ## Knowledge
@@ -20,7 +20,7 @@ Simple recurring questions.
 composer require drago-ex/database
 ```
 
-## Use
+## Basic Model Example
 ```php
 #[Table('table_name', 'primary_key')]
 class Model
@@ -29,34 +29,33 @@ class Model
 }
 ```
 
-## Basic queries in the Model
-
-Reading records from table.
+## Common Queries
+Reading records from a table:
 ```php
 $this->model->read('*');
 ```
 
-Find records by column name.
+Find records by column name:
 ```php
 $this->model->find('column, 'value');
 ```
 
-Get record by id (if a primary key is available).
+Get a record by ID:
 ```php
 $this->model->get(1);
 ```
 
-Delete record by column name.
+Delete a record by column name:
 ```php
 $this->model->delete('column, 'value');
 ```
 
-Save records as an array (the update will be performed if a column with id is added).
+Save records as an array (update if `id` is provided):
 ```php
 $this->model->save(['column' => 'value']);
 ```
 
-## Use of entity
+## Using Entities
 ```php
 class SampleEntity extends Drago\Database\Entity
 {
@@ -68,7 +67,7 @@ class SampleEntity extends Drago\Database\Entity
 }
 ```
 
-Use a model with an entity.
+Use the entity in a model:
 ```php
 #[From(SampleEntity::Table, SampleEntity::PrimarKey)]
 class Model
@@ -77,27 +76,17 @@ class Model
 }
 ```
 
-A model with an entity and a class of fetched object.
+Fetch records as objects:
 ```php
-/** @extends Database<SampleEntity> */
-#[From(SampleEntity::Table, SampleEntity::PrimarKey, class: SampleEntity::class)]
-class Model
-{
-    use Database;
-}
-
-// We can directly call the model and the object.
 $row = $this->model->find('id', 1)->record();
 
-// Objects with hints.
+// Accessing properties
 echo $row->id;
 echo $row->sample;
-
-// Or get all records.
-$this->model->read('*')->recordAll();
 ```
 
-Save records across an entity (to update the record we add id).
+## Save Entity Records
+To save entity data (update record if `id` is present):
 ```php
 $entity = new SampleEntity;
 $entity->id = 1;
@@ -106,5 +95,27 @@ $entity->sample = 'sample';
 $this->save($entity);
 ```
 
-## Tips
-You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
+# Advanced Features
+## Entity Class for Database Mapping
+You can use a custom entity class with database mapping:
+```php
+/** @extends Database<SampleEntity> */
+#[From(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
+class Model
+{
+    use Database;
+}
+
+// Fetch records directly as objects
+$row = $this->model->find('id', 1)->record();
+
+// Access the object's properties
+echo $row->id;
+echo $row->sample;
+
+// Fetch all records
+$allRecords = $this->model->read('*')->recordAll();
+```
+
+## Entity Generation
+For automatic entity generation, consider using the Drago Generator tool: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)

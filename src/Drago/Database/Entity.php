@@ -13,7 +13,7 @@ use Dibi\Row;
 
 
 /**
- * Base for entity.
+ * Base class for entity.
  */
 class Entity extends Row
 {

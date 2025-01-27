@@ -25,7 +25,9 @@ trait Database
 	use AttributeDetection;
 
 	/**
-	 * Database connection.
+	 * Get the database connection.
+	 *
+	 * @return Connection The database connection instance.
 	 */
 	public function getConnection(): Connection
 	{
@@ -34,8 +36,10 @@ trait Database
 
 
 	/**
-	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
+	 * Create a new ExtraFluent query builder.
+	 *
+	 * @return ExtraFluent<T> A new instance of ExtraFluent to build queries.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
 	public function command(): ExtraFluent
 	{
@@ -46,9 +50,11 @@ trait Database
 
 
 	/**
-	 * Reading records from table.
-	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
+	 * Read records from the table.
+	 *
+	 * @param mixed ...$args Arguments for selecting columns.
+	 * @return ExtraFluent<T> The fluent query builder with the select statement.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
 	public function read(...$args): ExtraFluent
 	{
@@ -60,10 +66,13 @@ trait Database
 
 	/**
 	 * Find records by column name.
-	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
+	 *
+	 * @param string $column The column name to search.
+	 * @param string|int $args The value to match against the column.
+	 * @return ExtraFluent<T> The fluent query builder with the where condition.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function find(string $column, int|string $args): ExtraFluent
+	public function find(string $column, string|int $args): ExtraFluent
 	{
 		return $this->read('*')
 			->where('%n = ?', $column, $args);
@@ -71,9 +80,11 @@ trait Database
 
 
 	/**
-	 * Get record by id (if a primary key is available).
-	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
+	 * Get a record by its primary key.
+	 *
+	 * @param int $id The primary key of the record to fetch.
+	 * @return ExtraFluent<T> The fluent query builder for fetching the record.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
 	public function get(int $id): ExtraFluent
 	{
@@ -83,10 +94,14 @@ trait Database
 
 
 	/**
-	 * Delete record by column name.
-	 * @throws AttributeDetectionException
+	 * Delete a record by a specific column value.
+	 *
+	 * @param string $column The column name to search by.
+	 * @param string|int $args The value to match against the column.
+	 * @return ExtraFluent The fluent query builder for deleting the record.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function delete(string $column, int|string $args): ExtraFluent
+	public function delete(string $column, string|int $args): ExtraFluent
 	{
 		return $this->command()
 			->delete()
@@ -96,17 +111,21 @@ trait Database
 
 
 	/**
-	 * Insert or update.
-	 * @throws AttributeDetectionException
-	 * @throws Exception
+	 * Insert or update a record.
+	 *
+	 * @param mixed $values The values to insert or update in the table.
+	 * @return Result|int|null The result of the query execution.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @throws Exception If an error occurs while executing the query.
 	 */
 	public function save(mixed $values): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
 		$table = $this->getTableName();
+
+		// Convert entity to array if necessary
 		if ($values instanceof Entity) {
 			$values = $values->toArray();
-
 		} elseif ($values instanceof EntityOracle) {
 			$values = $values->toArrayUpper();
 			$key = strtoupper($key);
@@ -116,13 +135,17 @@ trait Database
 		$query = $id > 0
 			? $this->getConnection()->update($table, $values)->where('%n = ?', $key, $id)
 			: $this->getConnection()->insert($table, $values);
+
 		return $query->execute();
 	}
 
 
 	/**
-	 * Get the id of the inserted record.
-	 * @throws Exception
+	 * Get the id of the last inserted record.
+	 *
+	 * @param string|null $sequence The sequence name (optional).
+	 * @return int The id of the last inserted record.
+	 * @throws Exception If an error occurs while fetching the insert id.
 	 */
 	public function getInsertId(?string $sequence = null): int
 	{

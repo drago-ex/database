@@ -11,7 +11,7 @@ namespace Drago\Attr;
 
 
 /**
- * Get table information.
+ * Class to represent table information such as name, primary key, and row class.
  */
 class Attributes
 {

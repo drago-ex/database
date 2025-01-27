@@ -14,6 +14,7 @@ use Exception;
 
 /**
  * Exception for attributes repository.
+ * Custom exception class to handle attribute detection errors.
  */
 class AttributeDetectionException extends Exception
 {

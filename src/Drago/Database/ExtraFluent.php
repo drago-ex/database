@@ -18,9 +18,17 @@ use Dibi\Fluent;
  */
 class ExtraFluent extends Fluent
 {
+	/** @var string|null */
 	public ?string $className = null;
 
 
+	/**
+	 * Set the table for the query.
+	 *
+	 * @param string $table Table name.
+	 * @param mixed ...$args Additional arguments for the query.
+	 * @return $this Fluent instance.
+	 */
 	public function from($table, ...$args): self
 	{
 		parent::from($table, ...$args);
@@ -28,6 +36,12 @@ class ExtraFluent extends Fluent
 	}
 
 
+	/**
+	 * Select fields for the query.
+	 *
+	 * @param mixed ...$field Fields to be selected.
+	 * @return $this Fluent instance.
+	 */
 	public function select(...$field): self
 	{
 		parent::select(...$field);
@@ -35,6 +49,12 @@ class ExtraFluent extends Fluent
 	}
 
 
+	/**
+	 * Add where condition to the query.
+	 *
+	 * @param mixed ...$cond Conditions for the WHERE clause.
+	 * @return $this Fluent instance.
+	 */
 	public function where(...$cond): self
 	{
 		parent::where(...$cond);
@@ -42,6 +62,12 @@ class ExtraFluent extends Fluent
 	}
 
 
+	/**
+	 * Add AND condition to the query.
+	 *
+	 * @param mixed ...$cond Conditions for the AND clause.
+	 * @return $this Fluent instance.
+	 */
 	public function and(...$cond): self
 	{
 		parent::and(...$cond);
@@ -49,6 +75,12 @@ class ExtraFluent extends Fluent
 	}
 
 
+	/**
+	 * Add OR condition to the query.
+	 *
+	 * @param mixed ...$cond Conditions for the OR clause.
+	 * @return $this Fluent instance.
+	 */
 	public function or(...$cond): self
 	{
 		parent::or(...$cond);
@@ -56,6 +88,12 @@ class ExtraFluent extends Fluent
 	}
 
 
+	/**
+	 * Add order by condition to the query.
+	 *
+	 * @param mixed ...$field Fields for the ORDER BY clause.
+	 * @return $this Fluent instance.
+	 */
 	public function orderBy(...$field): self
 	{
 		parent::orderBy(...$field);
@@ -63,6 +101,12 @@ class ExtraFluent extends Fluent
 	}
 
 
+	/**
+	 * Delete records based on conditions.
+	 *
+	 * @param mixed ...$cond Conditions for the DELETE query.
+	 * @return $this Fluent instance.
+	 */
 	public function delete(...$cond): self
 	{
 		parent::delete(...$cond);
@@ -71,7 +115,9 @@ class ExtraFluent extends Fluent
 
 
 	/**
-	 * @return T
+	 * Execute the query and return a single record.
+	 *
+	 * @return T|null The record or null if not found.
 	 * @throws Exception
 	 */
 	public function record(): mixed
@@ -83,7 +129,9 @@ class ExtraFluent extends Fluent
 
 
 	/**
-	 * @return T[]
+	 * Execute the query and return multiple records.
+	 *
+	 * @return T[] List of records.
 	 * @throws Exception
 	 */
 	public function recordAll(?int $offset = null, ?int $limit = null): array
