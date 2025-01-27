@@ -1,5 +1,5 @@
 ## Drago Database
-A simple and powerful database library for PHP built on top of Dibi.
+Simple recurring questions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license.md)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
@@ -20,47 +20,46 @@ A simple and powerful database library for PHP built on top of Dibi.
 composer require drago-ex/database
 ```
 
-## Quick Start
-### Define a Model with Attributes
-To define a model (or entity) class, use the Table attribute to specify the table and primary key:
+## Basic Model Example
 ```php
-#[Table('table', 'id')]
-class Model {}
+#[Table('table_name', 'primary_key')]
+class Model
+{
+    use Database;
+}
 ```
 
-## Basic Repository Queries
-
-Get all records from a table:
+## Common Queries
+Reading records from a table:
 ```php
-$this->model->table();
+$this->model->read('*');
 ```
 
-Search for a record by column name:
+Find records by column name:
 ```php
-$this->model->table('email = ?', 'email@email.com');
+$this->model->find('column, 'value');
 ```
 
-Search for a record by its `id`:
+Get a record by ID:
 ```php
 $this->model->get(1);
 ```
 
-Delete a record by `id`:
+Delete a record by column name:
 ```php
-$this->model->remove(1);
+$this->model->delete('column, 'value');
 ```
 
-Save a record (use `id` to perform an update if it exists):
+Save records as an array (update if `id` is provided):
 ```php
-$this->model->put(['column' => 'record']);
+$this->model->save(['column' => 'value']);
 ```
 
-## Using an Entity in the Repository
-Define your entity (model class) that extends the `Entity` class:
+## Using Entities
 ```php
 class SampleEntity extends Drago\Database\Entity
 {
-	public const Table = 'table';
+	public const Table = 'name';
 	public const PrimaryKey = 'id';
 
 	public ?int $id = null;
@@ -68,31 +67,26 @@ class SampleEntity extends Drago\Database\Entity
 }
 ```
 
-Create a repository class:
+Use the entity in a model:
 ```php
-#[Table(SampleEntity::Table, SampleEntity::PrimarKey)]
-class Repository {}
-```
-
-## Querying with the Entity
-Find a record by its `id`:
-```php
-function find(int $id): array|SampleEntity|null
+#[From(SampleEntity::Table, SampleEntity::PrimarKey)]
+class Model
 {
-	return $this->get($id)->fetch();
+    use Database;
 }
 ```
 
-Reading data from a record:
+Fetch records as objects:
 ```php
-$row = $this->find(1);
+$row = $this->model->find('id', 1)->record();
+
+// Accessing properties
 echo $row->id;
 echo $row->sample;
 ```
 
-## Saving an Entity
-To save a record, you can use the `put` method. If the `id` exists, it will perform an update;
-otherwise, it will insert a new record:
+## Save Entity Records
+To save entity data (update record if `id` is present):
 ```php
 $entity = new SampleEntity;
 $entity->id = 1;
@@ -101,13 +95,27 @@ $entity->sample = 'sample';
 $this->save($entity);
 ```
 
-The save method saves the record to the database:
+# Advanced Features
+## Entity Class for Database Mapping
+You can use a custom entity class with database mapping:
 ```php
-function save(SampleEntity $entity): Result|int|null
+/** @extends Database<SampleEntity> */
+#[From(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
+class Model
 {
-	return $this->put($entity);
+    use Database;
 }
+
+// Fetch records directly as objects
+$row = $this->model->find('id', 1)->record();
+
+// Access the object's properties
+echo $row->id;
+echo $row->sample;
+
+// Fetch all records
+$allRecords = $this->model->read('*')->recordAll();
 ```
 
-## Tips
-You can also use entities and have them generated. [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
+## Entity Generation
+For automatic entity generation, consider using the Drago Generator tool: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)

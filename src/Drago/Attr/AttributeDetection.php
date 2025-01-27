@@ -13,60 +13,74 @@ use ReflectionClass;
 
 
 /**
- * Trait for retrieving attributes from the repository.
- *
- * Provides methods to detect table information (name and primary key) using PHP attributes.
+ * Retrieving attributes from the repository.
  */
 trait AttributeDetection
 {
 	/**
-	 * Detects and retrieves table information (name and primary key) from attributes.
-	 *
-	 * @throws AttributeDetectionException If the Table attribute is not present or does not contain the table name.
+	 * Attribute detection.
+	 * @throws AttributeDetectionException
 	 */
-	private function getTableInfo(): Attributes
+	private function getAttributes(): Attributes
 	{
-		$ref = new ReflectionClass(static::class);
-		$arr = [];
+		$reflectionClass = new ReflectionClass(static::class);
+		$attributes = [];
 
-		// Retrieve all attributes of the current class
-		foreach ($ref->getAttributes() as $attr) {
-			$arr = $attr->getArguments();
+		// Retrieve attributes
+		foreach ($reflectionClass->getAttributes() as $attribute) {
+			$attributes = $attribute->getArguments();
 		}
 
-		// If no table name is found, throw an exception
-		if (!isset($arr[0])) {
+		// Check if required table name is set
+		if (!isset($attributes[0])) {
 			throw new AttributeDetectionException(
-				'In the model ' . static::class . ' you do not have a table name in the Table attribute.',
+				sprintf('In the model %s you do not have a table name in the From attribute.', static::class),
 			);
 		}
 
-		// Return attributes (table name and primary key if available)
 		return new Attributes(
-			name: $arr[0],
-			primaryKey: $arr[1] ?? null,
+			name: $attributes[0],
+			primaryKey: $attributes[1] ?? null,
+			class: $attributes['class'] ?? null,
 		);
 	}
 
 
 	/**
-	 * Returns the name of the table.
-	 *
-	 * @throws AttributeDetectionException If the table name cannot be detected.
+	 * The name of the table.
+	 * @throws AttributeDetectionException
 	 */
 	public function getTableName(): string
 	{
-		return $this->getTableInfo()->name;
+		return $this->getAttributes()->name;
 	}
 
 
 	/**
-	 * Returns the primary key of the table.
-	 *
-	 * @throws AttributeDetectionException If the primary key cannot be detected.
+	 * The primary key of the table.
+	 * @throws AttributeDetectionException
 	 */
-	public function getPrimaryKey(): ?string
+	public function getPrimaryKey(): string
 	{
-		return $this->getTableInfo()->primaryKey;
+		$primaryKey = $this->getAttributes()->primaryKey;
+
+		// Ensure primary key is present
+		if ($primaryKey === null) {
+			throw new AttributeDetectionException(
+				sprintf('In the model %s you do not have a primary key in the From attribute.', static::class),
+			);
+		}
+
+		return $primaryKey;
+	}
+
+
+	/**
+	 * Row class for fetching object.
+	 * @throws AttributeDetectionException
+	 */
+	public function getClassName(): ?string
+	{
+		return $this->getAttributes()->class;
 	}
 }

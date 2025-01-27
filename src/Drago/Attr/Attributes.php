@@ -11,13 +11,14 @@ namespace Drago\Attr;
 
 
 /**
- * Represents the table information such as name and primary key.
+ * Class to represent table information such as name, primary key, and row class.
  */
 class Attributes
 {
 	public function __construct(
 		public string $name,
 		public ?string $primaryKey = null,
+		public ?string $class = null,
 	) {
 	}
 }
