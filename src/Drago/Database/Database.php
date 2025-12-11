@@ -68,11 +68,11 @@ trait Database
 	 * Find records by column name.
 	 *
 	 * @param string $column The column name to search.
-	 * @param string|int $args The value to match against the column.
+	 * @param mixed $args The value to match against the column.
 	 * @return ExtraFluent<T> The fluent query builder with the where condition.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function find(string $column, string|int $args): ExtraFluent
+	public function find(string $column, mixed $args): ExtraFluent
 	{
 		return $this->read('*')
 			->where('%n = ?', $column, $args);
@@ -97,11 +97,11 @@ trait Database
 	 * Delete a record by a specific column value.
 	 *
 	 * @param string $column The column name to search by.
-	 * @param string|int $args The value to match against the column.
+	 * @param mixed $args The value to match against the column.
 	 * @return ExtraFluent The fluent query builder for deleting the record.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function delete(string $column, string|int $args): ExtraFluent
+	public function delete(string $column, mixed $args): ExtraFluent
 	{
 		return $this->command()
 			->delete()
