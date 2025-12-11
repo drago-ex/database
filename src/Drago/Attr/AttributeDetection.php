@@ -34,14 +34,26 @@ trait AttributeDetection
 		// Check if required table name is set
 		if (!isset($attributes[0])) {
 			throw new AttributeDetectionException(
-				sprintf('In the model %s you do not have a table name in the From attribute.', static::class),
+				sprintf('In the model %s you do not have a table name in the Table attribute.', static::class),
+			);
+		}
+
+		// Check if it is Dibi\Row
+		$class = $attributes['class'] ?? null;
+		if ($class !== null && !is_subclass_of($class, \Dibi\Row::class)) {
+			throw new AttributeDetectionException(
+				sprintf(
+					'Class "%s" in the Table attribute of %s is not an instance of Dibi\Row.',
+					$class,
+					static::class
+				)
 			);
 		}
 
 		return new Attributes(
 			name: $attributes[0],
 			primaryKey: $attributes[1] ?? null,
-			class: $attributes['class'] ?? null,
+			class: $class,
 		);
 	}
 
@@ -67,7 +79,7 @@ trait AttributeDetection
 		// Ensure primary key is present
 		if ($primaryKey === null) {
 			throw new AttributeDetectionException(
-				sprintf('In the model %s you do not have a primary key in the From attribute.', static::class),
+				sprintf('In the model %s you do not have a primary key in the Table attribute.', static::class),
 			);
 		}
 
