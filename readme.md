@@ -8,9 +8,11 @@ Simple recurring questions.
 [![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/database/badge)](https://www.codefactor.io/repository/github/drago-ex/database)
 [![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
-## Technology
-- PHP 8.3 or higher
-- composer
+## Requirements
+- PHP >= 8.3
+- Nette Framework
+- dibi
+- Composer
 
 ## Knowledge
 - [Dibi - smart database layer for PHP](https://github.com/dg/dibi)
