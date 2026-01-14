@@ -140,18 +140,4 @@ class ExtraFluent extends Fluent
 			->setRowClass($this->className)
 			->fetchAll($offset, $limit);
 	}
-
-
-	/**
-	 * Execute the query and return all records.
-	 *
-	 * @return T All records by key.
-	 * @throws Exception
-	 */
-	public function recordPairs(?string $key = null, ?string $value = null): array
-	{
-		return $this->execute()
-			->setRowClass($this->className)
-			->fetchPairs($key, $value);
-	}
 }
