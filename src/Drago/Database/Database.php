@@ -152,4 +152,37 @@ trait Database
 		return $this->getConnection()
 			->getInsertId($sequence);
 	}
+
+
+	/**
+	 * Begins a transaction (if supported).
+	 * @throws DriverException
+	 */
+	public function beginTransaction(?string $savepoint = null): void
+	{
+		$this->getConnection()
+			->begin($savepoint);
+	}
+
+
+	/**
+	 * Commits statements in a transaction.
+	 * @throws DriverException
+	 */
+	public function commit(?string $savepoint = null): void
+	{
+		$this->getConnection()
+			->commit($savepoint);
+	}
+
+
+	/**
+	 * Rollback changes in a transaction.
+	 * @throws DriverException
+	 */
+	public function rollBack(?string $savepoint = null): void
+	{
+		$this->getConnection()
+			->rollback($savepoint);
+	}
 }
