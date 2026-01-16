@@ -95,22 +95,19 @@ trait Database
 
 
 	/**
-	 * Delete a record by a specific column or by primary key if column is not provided.
+	 * Delete a record by a specific column value.
 	 *
-	 * @param mixed $target Column name or value for primary key.
-	 * @param mixed|null $args Value to match (ignored if only primary key is used).
+	 * @param string $column The column name to search by.
+	 * @param mixed $args The value to match against the column.
 	 * @return ExtraFluent The fluent query builder for deleting the record.
-	 * @throws AttributeDetectionException If table or class is not defined.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function delete(mixed $target, mixed $args = null): ExtraFluent
+	public function delete(string $column, mixed $args): ExtraFluent
 	{
-		$column = $args === null ? $this->getPrimaryKey() : $target;
-		$value  = $args ?? $target;
-
 		return $this->command()
 			->delete()
 			->from($this->getTableName())
-			->where('%n = ?', $column, $value);
+			->where('%n = ?', $column, $args);
 	}
 
 
