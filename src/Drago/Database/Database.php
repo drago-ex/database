@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Drago\Database;
 
 use Dibi\Connection;
+use Dibi\DriverException;
 use Dibi\Exception;
 use Dibi\Result;
 use Drago\Attr\AttributeDetection;
@@ -111,6 +112,36 @@ trait Database
 
 
 	/**
+	 * Insert a new record into the table.
+	 *
+	 * @param mixed ...$values Values or SQL fragments to insert.
+	 * @return ExtraFluent<T> The fluent query builder for inserting the record.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 */
+	public function insert(...$values): ExtraFluent
+	{
+		return $this->command()
+			->insert(...$values)
+			->into($this->getTableName());
+	}
+
+
+	/**
+	 * Update records in the table.
+	 *
+	 * @param mixed ...$values Values or SQL fragments to update.
+	 * @return ExtraFluent<T> The fluent query builder for updating records.
+	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 */
+	public function update(...$values): ExtraFluent
+	{
+		return $this->command()
+			->update(...$values)
+			->from($this->getTableName());
+	}
+
+
+	/**
 	 * Insert or update a record.
 	 *
 	 * @param mixed $values The values to insert or update in the table.
@@ -121,11 +152,11 @@ trait Database
 	public function save(mixed $values): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
-		$table = $this->getTableName();
 
 		// Convert entity to array if necessary
 		if ($values instanceof Entity) {
 			$values = $values->toArray();
+
 		} elseif ($values instanceof EntityOracle) {
 			$values = $values->toArrayUpper();
 			$key = strtoupper($key);
@@ -133,8 +164,8 @@ trait Database
 
 		$id = $values[$key] ?? null;
 		$query = $id > 0
-			? $this->getConnection()->update($table, $values)->where('%n = ?', $key, $id)
-			: $this->getConnection()->insert($table, $values);
+			? $this->update($values)->where('%n = ?', $key, $id)
+			: $this->insert($values);
 
 		return $query->execute();
 	}
@@ -155,8 +186,9 @@ trait Database
 
 
 	/**
-	 * Begins a transaction (if supported).
-	 * @throws DriverException
+	 * Begins a transaction (optionally with savepoint).
+	 * @param string|null $savepoint Optional savepoint name.
+	 * @throws DriverException If the driver doesn't support transactions.
 	 */
 	public function beginTransaction(?string $savepoint = null): void
 	{
@@ -166,8 +198,9 @@ trait Database
 
 
 	/**
-	 * Commits statements in a transaction.
-	 * @throws DriverException
+	 * Commits the transaction (optionally to a savepoint).
+	 * @param string|null $savepoint Optional savepoint name.
+	 * @throws DriverException If commit fails.
 	 */
 	public function commit(?string $savepoint = null): void
 	{
@@ -177,8 +210,9 @@ trait Database
 
 
 	/**
-	 * Rollback changes in a transaction.
-	 * @throws DriverException
+	 * Rolls back the transaction (optionally to a savepoint).
+	 * @param string|null $savepoint Optional savepoint name.
+	 * @throws DriverException If rollback fails.
 	 */
 	public function rollBack(?string $savepoint = null): void
 	{
