@@ -115,6 +115,45 @@ class ExtraFluent extends Fluent
 
 
 	/**
+	 * Insert values into the table.
+	 *
+	 * @param mixed ...$cond Values or SQL fragments to insert.
+	 * @return $this Fluent instance.
+	 */
+	public function insert(...$cond): self
+	{
+		parent::insert(...$cond);
+		return $this;
+	}
+
+
+	/**
+	 * Update records in the table.
+	 *
+	 * @param mixed ...$cond Values or SQL fragments to update.
+	 * @return $this Fluent instance.
+	 */
+	public function update(...$cond): self
+	{
+		parent::update(...$cond);
+		return $this;
+	}
+
+
+	/**
+	 * Set the table for the INSERT query.
+	 *
+	 * @param mixed ...$cond Table name or SQL fragments.
+	 * @return $this Fluent instance.
+	 */
+	public function into(...$cond): self
+	{
+		parent::into(...$cond);
+		return $this;
+	}
+
+
+	/**
 	 * Execute the query and return a single record.
 	 *
 	 * @return T|null The record or null if not found.
