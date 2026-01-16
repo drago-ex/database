@@ -95,19 +95,22 @@ trait Database
 
 
 	/**
-	 * Delete a record by a specific column value.
+	 * Delete a record by a specific column or by primary key if column is not provided.
 	 *
-	 * @param string $column The column name to search by.
-	 * @param mixed $args The value to match against the column.
+	 * @param mixed $target Column name or value for primary key.
+	 * @param mixed|null $args Value to match (ignored if only primary key is used).
 	 * @return ExtraFluent The fluent query builder for deleting the record.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @throws AttributeDetectionException If table or class is not defined.
 	 */
-	public function delete(string $column, mixed $args): ExtraFluent
+	public function delete(mixed $target, mixed $args = null): ExtraFluent
 	{
+		$column = $args === null ? $this->getPrimaryKey() : $target;
+		$value  = $args ?? $target;
+
 		return $this->command()
 			->delete()
 			->from($this->getTableName())
-			->where('%n = ?', $column, $args);
+			->where('%n = ?', $column, $value);
 	}
 
 
@@ -145,28 +148,24 @@ trait Database
 	/**
 	 * Insert or update a record.
 	 *
-	 * @param mixed $values The values to insert or update in the table.
+	 * @param array|iterable $args The values to insert or update in the table.
 	 * @return Result|int|null The result of the query execution.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 * @throws Exception If an error occurs while executing the query.
 	 */
-	public function save(mixed $values): Result|int|null
+	public function save(iterable $args): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
-
-		// Convert entity to array if necessary
-		if ($values instanceof Entity) {
-			$values = $values->toArray();
-
-		} elseif ($values instanceof EntityOracle) {
-			$values = $values->toArrayUpper();
+		if ($args instanceof EntityOracle) {
+			$args = $args->toArrayUpper();
 			$key = strtoupper($key);
 		}
 
-		$id = $values[$key] ?? null;
+		$id = $args[$key] ?? null;
+
 		$query = $id > 0
-			? $this->update($values)->where('%n = ?', $key, $id)
-			: $this->insert($values);
+			? $this->update($args)->where('%n = ?', $key, $id)
+			: $this->insert($args);
 
 		return $query->execute();
 	}
