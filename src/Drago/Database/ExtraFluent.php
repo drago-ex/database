@@ -141,6 +141,32 @@ class ExtraFluent extends Fluent
 
 
 	/**
+	 * Set values for UPDATE queries.
+	 *
+	 * @param mixed ...$args Column-value pairs.
+	 * @return $this
+	 */
+	public function set(...$args): self
+	{
+		parent::set(...$args);
+		return $this;
+	}
+
+
+	/**
+	 * Set values for INSERT queries.
+	 *
+	 * @param mixed ...$args Column-value pairs.
+	 * @return $this
+	 */
+	public function values(...$args): self
+	{
+		parent::values(...$args);
+		return $this;
+	}
+
+
+	/**
 	 * Set the table for the INSERT query.
 	 *
 	 * @param mixed ...$cond Table name or SQL fragments.
