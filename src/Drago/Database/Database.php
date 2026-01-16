@@ -114,30 +114,31 @@ trait Database
 	/**
 	 * Insert a new record into the table.
 	 *
-	 * @param mixed ...$values Values or SQL fragments to insert.
+	 * @param array|iterable $args Values to insert (associative array: column => value).
 	 * @return ExtraFluent<T> The fluent query builder for inserting the record.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function insert(...$values): ExtraFluent
+	public function insert(iterable $args): ExtraFluent
 	{
 		return $this->command()
-			->insert(...$values)
-			->into($this->getTableName());
+			->insert()
+			->into($this->getTableName())
+			->values($args);
 	}
 
 
 	/**
 	 * Update records in the table.
 	 *
-	 * @param mixed ...$values Values or SQL fragments to update.
+	 * @param array|iterable $args Values to update (associative array: column => value).
 	 * @return ExtraFluent<T> The fluent query builder for updating records.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function update(...$values): ExtraFluent
+	public function update(iterable $args): ExtraFluent
 	{
 		return $this->command()
-			->update(...$values)
-			->from($this->getTableName());
+			->update($this->getTableName())
+			->set($args);
 	}
 
 
