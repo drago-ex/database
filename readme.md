@@ -1,12 +1,11 @@
-## Drago Database
+# Drago Database
+
 Simple recurring questions.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/drago-ex/database/master/license)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/drago-ex/database/blob/master/license)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
 [![Tests](https://github.com/drago-ex/database/actions/workflows/tests.yml/badge.svg)](https://github.com/drago-ex/database/actions/workflows/tests.yml)
 [![Coding Style](https://github.com/drago-ex/database/actions/workflows/coding-style.yml/badge.svg)](https://github.com/drago-ex/database/actions/workflows/coding-style.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/drago-ex/database/badge)](https://www.codefactor.io/repository/github/drago-ex/database)
-[![Coverage Status](https://coveralls.io/repos/github/drago-ex/database/badge.svg?branch=master)](https://coveralls.io/github/drago-ex/database?branch=master)
 
 ## Requirements
 - PHP >= 8.3
@@ -14,13 +13,13 @@ Simple recurring questions.
 - dibi
 - Composer
 
-## Knowledge
-- [Dibi - smart database layer for PHP](https://github.com/dg/dibi)
-
 ## Installation
 ```
 composer require drago-ex/database
 ```
+
+## Knowledge
+- [Dibi - smart database layer for PHP](https://github.com/dg/dibi)
 
 ## Basic Model Example
 ```php
@@ -98,6 +97,7 @@ $this->save($entity);
 ```
 
 # Advanced Features
+
 ## Entity Class for Database Mapping
 You can use a custom entity class with database mapping:
 ```php

@@ -11,6 +11,12 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
+try {
+	(new Database)->connection();
+} catch (\Throwable) {
+	Tester\Environment::skip('Database server is not available in local environment.');
+}
+
 
 function database(): TestDatabase
 {
