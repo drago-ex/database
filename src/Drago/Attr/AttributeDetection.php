@@ -2,36 +2,27 @@
 
 declare(strict_types=1);
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 namespace Drago\Attr;
 
 use Dibi\Row;
 use ReflectionClass;
 
 
-/**
- * Retrieving attributes from the repository.
- */
+/** Retrieving attributes from the repository. */
 trait AttributeDetection
 {
-	/**
-	 * Attribute detection.
-	 * @throws AttributeDetectionException
-	 */
+	/** @throws AttributeDetectionException */
 	private function getAttributes(): Attributes
 	{
 		$reflectionClass = new ReflectionClass(static::class);
 		$attributes = [];
 
 		foreach ($reflectionClass->getAttributes() as $attribute) {
+			/** @var array<string|int, mixed> $attributes */
 			$attributes = $attribute->getArguments();
 		}
 
-		if (!isset($attributes[0])) {
+		if (!isset($attributes[0]) || !is_string($attributes[0])) {
 			throw new AttributeDetectionException(
 				sprintf(
 					'In the model %s you do not have a table name in the From attribute.',
@@ -40,7 +31,7 @@ trait AttributeDetection
 			);
 		}
 
-		$class = $attributes['class'] ?? null;
+		$class = isset($attributes['class']) && is_string($attributes['class']) ? $attributes['class'] : null;
 
 		if ($class !== null && !is_subclass_of($class, Row::class)) {
 			throw new AttributeDetectionException(
@@ -54,31 +45,24 @@ trait AttributeDetection
 
 		return new Attributes(
 			name: $attributes[0],
-			primaryKey: $attributes[1] ?? null,
+			primaryKey: isset($attributes[1]) && is_string($attributes[1]) ? $attributes[1] : null,
 			class: $class,
 		);
 	}
 
 
-	/**
-	 * The name of the table.
-	 * @throws AttributeDetectionException
-	 */
+	/** @throws AttributeDetectionException */
 	public function getTableName(): string
 	{
 		return $this->getAttributes()->name;
 	}
 
 
-	/**
-	 * The primary key of the table.
-	 * @throws AttributeDetectionException
-	 */
+	/** @throws AttributeDetectionException */
 	public function getPrimaryKey(): string
 	{
 		$primaryKey = $this->getAttributes()->primaryKey;
 
-		// Ensure primary key is present
 		if ($primaryKey === null) {
 			throw new AttributeDetectionException(
 				sprintf('In the model %s you do not have a primary key in the Table attribute.', static::class),
@@ -89,10 +73,7 @@ trait AttributeDetection
 	}
 
 
-	/**
-	 * Row class for fetching object.
-	 * @throws AttributeDetectionException
-	 */
+	/** @throws AttributeDetectionException */
 	public function getClassName(): ?string
 	{
 		return $this->getAttributes()->class;

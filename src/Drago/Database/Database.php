@@ -2,34 +2,25 @@
 
 declare(strict_types=1);
 
-/**
- * Drago Extension
- * Package built on Nette Framework
- */
-
 namespace Drago\Database;
 
 use Dibi\Connection;
-use Dibi\DriverException;
 use Dibi\Exception;
 use Dibi\Result;
+use Dibi\Row;
 use Drago\Attr\AttributeDetection;
 use Drago\Attr\AttributeDetectionException;
 
 
 /**
- * @template T
+ * @template T of object
  * @property-read Connection $connection
  */
 trait Database
 {
 	use AttributeDetection;
 
-	/**
-	 * Get the database connection.
-	 *
-	 * @return Connection The database connection instance.
-	 */
+	/** Get the database connection. */
 	public function getConnection(): Connection
 	{
 		return $this->connection;
@@ -38,26 +29,28 @@ trait Database
 
 	/**
 	 * Create a new ExtraFluent query builder.
-	 *
-	 * @return ExtraFluent<T> A new instance of ExtraFluent to build queries.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function command(): ExtraFluent
 	{
 		$fluent = new ExtraFluent($this->getConnection());
-		$fluent->className = $this->getClassName();
+
+		/** @var class-string<Row>|null $className */
+		$className = $this->getClassName();
+		$fluent->className = $className;
+
+		/** @var ExtraFluent<T> $fluent */
 		return $fluent;
 	}
 
 
 	/**
 	 * Read records from the table.
-	 *
-	 * @param mixed ...$args Arguments for selecting columns.
-	 * @return ExtraFluent<T> The fluent query builder with the select statement.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
-	public function read(...$args): ExtraFluent
+	public function read(mixed ...$args): ExtraFluent
 	{
 		return $this->command()
 			->select(...$args)
@@ -67,11 +60,8 @@ trait Database
 
 	/**
 	 * Find records by column name.
-	 *
-	 * @param string $column The column name to search.
-	 * @param mixed $args The value to match against the column.
-	 * @return ExtraFluent<T> The fluent query builder with the where condition.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function find(string $column, mixed $args): ExtraFluent
 	{
@@ -82,10 +72,8 @@ trait Database
 
 	/**
 	 * Get a record by its primary key.
-	 *
-	 * @param int $id The primary key of the record to fetch.
-	 * @return ExtraFluent<T> The fluent query builder for fetching the record.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function get(int $id): ExtraFluent
 	{
@@ -96,11 +84,8 @@ trait Database
 
 	/**
 	 * Delete a record by a specific column value.
-	 *
-	 * @param string $column The column name to search by.
-	 * @param mixed $args The value to match against the column.
-	 * @return ExtraFluent The fluent query builder for deleting the record.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function delete(string $column, mixed $args): ExtraFluent
 	{
@@ -113,10 +98,9 @@ trait Database
 
 	/**
 	 * Insert a new record into the table.
-	 *
-	 * @param array|iterable $args Values to insert (associative array: column => value).
-	 * @return ExtraFluent<T> The fluent query builder for inserting the record.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @param iterable<string, mixed> $args
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function insert(iterable $args): ExtraFluent
 	{
@@ -129,10 +113,9 @@ trait Database
 
 	/**
 	 * Update records in the table.
-	 *
-	 * @param array|iterable $args Values to update (associative array: column => value).
-	 * @return ExtraFluent<T> The fluent query builder for updating records.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
+	 * @param iterable<string, mixed> $args
+	 * @return ExtraFluent<T>
+	 * @throws AttributeDetectionException
 	 */
 	public function update(iterable $args): ExtraFluent
 	{
@@ -144,11 +127,9 @@ trait Database
 
 	/**
 	 * Insert or update a record.
-	 *
-	 * @param array|iterable $args The values to insert or update in the table.
-	 * @return Result|int|null The result of the query execution.
-	 * @throws AttributeDetectionException If the table name or class is not defined.
-	 * @throws Exception If an error occurs while executing the query.
+	 * @param iterable<string, mixed> $args
+	 * @throws AttributeDetectionException
+	 * @throws Exception
 	 */
 	public function save(iterable $args): Result|int|null
 	{
@@ -158,7 +139,8 @@ trait Database
 			$key = strtoupper($key);
 		}
 
-		$id = $args[$key] ?? null;
+		$data = $args instanceof \Traversable ? iterator_to_array($args) : $args;
+		$id = $data[$key] ?? null;
 
 		$query = $id > 0
 			? $this->update($args)->where('%n = ?', $key, $id)
@@ -170,22 +152,18 @@ trait Database
 
 	/**
 	 * Get the id of the last inserted record.
-	 *
-	 * @param string|null $sequence The sequence name (optional).
-	 * @return int The id of the last inserted record.
-	 * @throws Exception If an error occurs while fetching the insert id.
+	 * @throws Exception
 	 */
 	public function getInsertId(?string $sequence = null): int
 	{
-		return $this->getConnection()
+		return (int) $this->getConnection()
 			->getInsertId($sequence);
 	}
 
 
 	/**
 	 * Begins a transaction (optionally with savepoint).
-	 * @param string|null $savepoint Optional savepoint name.
-	 * @throws DriverException If the driver doesn't support transactions.
+	 * @throws Exception
 	 */
 	public function beginTransaction(?string $savepoint = null): void
 	{
@@ -196,8 +174,7 @@ trait Database
 
 	/**
 	 * Commits the transaction (optionally to a savepoint).
-	 * @param string|null $savepoint Optional savepoint name.
-	 * @throws DriverException If commit fails.
+	 * @throws Exception
 	 */
 	public function commit(?string $savepoint = null): void
 	{
@@ -208,8 +185,7 @@ trait Database
 
 	/**
 	 * Rolls back the transaction (optionally to a savepoint).
-	 * @param string|null $savepoint Optional savepoint name.
-	 * @throws DriverException If rollback fails.
+	 * @throws Exception
 	 */
 	public function rollBack(?string $savepoint = null): void
 	{

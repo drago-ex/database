@@ -7,12 +7,10 @@ use Drago\Attr\Table;
 use Drago\Database\Database;
 
 
-/**
- * @extends Database<TestEntity>
- */
 #[Table(TestEntity::Table, TestEntity::PrimaryKey, class: TestEntity::class)]
 class TestDatabase
 {
+	/** @use Database<TestEntity> */
 	use Database;
 
 	public function __construct(
