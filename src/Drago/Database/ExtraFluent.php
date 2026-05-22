@@ -125,6 +125,7 @@ class ExtraFluent extends Fluent
 			return null;
 		}
 
+		// phpcs:ignore SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion
 		/** @var T|null $row */
 		$row = $result->setRowClass($this->className)->fetch();
 		return $row;
