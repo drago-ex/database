@@ -6,11 +6,12 @@ namespace Drago\Database;
 
 use Dibi\Exception;
 use Dibi\Fluent;
-use Dibi\Result;
 use Dibi\Row;
 
 
-/** @template-covariant T of object */
+/**
+ * @template T of Row
+ */
 class ExtraFluent extends Fluent
 {
 	/** @var class-string<Row>|null */
@@ -18,7 +19,7 @@ class ExtraFluent extends Fluent
 
 
 	/** @return $this */
-	public function from(mixed $table, mixed ...$args): self
+	public function from(string $table, mixed ...$args): self
 	{
 		parent::from($table, ...$args);
 		return $this;
@@ -114,36 +115,35 @@ class ExtraFluent extends Fluent
 
 
 	/**
-	 * @return T|null
+	 * @return T|null The record or null if not found.
 	 * @throws Exception
 	 */
-	public function record(): ?object
+	public function record(): ?Row
 	{
 		$result = $this->execute();
-		if ($result instanceof Result) {
-
-			/** @var T|null */
-			return $result->setRowClass($this->className)->fetch();
+		if ($result === null) {
+			return null;
 		}
 
-		return null;
+		/** @var T|null $row */
+		$row = $result->setRowClass($this->className)->fetch();
+		return $row;
 	}
 
 
 	/**
-	 * @return T[]
+	 * @return T[] List of records.
 	 * @throws Exception
 	 */
 	public function recordAll(?int $offset = null, ?int $limit = null): array
 	{
 		$result = $this->execute();
-		if ($result instanceof Result) {
-
-			/** @var T[] $data */
-			$data = $result->setRowClass($this->className)->fetchAll($offset, $limit);
-			return $data;
+		if ($result === null) {
+			return [];
 		}
 
-		return [];
+		/** @var T[] $rows */
+		$rows = $result->setRowClass($this->className)->fetchAll($offset, $limit);
+		return $rows;
 	}
 }

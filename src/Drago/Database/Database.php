@@ -13,7 +13,7 @@ use Drago\Attr\AttributeDetectionException;
 
 
 /**
- * @template T of object
+ * @template T
  * @property-read Connection $connection
  */
 trait Database
@@ -34,13 +34,12 @@ trait Database
 	 */
 	public function command(): ExtraFluent
 	{
+		/** @var ExtraFluent<T> $fluent */
 		$fluent = new ExtraFluent($this->getConnection());
 
 		/** @var class-string<Row>|null $className */
 		$className = $this->getClassName();
 		$fluent->className = $className;
-
-		/** @var ExtraFluent<T> $fluent */
 		return $fluent;
 	}
 
@@ -139,7 +138,10 @@ trait Database
 			$key = strtoupper($key);
 		}
 
-		$data = $args instanceof \Traversable ? iterator_to_array($args) : $args;
+		$data = $args instanceof \Traversable
+			? iterator_to_array($args)
+			: $args;
+
 		$id = $data[$key] ?? null;
 
 		$query = $id > 0
@@ -156,7 +158,7 @@ trait Database
 	 */
 	public function getInsertId(?string $sequence = null): int
 	{
-		return (int) $this->getConnection()
+		return $this->getConnection()
 			->getInsertId($sequence);
 	}
 

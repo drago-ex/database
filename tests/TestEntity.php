@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 
-/** Test entity for database tests. */
 class TestEntity extends Drago\Database\Entity
 {
 	public const string Table = 'test';

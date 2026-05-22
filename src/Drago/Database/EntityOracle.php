@@ -22,7 +22,6 @@ class EntityOracle extends Row
 	 */
 	public function toArrayUpper(): array
 	{
-		/** @var array<string, mixed> $data */
 		$data = (array) $this;
 		return array_change_key_case($data, CASE_UPPER);
 	}

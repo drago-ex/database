@@ -3,11 +3,14 @@
 declare(strict_types=1);
 
 use Dibi\Connection;
+use Dibi\Exception;
 
 
-/** Database connection factory for tests. */
 class Database
 {
+	/**
+	 * @throws Exception
+	 */
 	public function connection(): Connection
 	{
 		return new Connection([
