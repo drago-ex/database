@@ -127,6 +127,7 @@ class ExtraFluent extends Fluent
 
 		/** @var T|null $row */
 		$row = $result->setRowClass($this->className)->fetch();
+		assert($row === null || $row instanceof ($this->className ?? Row::class));
 		return $row;
 	}
 
