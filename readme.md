@@ -101,10 +101,10 @@ $this->save($entity);
 ## Entity Class for Database Mapping
 You can use a custom entity class with database mapping:
 ```php
-/** @extends Database<SampleEntity> */
 #[From(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
 class Model
 {
+	/** @use Database<SampleEntity> */
     use Database;
 }
 
