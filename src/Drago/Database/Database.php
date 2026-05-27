@@ -126,27 +126,30 @@ trait Database
 
 	/**
 	 * Insert or update a record.
-	 * @param iterable<string, mixed> $args
+	 * @param Entity|EntityOracle|iterable<string, mixed> $args
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function save(iterable $args): Result|int|null
+	public function save(Entity|EntityOracle|iterable $args): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
+
 		if ($args instanceof EntityOracle) {
-			$args = $args->toArrayUpper();
+			$data = $args->toArrayUpper();
 			$key = strtoupper($key);
+
+		} else {
+
+			/** @var array<string, mixed> $data */
+			$data = $args instanceof \Traversable
+				? iterator_to_array($args)
+				: (array) $args;
 		}
 
-		$data = $args instanceof \Traversable
-			? iterator_to_array($args)
-			: $args;
-
 		$id = $data[$key] ?? null;
-
 		$query = $id > 0
-			? $this->update($args)->where('%n = ?', $key, $id)
-			: $this->insert($args);
+			? $this->update($data)->where('%n = ?', $key, $id)
+			: $this->insert($data);
 
 		return $query->execute();
 	}
