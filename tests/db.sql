@@ -1,8 +1,10 @@
-DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sample` varchar(255) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS test;
+CREATE TABLE test (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  sample VARCHAR(255) NOT NULL
+)
+  ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `test` (`id`, `sample`) VALUES (1, 'Hello');
+INSERT INTO test (sample) VALUES ('Hello');
