@@ -14,7 +14,7 @@ use Dibi\Row;
  */
 class ExtraFluent extends Fluent
 {
-	/** @var class-string<Row>|null */
+	/** @var class-string<T>|null */
 	public ?string $className = null;
 
 

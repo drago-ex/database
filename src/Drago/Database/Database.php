@@ -13,7 +13,7 @@ use Drago\Attr\AttributeDetectionException;
 
 
 /**
- * @template T
+ * @template T of Row
  * @property-read Connection $connection
  */
 trait Database
@@ -37,7 +37,7 @@ trait Database
 		/** @var ExtraFluent<T> $fluent */
 		$fluent = new ExtraFluent($this->getConnection());
 
-		/** @var class-string<Row>|null $className */
+		/** @var class-string<T>|null $className */
 		$className = $this->getClassName();
 		$fluent->className = $className;
 		return $fluent;
