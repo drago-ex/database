@@ -70,9 +70,10 @@ class SampleEntity extends Drago\Database\Entity
 
 Use the entity in a model:
 ```php
-#[From(SampleEntity::Table, SampleEntity::PrimarKey)]
+#[Table(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
 class Model
 {
+	/** @phpstan-use Database<SampleEntity> */
     use Database;
 }
 ```
@@ -101,10 +102,10 @@ $this->save($entity);
 ## Entity Class for Database Mapping
 You can use a custom entity class with database mapping:
 ```php
-#[From(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
+#[Table(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
 class Model
 {
-	/** @use Database<SampleEntity> */
+	/** @phpstan-use Database<SampleEntity> */
     use Database;
 }
 
