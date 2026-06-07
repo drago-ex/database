@@ -1,6 +1,6 @@
 # Drago Database
 
-Simple recurring questions.
+Simple database helpers built on top of Dibi.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/drago-ex/database/blob/master/license)
 [![PHP version](https://badge.fury.io/ph/drago-ex%2Fdatabase.svg)](https://badge.fury.io/ph/drago-ex%2Fdatabase)
@@ -38,7 +38,7 @@ $this->model->read('*');
 
 Find records by column name:
 ```php
-$this->model->find('column, 'value');
+$this->model->find('column', 'value');
 ```
 
 Get a record by ID:
@@ -48,7 +48,7 @@ $this->model->get(1);
 
 Delete a record by column name:
 ```php
-$this->model->delete('column, 'value');
+$this->model->delete('column', 'value');
 ```
 
 Save records as an array (update if `id` is provided):
