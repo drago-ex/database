@@ -7,7 +7,6 @@ namespace Drago\Database;
 use Dibi\Row;
 
 
-/** Base class for Oracle entity. */
 class EntityOracle extends Row
 {
 	public function __construct(array $arr = [])
