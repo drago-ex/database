@@ -114,27 +114,27 @@ trait Database
 	/**
 	 * Insert a new record into the table.
 	 *
-	 * @param array|iterable $args Values to insert (associative array: column => value).
+	 * @param array<string, mixed> $args Values to insert (associative array: column => value).
 	 * @return ExtraFluent<T> The fluent query builder for inserting the record.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function insert(iterable $args): ExtraFluent
+	public function insert(array $args): ExtraFluent
 	{
 		return $this->command()
 			->insert()
-			->into($this->getTableName())
-			->values($args);
+			->into($this->getTableName(), '(%n)', array_keys($args))
+			->values('%l', $args);
 	}
 
 
 	/**
 	 * Update records in the table.
 	 *
-	 * @param array|iterable $args Values to update (associative array: column => value).
+	 * @param array<string, mixed> $args Values to update (associative array: column => value).
 	 * @return ExtraFluent<T> The fluent query builder for updating records.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 */
-	public function update(iterable $args): ExtraFluent
+	public function update(array $args): ExtraFluent
 	{
 		return $this->command()
 			->update($this->getTableName())
@@ -145,7 +145,7 @@ trait Database
 	/**
 	 * Insert or update a record.
 	 *
-	 * @param array|iterable $args The values to insert or update in the table.
+	 * @param array<string, mixed> $args The values to insert or update in the table.
 	 * @return Result|int|null The result of the query execution.
 	 * @throws AttributeDetectionException If the table name or class is not defined.
 	 * @throws Exception If an error occurs while executing the query.
@@ -153,16 +153,22 @@ trait Database
 	public function save(iterable $args): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
+
 		if ($args instanceof EntityOracle) {
-			$args = $args->toArrayUpper();
+			$data = $args->toArrayUpper();
 			$key = strtoupper($key);
+		} else {
+			$data = $args instanceof \Traversable
+				? iterator_to_array($args)
+				: (array) $args;
 		}
 
-		$id = $args[$key] ?? null;
+		$id = $data[$key] ?? null;
+		unset($data[$key]);
 
 		$query = $id > 0
-			? $this->update($args)->where('%n = ?', $key, $id)
-			: $this->insert($args);
+			? $this->update($data)->where('%n = ?', $key, $id)
+			: $this->insert($data);
 
 		return $query->execute();
 	}
