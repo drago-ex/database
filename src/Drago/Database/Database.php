@@ -97,26 +97,26 @@ trait Database
 
 	/**
 	 * Insert a new record into the table.
-	 * @param iterable<string, mixed> $args
+	 * @param array<string, mixed> $args
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function insert(iterable $args): ExtraFluent
+	public function insert(array $args): ExtraFluent
 	{
 		return $this->command()
 			->insert()
-			->into($this->getTableName())
-			->values($args);
+			->into($this->getTableName(), '(%n)', array_keys($args))
+			->values('%l', $args);
 	}
 
 
 	/**
 	 * Update records in the table.
-	 * @param iterable<string, mixed> $args
+	 * @param array<string, mixed> $args
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function update(iterable $args): ExtraFluent
+	public function update(array $args): ExtraFluent
 	{
 		return $this->command()
 			->update($this->getTableName())
@@ -147,9 +147,15 @@ trait Database
 		}
 
 		$id = $data[$key] ?? null;
-		$query = $id > 0
-			? $this->update($data)->where('%n = ?', $key, $id)
-			: $this->insert($data);
+		unset($data[$key]);
+
+		if ($id > 0) {
+			$query = $this->update($data)
+				->where('%n = ?', $key, $id);
+
+		} else {
+			$query = $this->insert($data);
+		}
 
 		return $query->execute();
 	}
