@@ -33,10 +33,10 @@ trait Database
 	 */
 	public function command(): ExtraFluent
 	{
-		/** @temp ExtraFluent<T> $fluent */
+		/** @var ExtraFluent<T> $fluent */
 		$fluent = new ExtraFluent($this->getConnection());
 
-		/** @temp class-string<T>|null $className */
+		/** @var class-string<T>|null $className */
 		$className = $this->getClassName();
 		$fluent->className = $className;
 		return $fluent;
@@ -139,7 +139,7 @@ trait Database
 
 		} else {
 
-			/** @temp array<string, mixed> $data */
+			/** @var array<string, mixed> $data */
 			$data = $args instanceof \Traversable
 				? iterator_to_array($args)
 				: (array) $args;

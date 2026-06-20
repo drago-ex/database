@@ -126,7 +126,7 @@ class ExtraFluent extends Fluent
 		}
 
 		// phpcs:ignore SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion
-		/** @temp T|null $row */
+		/** @var T|null $row */
 		$row = $result->setRowClass($this->className)->fetch();
 		return $row;
 	}
@@ -143,7 +143,7 @@ class ExtraFluent extends Fluent
 			return [];
 		}
 
-		/** @temp T[] $rows */
+		/** @var T[] $rows */
 		$rows = $result->setRowClass($this->className)->fetchAll($offset, $limit);
 		return $rows;
 	}

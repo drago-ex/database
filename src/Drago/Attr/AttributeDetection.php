@@ -18,7 +18,7 @@ trait AttributeDetection
 
 		foreach ($reflectionClass->getAttributes() as $attribute) {
 
-			/** @temp array<string|int, mixed> $attributes */
+			/** @var array<string|int, mixed> $attributes */
 			$attributes = $attribute->getArguments();
 		}
 
