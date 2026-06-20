@@ -97,9 +97,9 @@ $entity->sample = 'sample';
 $this->save($entity);
 ```
 
-# Advanced Features
+## Advanced Features
 
-## Entity Class for Database Mapping
+### Entity Class for Database Mapping
 You can use a custom entity class with database mapping:
 ```php
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, class: SampleEntity::class)]
@@ -120,5 +120,5 @@ echo $row->sample;
 $allRecords = $this->model->read('*')->recordAll();
 ```
 
-## Entity Generation
+### Entity Generation
 For automatic entity generation, consider using the Drago Generator tool: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)

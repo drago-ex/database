@@ -8,7 +8,6 @@ use Dibi\Row;
 use ReflectionClass;
 
 
-/** Retrieving attributes from the repository. */
 trait AttributeDetection
 {
 	/** @throws AttributeDetectionException */
@@ -19,7 +18,7 @@ trait AttributeDetection
 
 		foreach ($reflectionClass->getAttributes() as $attribute) {
 
-			/** @var array<string|int, mixed> $attributes */
+			/** @temp array<string|int, mixed> $attributes */
 			$attributes = $attribute->getArguments();
 		}
 

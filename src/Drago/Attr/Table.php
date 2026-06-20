@@ -7,7 +7,6 @@ namespace Drago\Attr;
 use Attribute;
 
 
-/** Attribute to define table metadata for entities. */
 #[Attribute(Attribute::TARGET_CLASS)]
 readonly class Table
 {

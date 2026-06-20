@@ -20,7 +20,6 @@ trait Database
 {
 	use AttributeDetection;
 
-	/** Get the database connection. */
 	public function getConnection(): Connection
 	{
 		return $this->connection;
@@ -28,16 +27,16 @@ trait Database
 
 
 	/**
-	 * Create a new ExtraFluent query builder.
+	 * Creates a new ExtraFluent query builder.
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
 	public function command(): ExtraFluent
 	{
-		/** @var ExtraFluent<T> $fluent */
+		/** @temp ExtraFluent<T> $fluent */
 		$fluent = new ExtraFluent($this->getConnection());
 
-		/** @var class-string<T>|null $className */
+		/** @temp class-string<T>|null $className */
 		$className = $this->getClassName();
 		$fluent->className = $className;
 		return $fluent;
@@ -58,7 +57,7 @@ trait Database
 
 
 	/**
-	 * Find records by column name.
+	 * Finds records by column name.
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
@@ -70,7 +69,7 @@ trait Database
 
 
 	/**
-	 * Get a record by its primary key.
+	 * Returns a record by its primary key.
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
@@ -82,7 +81,7 @@ trait Database
 
 
 	/**
-	 * Delete a record by a specific column value.
+	 * Deletes a record by a specific column value.
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
@@ -140,7 +139,7 @@ trait Database
 
 		} else {
 
-			/** @var array<string, mixed> $data */
+			/** @temp array<string, mixed> $data */
 			$data = $args instanceof \Traversable
 				? iterator_to_array($args)
 				: (array) $args;
@@ -162,7 +161,7 @@ trait Database
 
 
 	/**
-	 * Get the id of the last inserted record.
+	 * Returns the ID of the last inserted record.
 	 * @throws Exception
 	 */
 	public function getInsertId(?string $sequence = null): int
