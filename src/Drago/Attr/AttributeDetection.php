@@ -10,43 +10,51 @@ use ReflectionClass;
 
 trait AttributeDetection
 {
+	/** @var array<class-string, Attributes> */
+	private static array $attributesCache = [];
+
+
 	/** @throws AttributeDetectionException */
 	private function getAttributes(): Attributes
 	{
+		return self::$attributesCache[static::class] ??= $this->detectAttributes();
+	}
+
+
+	/** @throws AttributeDetectionException */
+	private function detectAttributes(): Attributes
+	{
 		$reflectionClass = new ReflectionClass(static::class);
-		$attributes = [];
+		$attributes = $reflectionClass->getAttributes(Table::class);
 
-		foreach ($reflectionClass->getAttributes() as $attribute) {
-
-			/** @var array<string|int, mixed> $attributes */
-			$attributes = $attribute->getArguments();
-		}
-
-		if (!isset($attributes[0]) || !is_string($attributes[0])) {
+		if ($attributes === []) {
 			throw new AttributeDetectionException(
 				sprintf(
-					'In the model %s you do not have a table name in the From attribute.',
+					'In the model %s you do not have a table name in the Table attribute.',
 					static::class,
 				),
 			);
 		}
 
-		$class = isset($attributes['class']) && is_string($attributes['class']) ? $attributes['class'] : null;
+		$table = $attributes[0]->newInstance();
 
-		if ($class !== null && !is_subclass_of($class, Row::class)) {
+		/** @var class-string<Row>|null $entityClass */
+		$entityClass = $table->entity ?? $table->class;
+
+		if ($entityClass !== null && !is_subclass_of($entityClass, Row::class)) {
 			throw new AttributeDetectionException(
 				sprintf(
-					'Class "%s" in the From attribute of %s is not an instance of Dibi\Row.',
-					$class,
+					'Class "%s" in the Table attribute of %s is not an instance of Dibi\Row.',
+					$entityClass,
 					static::class,
 				),
 			);
 		}
 
 		return new Attributes(
-			name: $attributes[0],
-			primaryKey: isset($attributes[1]) && is_string($attributes[1]) ? $attributes[1] : null,
-			class: $class,
+			name: $table->name,
+			primaryKey: $table->primaryKey,
+			entity: $entityClass,
 		);
 	}
 
@@ -76,6 +84,13 @@ trait AttributeDetection
 	/** @throws AttributeDetectionException */
 	public function getClassName(): ?string
 	{
-		return $this->getAttributes()->class;
+		return $this->getEntityClassName();
+	}
+
+
+	/** @throws AttributeDetectionException */
+	public function getEntityClassName(): ?string
+	{
+		return $this->getAttributes()->entity;
 	}
 }

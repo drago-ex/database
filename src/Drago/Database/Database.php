@@ -37,7 +37,7 @@ trait Database
 		$fluent = new ExtraFluent($this->getConnection());
 
 		/** @var class-string<T>|null $className */
-		$className = $this->getClassName();
+		$className = $this->getEntityClassName();
 		$fluent->className = $className;
 		return $fluent;
 	}

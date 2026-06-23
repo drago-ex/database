@@ -102,6 +102,15 @@ test('Get class name', function () {
 });
 
 
+test('Get entity class name from legacy class option', function () {
+	$db = new Database;
+	$className = (new TestDatabaseLegacyClass($db->connection()))
+		->getClassName();
+
+	Assert::same(TestEntity::class, $className);
+});
+
+
 test('Delete record by id', function () {
 	database()->delete('id', 2)->execute();
 	$row = database()
