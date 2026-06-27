@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": ">=8.3 <8.9",
+		"php": ">=8.3 <9",
 		"dibi/dibi": "^5.0"
 	},
 	"require-dev": {
