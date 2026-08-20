@@ -10,7 +10,7 @@ use Dibi\Connection;
 /** TraitStub for PHPStan analysis of Database and AttributeDetection traits. */
 class TraitStub
 {
-	/** @phpstan-use Database<Entity> */
+	/** @use Database<Entity> */
 	use Database;
 
 	public function __construct(

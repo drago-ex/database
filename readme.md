@@ -73,7 +73,7 @@ Use the entity in a model:
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
 class Model
 {
-	/** @phpstan-use Database<SampleEntity> */
+	/** @use Database<SampleEntity> */
     use Database;
 }
 ```
@@ -105,7 +105,7 @@ You can use a custom entity class with database mapping:
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
 class Model
 {
-	/** @phpstan-use Database<SampleEntity> */
+	/** @use Database<SampleEntity> */
     use Database;
 }
 

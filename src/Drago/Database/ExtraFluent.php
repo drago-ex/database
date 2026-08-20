@@ -132,7 +132,7 @@ class ExtraFluent extends Fluent
 
 
 	/**
-	 * @return T[] List of records.
+	 * @return list<T> List of records.
 	 * @throws Exception
 	 */
 	public function recordAll(?int $offset = null, ?int $limit = null): array
@@ -142,7 +142,7 @@ class ExtraFluent extends Fluent
 			return [];
 		}
 
-		/** @var T[] $rows */
+		/** @var list<T> $rows */
 		$rows = $result->setRowClass($this->className)->fetchAll($offset, $limit);
 		return $rows;
 	}

@@ -10,7 +10,7 @@ use Drago\Database\Database;
 #[Table(TestEntity::Table, TestEntity::PrimaryKey, entity: TestEntity::class)]
 class TestDatabase
 {
-	/** @phpstan-use Database<TestEntity> */
+	/** @use Database<TestEntity> */
 	use Database;
 
 	public function __construct(
@@ -23,7 +23,7 @@ class TestDatabase
 #[Table(TestEntity::Table, TestEntity::PrimaryKey, class: TestEntity::class)]
 class TestDatabaseLegacyClass
 {
-	/** @phpstan-use Database<TestEntity> */
+	/** @use Database<TestEntity> */
 	use Database;
 
 	public function __construct(
