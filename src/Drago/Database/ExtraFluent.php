@@ -125,8 +125,8 @@ class ExtraFluent extends Fluent
 			return null;
 		}
 
-		/** @var T|null $row */
 		$row = $result->setRowClass($this->className)->fetch();
+		\assert($row instanceof T || $row === null);
 		return $row;
 	}
 
