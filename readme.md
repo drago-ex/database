@@ -8,20 +8,24 @@ Simple database helpers built on top of Dibi.
 [![Coding Style](https://github.com/drago-ex/database/actions/workflows/coding-style.yml/badge.svg)](https://github.com/drago-ex/database/actions/workflows/coding-style.yml)
 
 ## Requirements
+
 - PHP >= 8.3
 - Nette Framework
 - dibi
 - Composer
 
 ## Installation
+
 ```
 composer require drago-ex/database
 ```
 
 ## Knowledge
+
 - [Dibi - smart database layer for PHP](https://github.com/dg/dibi)
 
 ## Basic Model Example
+
 ```php
 #[Table('table_name', 'primary_key')]
 class Model
@@ -31,6 +35,7 @@ class Model
 ```
 
 ## Common Queries
+
 Reading records from a table:
 ```php
 $this->model->read('*');
@@ -57,6 +62,7 @@ $this->model->save(['column' => 'value']);
 ```
 
 ## Using Entities
+
 ```php
 class SampleEntity extends Drago\Database\Entity
 {
@@ -88,6 +94,7 @@ echo $row->sample;
 ```
 
 ## Save Entity Records
+
 To save entity data (update record if `id` is present):
 ```php
 $entity = new SampleEntity;
@@ -100,6 +107,7 @@ $this->save($entity);
 ## Advanced Features
 
 ### Entity Class for Database Mapping
+
 You can use a custom entity class with database mapping:
 ```php
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
@@ -121,4 +129,5 @@ $allRecords = $this->model->read('*')->recordAll();
 ```
 
 ### Entity Generation
+
 For automatic entity generation, consider using the Drago Generator tool: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
