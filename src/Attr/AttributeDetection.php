@@ -15,6 +15,42 @@ trait AttributeDetection
 
 
 	/** @throws AttributeDetectionException */
+	public function getTableName(): string
+	{
+		return $this->getAttributes()->name;
+	}
+
+
+	/** @throws AttributeDetectionException */
+	public function getPrimaryKey(): string
+	{
+		$primaryKey = $this->getAttributes()->primaryKey;
+
+		if ($primaryKey === null) {
+			throw new AttributeDetectionException(
+				sprintf('In the model %s you do not have a primary key in the Table attribute.', static::class),
+			);
+		}
+
+		return $primaryKey;
+	}
+
+
+	/** @throws AttributeDetectionException */
+	public function getClassName(): ?string
+	{
+		return $this->getEntityClassName();
+	}
+
+
+	/** @throws AttributeDetectionException */
+	public function getEntityClassName(): ?string
+	{
+		return $this->getAttributes()->entity;
+	}
+
+
+	/** @throws AttributeDetectionException */
 	private function getAttributes(): Attributes
 	{
 		return self::$attributesCache[static::class] ??= $this->detectAttributes();
@@ -56,41 +92,5 @@ trait AttributeDetection
 			primaryKey: $table->primaryKey,
 			entity: $entityClass,
 		);
-	}
-
-
-	/** @throws AttributeDetectionException */
-	public function getTableName(): string
-	{
-		return $this->getAttributes()->name;
-	}
-
-
-	/** @throws AttributeDetectionException */
-	public function getPrimaryKey(): string
-	{
-		$primaryKey = $this->getAttributes()->primaryKey;
-
-		if ($primaryKey === null) {
-			throw new AttributeDetectionException(
-				sprintf('In the model %s you do not have a primary key in the Table attribute.', static::class),
-			);
-		}
-
-		return $primaryKey;
-	}
-
-
-	/** @throws AttributeDetectionException */
-	public function getClassName(): ?string
-	{
-		return $this->getEntityClassName();
-	}
-
-
-	/** @throws AttributeDetectionException */
-	public function getEntityClassName(): ?string
-	{
-		return $this->getAttributes()->entity;
 	}
 }
