@@ -13,7 +13,7 @@ require __DIR__ . '/../bootstrap.php';
 
 try {
 	(new Database)->connection();
-} catch (\Throwable $e) {
+} catch (Throwable $e) {
 	// CI provides the database, so a failed connection there is an error, not a reason to skip.
 	if (getenv('CI')) {
 		throw $e;
