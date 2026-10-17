@@ -26,108 +26,113 @@ composer require drago-ex/database
 
 ## Basic Model Example
 
+A model uses the `Database` trait and describes its table with the `Table` attribute
+(table name and primary key). The trait reads the connection from the `$connection` property:
+
 ```php
-#[Table('table_name', 'primary_key')]
+use Dibi\Connection;
+use Drago\Attr\Table;
+use Drago\Database\Database;
+
+#[Table(table_name, id)]
 class Model
 {
-    use Database;
+	use Database;
+
+	public function __construct(
+		protected Connection $connection,
+	) {
+	}
 }
 ```
 
 ## Common Queries
 
-Reading records from a table:
+The query methods return a query builder (`ExtraFluent`). Fetch the result with `record()` or
+`recordAll()`, or run a write query with `execute()`:
+
 ```php
-$this->model->read('*');
+// All records
+$rows = $this->model->read(*)->recordAll();
+
+// Records by column value
+$rows = $this->model->find(column, value)->recordAll();
+
+// One record by the primary key, or null
+$row = $this->model->get(1)->record();
+
+// Delete records by column value
+$this->model->delete(column, value)->execute();
 ```
 
-Find records by column name:
-```php
-$this->model->find('column', 'value');
-```
+Without an entity class, records are returned as `Dibi\Row` objects.
 
-Get a record by ID:
+Save a record as an array. When the array contains the primary key with a value greater than zero,
+the record is updated, otherwise a new record is inserted:
 ```php
-$this->model->get(1);
-```
-
-Delete a record by column name:
-```php
-$this->model->delete('column', 'value');
-```
-
-Save records as an array (update if `id` is provided):
-```php
-$this->model->save(['column' => 'value']);
+$this->model->save([column => value]);
+$this->model->save([id => 1, column => value]);
 ```
 
 ## Using Entities
 
 ```php
-class SampleEntity extends Drago\Database\Entity
+use Drago\Database\Entity;
+
+class SampleEntity extends Entity
 {
-	public const Table = 'name';
-	public const PrimaryKey = 'id';
+	public const string Table = name;
+	public const string PrimaryKey = id;
 
 	public ?int $id = null;
 	public string $sample;
 }
 ```
 
-Use the entity in a model:
+Use the entity in a model, so records are returned as `SampleEntity` objects:
 ```php
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
 class Model
 {
 	/** @use Database<SampleEntity> */
-    use Database;
+	use Database;
+
+	public function __construct(
+		protected Connection $connection,
+	) {
+	}
 }
-```
 
-Fetch records as objects:
-```php
-$row = $this->model->find('id', 1)->record();
-
-// Accessing properties
-echo $row->id;
+$row = $this->model->get(1)->record();
 echo $row->sample;
+
+$rows = $this->model->read(*)->recordAll();
 ```
 
 ## Save Entity Records
 
-To save entity data (update record if `id` is present):
+Entities are saved the same way as arrays (updated when the primary key is set):
 ```php
 $entity = new SampleEntity;
 $entity->id = 1;
-$entity->sample = 'sample';
+$entity->sample = sample;
 
-$this->save($entity);
+$this->model->save($entity);
 ```
 
-## Advanced Features
+## Transactions
 
-### Entity Class for Database Mapping
-
-You can use a custom entity class with database mapping:
 ```php
-#[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
-class Model
-{
-	/** @use Database<SampleEntity> */
-    use Database;
+$this->model->beginTransaction();
+try {
+	$this->model->save($entity);
+	$this->model->commit();
+} catch (Throwable $e) {
+	$this->model->rollBack();
+	throw $e;
 }
-
-// Fetch records directly as objects
-$row = $this->model->find('id', 1)->record();
-
-// Access the object's properties
-echo $row->id;
-echo $row->sample;
-
-// Fetch all records
-$allRecords = $this->model->read('*')->recordAll();
 ```
 
-### Entity Generation
+## Entity Generation
 
 For automatic entity generation, consider using the Drago Generator tool: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
