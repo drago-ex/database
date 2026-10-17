@@ -12,7 +12,7 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 try {
-	(new Database)->connection();
+	(new DatabaseConnection)->connection();
 } catch (Throwable $e) {
 	// CI provides the database, so a failed connection there is an error, not a reason to skip.
 	if (getenv('CI')) {
@@ -25,7 +25,7 @@ try {
 
 function database(): TestDatabase
 {
-	$db = new Database;
+	$db = new DatabaseConnection;
 	return new TestDatabase($db->connection());
 }
 
@@ -108,7 +108,7 @@ test('Get class name', function () {
 
 
 test('Get entity class name from legacy class option', function () {
-	$db = new Database;
+	$db = new DatabaseConnection;
 	$className = (new TestDatabaseLegacyClass($db->connection()))
 		->getClassName();
 
