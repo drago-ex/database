@@ -25,10 +25,6 @@ $boot->createRobotLoader()
 	->addDirectory(__DIR__ . '/../src')
 	->register();
 
+Tester\Environment::setupFunctions();
+
 return $boot->createContainer();
-
-
-function test(string $title, Closure $function): void
-{
-	$function();
-}

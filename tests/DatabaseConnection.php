@@ -6,7 +6,7 @@ use Dibi\Connection;
 use Dibi\Exception;
 
 
-class Database
+class DatabaseConnection
 {
 	/**
 	 * @throws Exception

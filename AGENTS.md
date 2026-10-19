@@ -16,6 +16,12 @@ Use this file as package-specific guidance when working in this repository. Keep
 - `.github/`: CI workflows; keep their PHP versions and commands consistent with Composer and the package scripts.
 - `composer.json`: package metadata, dependency constraints, autoloading, and available Composer scripts.
 
+## Key Parts
+- `Drago\Database\Database` trait reads the table, primary key and entity class from the `Drago\Attr\Table` attribute and needs a `$connection` property.
+- `ExtraFluent::record()` and `recordAll()` return the entity class when one is set, otherwise Dibi rows; never pass `null` to `Result::setRowClass()` (Dibi would return arrays).
+- `save()` updates when the primary key value is greater than zero, otherwise inserts. `EntityOracle` uses uppercase keys.
+- `tests/Database/Database.phpt` needs MySQL (CI provides it and fails there instead of skipping); the other tests run without a database.
+
 ## Dependencies
 
 Composer constraints describe the package contract. Before changing integration behavior, inspect the source and the actual call sites in this package; do not infer runtime usage solely from dependency declarations.
