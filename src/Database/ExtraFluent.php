@@ -6,6 +6,7 @@ namespace Drago\Database;
 
 use Dibi\Exception;
 use Dibi\Fluent;
+use Dibi\Result;
 use Dibi\Row;
 
 
@@ -126,7 +127,7 @@ class ExtraFluent extends Fluent
 		}
 
 		/** @var T|null $row */
-		$row = $result->setRowClass($this->className)->fetch();
+		$row = $this->applyRowClass($result)->fetch();
 		return $row;
 	}
 
@@ -143,7 +144,19 @@ class ExtraFluent extends Fluent
 		}
 
 		/** @var list<T> $rows */
-		$rows = $result->setRowClass($this->className)->fetchAll($offset, $limit);
+		$rows = $this->applyRowClass($result)->fetchAll($offset, $limit);
 		return $rows;
+	}
+
+
+	/**
+	 * Without an entity class, Dibi's default Row class is kept;
+	 * setting null would make Dibi return plain arrays.
+	 */
+	private function applyRowClass(Result $result): Result
+	{
+		return $this->className === null
+			? $result
+			: $result->setRowClass($this->className);
 	}
 }
