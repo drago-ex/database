@@ -121,3 +121,10 @@ test('A missing record is returned as null', function () {
 	Assert::null((new ArrayFluent([]))->record());
 	Assert::same([], (new ArrayFluent([]))->recordAll());
 });
+
+
+test('Limit and offset keep the fluent for fetching records', function () {
+	$fluent = new ArrayFluent([['id' => 1]]);
+	Assert::same($fluent, $fluent->limit(10)->offset(20));
+	Assert::count(1, $fluent->limit(10)->offset(20)->recordAll());
+});

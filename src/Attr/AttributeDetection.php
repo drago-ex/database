@@ -37,13 +37,6 @@ trait AttributeDetection
 
 
 	/** @throws AttributeDetectionException */
-	public function getClassName(): ?string
-	{
-		return $this->getEntityClassName();
-	}
-
-
-	/** @throws AttributeDetectionException */
 	public function getEntityClassName(): ?string
 	{
 		return $this->getAttributes()->entity;
@@ -75,7 +68,7 @@ trait AttributeDetection
 		$table = $attributes[0]->newInstance();
 
 		/** @var class-string<Row>|null $entityClass */
-		$entityClass = $table->entity ?? $table->class;
+		$entityClass = $table->entity;
 
 		if ($entityClass !== null && !is_subclass_of($entityClass, Row::class)) {
 			throw new AttributeDetectionException(

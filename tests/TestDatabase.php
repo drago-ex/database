@@ -18,16 +18,3 @@ class TestDatabase
 	) {
 	}
 }
-
-
-#[Table(TestEntity::Table, TestEntity::PrimaryKey, class: TestEntity::class)]
-class TestDatabaseLegacyClass
-{
-	/** @use Database<TestEntity> */
-	use Database;
-
-	public function __construct(
-		protected Connection $connection,
-	) {
-	}
-}

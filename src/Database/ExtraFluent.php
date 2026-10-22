@@ -68,6 +68,22 @@ class ExtraFluent extends Fluent
 
 
 	/** @return $this */
+	public function limit(int $limit): self
+	{
+		parent::limit($limit);
+		return $this;
+	}
+
+
+	/** @return $this */
+	public function offset(int $offset): self
+	{
+		parent::offset($offset);
+		return $this;
+	}
+
+
+	/** @return $this */
 	public function delete(mixed ...$cond): self
 	{
 		parent::delete(...$cond);
@@ -136,7 +152,7 @@ class ExtraFluent extends Fluent
 	 * @return list<T> List of records.
 	 * @throws Exception
 	 */
-	public function recordAll(?int $offset = null, ?int $limit = null): array
+	public function recordAll(): array
 	{
 		$result = $this->execute();
 		if ($result === null) {
@@ -144,7 +160,7 @@ class ExtraFluent extends Fluent
 		}
 
 		/** @var list<T> $rows */
-		$rows = $this->applyRowClass($result)->fetchAll($offset, $limit);
+		$rows = $this->applyRowClass($result)->fetchAll();
 		return $rows;
 	}
 
