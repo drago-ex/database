@@ -34,7 +34,7 @@ use Dibi\Connection;
 use Drago\Attr\Table;
 use Drago\Database\Database;
 
-#[Table(table_name, id)]
+#[Table('table_name', 'id')]
 class Model
 {
 	use Database;
@@ -53,19 +53,19 @@ The query methods return a query builder (`ExtraFluent`). Fetch the result with 
 
 ```php
 // All records
-$rows = $this->model->read(*)->recordAll();
+$rows = $this->model->read('*')->recordAll();
 
 // Records by column value
-$rows = $this->model->find(column, value)->recordAll();
+$rows = $this->model->find('column', 'value')->recordAll();
 
 // One page of records
-$rows = $this->model->read(*)->limit(10)->offset(20)->recordAll();
+$rows = $this->model->read('*')->limit(10)->offset(20)->recordAll();
 
 // One record by the primary key, or null
 $row = $this->model->get(1)->record();
 
 // Delete records by column value
-$this->model->delete(column, value)->execute();
+$this->model->delete('column', 'value')->execute();
 ```
 
 Without an entity class, records are returned as `Dibi\Row` objects.
@@ -84,8 +84,8 @@ use Drago\Database\Entity;
 
 class SampleEntity extends Entity
 {
-	public const string Table = name;
-	public const string PrimaryKey = id;
+	public const string Table = 'sample';
+	public const string PrimaryKey = 'id';
 
 	public ?int $id = null;
 	public string $sample;
@@ -109,7 +109,7 @@ class Model
 $row = $this->model->get(1)->record();
 echo $row->sample;
 
-$rows = $this->model->read(*)->recordAll();
+$rows = $this->model->read('*')->recordAll();
 ```
 
 ## Save Entity Records
@@ -118,7 +118,7 @@ Entities are saved the same way as arrays (updated when the primary key is set):
 ```php
 $entity = new SampleEntity;
 $entity->id = 1;
-$entity->sample = sample;
+$entity->sample = 'sample';
 
 $this->model->save($entity);
 ```
