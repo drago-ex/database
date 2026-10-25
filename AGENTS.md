@@ -25,7 +25,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 ## Dependencies
 
 Composer constraints describe the package contract. Before changing integration behavior, inspect the source and the actual call sites in this package; do not infer runtime usage solely from dependency declarations.
-Development dependencies include nette/bootstrap (^3.2), nette/tester (^2.5), tracy/tracy (^2.7), phpstan/phpstan-nette (^2.0).
+Development dependencies include nette/bootstrap (^3.2), nette/tester (^2.5), tracy/tracy (^2.10), phpstan/phpstan-nette (^2.0).
 
 ## Essential Commands
 

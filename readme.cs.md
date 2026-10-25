@@ -54,19 +54,19 @@ Metody pro dotazy vracejí sestavovač dotazů (`ExtraFluent`). Výsledek načt�
 `recordAll()`, zápisový dotaz spusťte přes `execute()`:
 
 ```php
-// Všechny záznamy
+// All records
 $rows = $this->model->read('*')->recordAll();
 
-// Záznamy podle hodnoty sloupce
+// Records by column value
 $rows = $this->model->find('column', 'value')->recordAll();
 
-// Jedna stránka záznamů
+// One page of records
 $rows = $this->model->read('*')->limit(10)->offset(20)->recordAll();
 
-// Jeden záznam podle primárního klíče, nebo null
+// One record by the primary key, or null
 $row = $this->model->get(1)->record();
 
-// Smazání záznamů podle hodnoty sloupce
+// Delete records by column value
 $this->model->delete('column', 'value')->execute();
 ```
 
