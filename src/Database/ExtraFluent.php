@@ -11,124 +11,44 @@ use Dibi\Row;
 
 
 /**
+ * Dibi's Fluent that fetches records as the entity class. The clauses run through Fluent::__call() (which
+ * returns static); the tags below only give them the type of this class, so chains keep record()/recordAll().
+ *
  * @template T of Row
+ * @method $this select(mixed ...$field)
+ * @method $this distinct()
+ * @method $this from(string $table, mixed ...$args)
+ * @method $this where(mixed ...$cond)
+ * @method $this groupBy(mixed ...$field)
+ * @method $this having(mixed ...$cond)
+ * @method $this orderBy(mixed ...$field)
+ * @method $this limit(int|false $limit)
+ * @method $this offset(int|false $offset)
+ * @method $this join(mixed ...$table)
+ * @method $this leftJoin(mixed ...$table)
+ * @method $this innerJoin(mixed ...$table)
+ * @method $this rightJoin(mixed ...$table)
+ * @method $this outerJoin(mixed ...$table)
+ * @method $this union(Fluent $fluent)
+ * @method $this unionAll(Fluent $fluent)
+ * @method $this as(mixed ...$field)
+ * @method $this on(mixed ...$cond)
+ * @method $this and(mixed ...$cond)
+ * @method $this or(mixed ...$cond)
+ * @method $this using(mixed ...$cond)
+ * @method $this update(mixed ...$cond)
+ * @method $this insert(mixed ...$cond)
+ * @method $this delete(mixed ...$cond)
+ * @method $this into(mixed ...$cond)
+ * @method $this values(mixed ...$cond)
+ * @method $this set(mixed ...$args)
+ * @method $this asc()
+ * @method $this desc()
  */
 class ExtraFluent extends Fluent
 {
 	/** @var class-string<T>|null */
 	public ?string $className = null;
-
-
-	/** @return $this */
-	public function from(string $table, mixed ...$args): self
-	{
-		parent::from($table, ...$args);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function select(mixed ...$field): self
-	{
-		parent::select(...$field);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function where(mixed ...$cond): self
-	{
-		parent::where(...$cond);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function and(mixed ...$cond): self
-	{
-		parent::and(...$cond);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function or(mixed ...$cond): self
-	{
-		parent::or(...$cond);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function orderBy(mixed ...$field): self
-	{
-		parent::orderBy(...$field);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function limit(int $limit): self
-	{
-		parent::limit($limit);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function offset(int $offset): self
-	{
-		parent::offset($offset);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function delete(mixed ...$cond): self
-	{
-		parent::delete(...$cond);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function insert(mixed ...$cond): self
-	{
-		parent::insert(...$cond);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function update(mixed ...$cond): self
-	{
-		parent::update(...$cond);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function set(mixed ...$args): self
-	{
-		parent::set(...$args);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function values(mixed ...$args): self
-	{
-		parent::values(...$args);
-		return $this;
-	}
-
-
-	/** @return $this */
-	public function into(mixed ...$cond): self
-	{
-		parent::into(...$cond);
-		return $this;
-	}
 
 
 	/**

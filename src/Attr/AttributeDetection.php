@@ -10,7 +10,7 @@ use ReflectionClass;
 
 trait AttributeDetection
 {
-	/** @var array<class-string, Attributes> */
+	/** @var array<class-string, Table> */
 	private static array $attributesCache = [];
 
 
@@ -44,14 +44,14 @@ trait AttributeDetection
 
 
 	/** @throws AttributeDetectionException */
-	private function getAttributes(): Attributes
+	private function getAttributes(): Table
 	{
 		return self::$attributesCache[static::class] ??= $this->detectAttributes();
 	}
 
 
 	/** @throws AttributeDetectionException */
-	private function detectAttributes(): Attributes
+	private function detectAttributes(): Table
 	{
 		$reflectionClass = new ReflectionClass(static::class);
 		$attributes = $reflectionClass->getAttributes(Table::class);
@@ -66,8 +66,6 @@ trait AttributeDetection
 		}
 
 		$table = $attributes[0]->newInstance();
-
-		/** @var class-string<Row>|null $entityClass */
 		$entityClass = $table->entity;
 
 		if ($entityClass !== null && !is_subclass_of($entityClass, Row::class)) {
@@ -80,10 +78,6 @@ trait AttributeDetection
 			);
 		}
 
-		return new Attributes(
-			name: $table->name,
-			primaryKey: $table->primaryKey,
-			entity: $entityClass,
-		);
+		return $table;
 	}
 }

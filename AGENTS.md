@@ -18,6 +18,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 
 ## Key Parts
 - `Drago\Database\Database` trait reads the table, primary key and entity class from the `Drago\Attr\Table` attribute and needs a `$connection` property.
+- `ExtraFluent` adds no clause methods: Dibi's `Fluent::__call()` runs every clause (and so keeps `Fluent::Remove`), the class-level `@method $this ...` tags only give the clauses this class's type so chains keep `record()`/`recordAll()`; add a tag for a new Dibi clause, not a method. `AttributeDetection` caches the `Table` attribute itself.
 - `ExtraFluent::record()` and `recordAll()` return the entity class when one is set, otherwise Dibi rows; never pass `null` to `Result::setRowClass()` (Dibi would return arrays).
 - `save()` updates when the primary key value is greater than zero, otherwise inserts. `EntityOracle` uses uppercase keys.
 - `tests/Database/Database.phpt` needs MySQL (CI provides it and fails there instead of skipping); the other tests run without a database.

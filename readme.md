@@ -61,7 +61,7 @@ $rows = $this->model->read('*')->recordAll();
 $rows = $this->model->find('column', 'value')->recordAll();
 
 // One page of records
-$rows = $this->model->read('*')->limit(10)->offset(20)->recordAll();
+$rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
 
 // One record by the primary key, or null
 $row = $this->model->get(1)->record();

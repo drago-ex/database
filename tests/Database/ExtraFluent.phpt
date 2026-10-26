@@ -87,6 +87,13 @@ class ArrayFluent extends ExtraFluent
 	{
 		return new Result(new ArrayResultDriver($this->rows), normalize: false);
 	}
+
+
+	/** @return array<mixed> */
+	public function exportClause(string $clause): array
+	{
+		return $this->_export($clause);
+	}
 }
 
 
@@ -123,8 +130,13 @@ test('A missing record is returned as null', function () {
 });
 
 
-test('Limit and offset keep the fluent for fetching records', function () {
+test('Clauses keep the fluent for fetching records and reach the query', function () {
 	$fluent = new ArrayFluent([['id' => 1]]);
-	Assert::same($fluent, $fluent->limit(10)->offset(20));
-	Assert::count(1, $fluent->limit(10)->offset(20)->recordAll());
+	Assert::same($fluent, $fluent->select('*')->from('test')->leftJoin('other')->on('a = b')->limit(10)->offset(20));
+	Assert::count(1, $fluent->recordAll());
+	Assert::same(['LIMIT', 10], $fluent->exportClause('LIMIT'));
+	Assert::same(['OFFSET', 20], $fluent->exportClause('OFFSET'));
+
+	// Fluent::Remove removes a clause, e.g. the limit before counting
+	Assert::same([], $fluent->limit(Dibi\Fluent::Remove)->exportClause('LIMIT'));
 });
