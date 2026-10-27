@@ -1,7 +1,5 @@
 # Drago Database
 
-English | [Čeština](readme.cs.md)
-
 Simple database helpers built on top of Dibi.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/drago-ex/database/blob/main/license)

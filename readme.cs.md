@@ -1,7 +1,5 @@
 # Drago Database
 
-[English](readme.md) | Čeština
-
 Jednoduché pomocníky pro práci s databází postavené na Dibi.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/drago-ex/database/blob/main/license)
