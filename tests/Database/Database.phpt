@@ -1,13 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Database\Database
  */
 
-declare(strict_types=1);
-
 use Tester\Assert;
-
 
 require __DIR__ . '/../bootstrap.php';
 

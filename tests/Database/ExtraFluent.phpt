@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Database\ExtraFluent
  */
-
-declare(strict_types=1);
 
 use Dibi\Connection;
 use Dibi\Result;
@@ -22,8 +20,8 @@ class ArrayResultDriver implements ResultDriver
 	private int $position = 0;
 
 
-	/** @param list<array<string, mixed>> $rows */
 	public function __construct(
+		/** @var list<array<string, mixed>> */
 		private array $rows,
 	) {
 	}
@@ -75,8 +73,8 @@ class ArrayResultDriver implements ResultDriver
 /** @extends ExtraFluent<Row> */
 class ArrayFluent extends ExtraFluent
 {
-	/** @param list<array<string, mixed>> $rows */
 	public function __construct(
+		/** @var list<array<string, mixed>> */
 		private array $rows,
 	) {
 		parent::__construct(new Connection(['driver' => 'mysqli', 'lazy' => true]));

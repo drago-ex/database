@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Drago\Database;
 
@@ -138,7 +136,6 @@ trait Database
 			$key = strtoupper($key);
 
 		} else {
-
 			/** @var array<string, mixed> $data */
 			$data = $args instanceof \Traversable
 				? iterator_to_array($args)

@@ -1,11 +1,10 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Drago\Attr;
 
 use Dibi\Row;
 use ReflectionClass;
+use function sprintf;
 
 
 trait AttributeDetection
@@ -24,15 +23,10 @@ trait AttributeDetection
 	/** @throws AttributeDetectionException */
 	public function getPrimaryKey(): string
 	{
-		$primaryKey = $this->getAttributes()->primaryKey;
-
-		if ($primaryKey === null) {
-			throw new AttributeDetectionException(
+		return $this->getAttributes()->primaryKey
+			?? throw new AttributeDetectionException(
 				sprintf('In the model %s you do not have a primary key in the Table attribute.', static::class),
 			);
-		}
-
-		return $primaryKey;
 	}
 
 

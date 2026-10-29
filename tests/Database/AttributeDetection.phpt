@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Test: Drago\Attr\AttributeDetection
  */
-
-declare(strict_types=1);
 
 use Drago\Attr\AttributeDetection;
 use Drago\Attr\AttributeDetectionException;

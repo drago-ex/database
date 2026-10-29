@@ -1,7 +1,4 @@
-<?php
-
-declare(strict_types=1);
-
+<?php declare(strict_types=1);
 
 class TestEntityOracle extends Drago\Database\EntityOracle
 {
