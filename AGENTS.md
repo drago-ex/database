@@ -7,7 +7,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 - **Type**: library
 - **Purpose**: Connecting to database for Nette Framework
 - **PHP**: >=8.3 <9
-- **Runtime dependencies**: dibi/dibi (^5.0.2), drago-ex/utils (^2.1)
+- **Runtime dependencies**: dibi/dibi (^5.0.2), drago-ex/utils (^2.1.1)
 - **License**: MIT
 
 ## Repository Layout
