@@ -89,8 +89,14 @@ class SampleEntity extends Entity
 
 	public ?int $id = null;
 	public string $sample;
+	public ?string $sampleNote = null;
 }
 ```
+
+Properties are the camelCase names of the columns: column `sample_note` fills `$sampleNote`, and saving
+writes the value back to `sample_note`. For Oracle, the entity extends `EntityOracle`, which converts
+uppercase columns (`SAMPLE_NOTE`) the same way. An entity that declares a property named exactly as
+the column (`$sample_note`) keeps that name.
 
 Use the entity in a model, so records are returned as `SampleEntity` objects:
 ```php
@@ -119,8 +125,14 @@ Entities are saved the same way as arrays (updated when the primary key is set):
 $entity = new SampleEntity;
 $entity->id = 1;
 $entity->sample = 'sample';
+$entity->sampleNote = 'note';
 
 $this->model->save($entity);
+```
+
+camelCase keys are converted to columns for arrays and form values too, also in `insert()` and `update()`:
+```php
+$this->model->save(['id' => 1, 'sampleNote' => 'note']);
 ```
 
 ## Transactions

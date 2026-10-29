@@ -93,13 +93,14 @@ trait Database
 
 
 	/**
-	 * Insert a new record into the table.
+	 * Insert a new record into the table; camelCase keys are inserted into their snake_case columns.
 	 * @param array<string, mixed> $args
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
 	public function insert(array $args): ExtraFluent
 	{
+		$args = Entity::toColumnNames($args);
 		return $this->command()
 			->insert()
 			->into($this->getTableName(), '(%n)', array_keys($args))
@@ -108,7 +109,7 @@ trait Database
 
 
 	/**
-	 * Update records in the table.
+	 * Update records in the table; camelCase keys are set into their snake_case columns.
 	 * @param array<string, mixed> $args
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
@@ -117,29 +118,33 @@ trait Database
 	{
 		return $this->command()
 			->update($this->getTableName())
-			->set($args);
+			->set(Entity::toColumnNames($args));
 	}
 
 
 	/**
-	 * Insert or update a record.
-	 * @param Entity|EntityOracle|iterable<string, mixed> $args
+	 * Insert or update a record; camelCase keys (form values) are saved into their snake_case columns.
+	 * @param Entity|iterable<string, mixed> $args
 	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
-	public function save(Entity|EntityOracle|iterable $args): Result|int|null
+	public function save(Entity|iterable $args): Result|int|null
 	{
 		$key = $this->getPrimaryKey();
 
-		if ($args instanceof EntityOracle) {
-			$data = $args->toArrayUpper();
-			$key = strtoupper($key);
+		if ($args instanceof Entity) {
+			$data = $args->toColumns();
+			if ($args instanceof EntityOracle) {
+				$key = strtoupper($key);
+			}
 
 		} else {
-			/** @var array<string, mixed> $data */
-			$data = $args instanceof \Traversable
+			/** @var array<string, mixed> $values */
+			$values = $args instanceof \Traversable
 				? iterator_to_array($args)
 				: (array) $args;
+			// the primary key is looked up by its column name
+			$data = Entity::toColumnNames($values);
 		}
 
 		$id = $data[$key] ?? null;

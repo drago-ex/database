@@ -8,4 +8,5 @@ class TestEntityOracle extends Drago\Database\EntityOracle
 
 	public ?int $id = null;
 	public string $sample;
+	public ?string $sampleNote = null;
 }

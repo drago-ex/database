@@ -19,3 +19,7 @@ overrides:
 		use:
 			- compilerOptimizations
 			- deprecations
+	-
+		# tests an entity whose properties are named as the columns
+		paths: [tests/TestEntitySnake.php]
+		naming: {property: keep}

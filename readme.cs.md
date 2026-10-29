@@ -89,8 +89,14 @@ class SampleEntity extends Entity
 
 	public ?int $id = null;
 	public string $sample;
+	public ?string $sampleNote = null;
 }
 ```
+
+Vlastnosti jsou názvy sloupců v camelCase: sloupec `sample_note` naplní `$sampleNote` a při ukládání
+se hodnota zapíše zpět do `sample_note`. Pro Oracle dědí entita z `EntityOracle`, která stejně převádí
+sloupce velkými písmeny (`SAMPLE_NOTE`). Entita, která deklaruje vlastnost pojmenovanou přesně
+jako sloupec (`$sample_note`), si tento název ponechá.
 
 Použijte entitu v modelu, aby se záznamy vracely jako objekty `SampleEntity`:
 ```php
@@ -119,8 +125,14 @@ Entity se ukládají stejně jako pole (aktualizují se, když je nastavený pri
 $entity = new SampleEntity;
 $entity->id = 1;
 $entity->sample = 'sample';
+$entity->sampleNote = 'note';
 
 $this->model->save($entity);
+```
+
+Klíče v camelCase se převádějí na sloupce i u polí a hodnot z formulářů, také v `insert()` a `update()`:
+```php
+$this->model->save(['id' => 1, 'sampleNote' => 'note']);
 ```
 
 ## Transakce

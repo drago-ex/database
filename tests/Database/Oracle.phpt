@@ -13,11 +13,13 @@ test('Inserting data into an entity', function () {
 	$entity = new TestEntityOracle;
 	$entity->id = 1;
 	$entity->sample = 'sample';
+	$entity->sampleNote = 'note';
 
-	Assert::equal([
+	Assert::same([
 		'ID' => 1,
 		'SAMPLE' => 'sample',
-	], $entity->toArrayUpper());
+		'SAMPLE_NOTE' => 'note',
+	], $entity->toColumns());
 });
 
 
@@ -25,13 +27,16 @@ test('Extract data from an entity', function () {
 	$arr = [
 		'ID' => 1,
 		'SAMPLE' => 'sample',
+		'SAMPLE_NOTE' => 'note',
 	];
 	$entity = new TestEntityOracle($arr);
 
 	Assert::same(1, $entity->id);
 	Assert::same('sample', $entity->sample);
-	Assert::equal([
+	Assert::same('note', $entity->sampleNote);
+	Assert::same([
 		'id' => 1,
 		'sample' => 'sample',
+		'sampleNote' => 'note',
 	], $entity->toArray());
 });

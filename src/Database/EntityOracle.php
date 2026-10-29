@@ -2,11 +2,13 @@
 
 namespace Drago\Database;
 
-use Dibi\Row;
 
-
-class EntityOracle extends Row
+/**
+ * An entity of Oracle, whose columns are uppercase: column USED_COUNT fills $usedCount.
+ */
+class EntityOracle extends Entity
 {
+	/** @param array<string, mixed> $arr column => value */
 	public function __construct(array $arr = [])
 	{
 		parent::__construct(array_change_key_case($arr));
@@ -14,12 +16,11 @@ class EntityOracle extends Row
 
 
 	/**
-	 * Returns items as an array with converted keys to uppercase.
+	 * Returns the values keyed by the uppercase column names.
 	 * @return array<string, mixed>
 	 */
-	public function toArrayUpper(): array
+	public function toColumns(): array
 	{
-		$data = (array) $this;
-		return array_change_key_case($data, CASE_UPPER);
+		return array_change_key_case(parent::toColumns(), CASE_UPPER);
 	}
 }

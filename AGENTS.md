@@ -7,7 +7,7 @@ Use this file as package-specific guidance when working in this repository. Keep
 - **Type**: library
 - **Purpose**: Connecting to database for Nette Framework
 - **PHP**: >=8.3 <9
-- **Runtime dependencies**: dibi/dibi (^5.0.2)
+- **Runtime dependencies**: dibi/dibi (^5.0.2), drago-ex/utils (^2.1)
 - **License**: MIT
 
 ## Repository Layout
@@ -20,7 +20,8 @@ Use this file as package-specific guidance when working in this repository. Keep
 - `Drago\Database\Database` trait reads the table, primary key and entity class from the `Drago\Attr\Table` attribute and needs a `$connection` property.
 - `ExtraFluent` adds no clause methods: Dibi's `Fluent::__call()` runs every clause (and so keeps `Fluent::Remove`), the class-level `@method $this ...` tags only give the clauses this class's type so chains keep `record()`/`recordAll()`; add a tag for a new Dibi clause, not a method. `AttributeDetection` caches the `Table` attribute itself.
 - `ExtraFluent::record()` and `recordAll()` return the entity class when one is set, otherwise Dibi rows; never pass `null` to `Result::setRowClass()` (Dibi would return arrays).
-- `save()` updates when the primary key value is greater than zero, otherwise inserts. `EntityOracle` uses uppercase keys.
+- `Entity` properties are camelCase names of snake_case columns: the constructor (Dibi passes every fetched row there) converts keys with `CaseConverter::camelCase()` from drago-ex/utils, `toColumns()` and the static `toColumnNames()` convert back with `snakeCase()`; keys without a lowercase letter stay as they are. A property declared exactly as the column (`$sample_note`, entities generated with `camelCase: false`) keeps the column name. `EntityOracle` extends `Entity` and only lowercases the uppercase columns on the way in and uppercases them in `toColumns()`.
+- `save()` updates when the primary key value is greater than zero, otherwise inserts; an entity is saved through `toColumns()` (uppercase primary key for `EntityOracle`), arrays and form values through `Entity::toColumnNames()`, which `insert()` and `update()` apply to their arrays too. A column whose part is only a digit (`address_2`) does not survive the conversion.
 - `tests/Database/Database.phpt` needs MySQL (CI provides it and fails there instead of skipping); the other tests run without a database.
 
 ## Dependencies
