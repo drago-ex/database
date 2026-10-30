@@ -6,9 +6,7 @@ use Dibi\Exception;
 
 class DatabaseConnection
 {
-	/**
-	 * @throws Exception
-	 */
+	/** @throws Exception */
 	public function connection(): Connection
 	{
 		return new Connection([

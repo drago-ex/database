@@ -3,9 +3,7 @@
 namespace Drago\Database;
 
 
-/**
- * An entity of Oracle, whose columns are uppercase: column USED_COUNT fills $usedCount.
- */
+/** An entity of Oracle, whose columns are uppercase: column USED_COUNT fills $usedCount. */
 class EntityOracle extends Entity
 {
 	/** @param array<string, mixed> $arr column => value */
