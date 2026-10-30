@@ -148,6 +148,22 @@ try {
 }
 ```
 
-## Generování entit
+---
+
+## Volitelné doplňky
+
+Balíček funguje i bez nich. Pokud je projekt potřebuje, nastavte je ručně podle popisu níže.
+
+### PHPStan
+
+Traita `Database` čte připojení repository, což PHPStan ve `vendor/` nevidí, a soukromé `$connection` proto
+hlásí jako nikdy nečtené. Rozšíření tohoto balíčku zapněte v `phpstan.neon`:
+
+```neon
+includes:
+	- vendor/drago-ex/database/extension.neon
+```
+
+### Generování entit
 
 Pro automatické generování entit můžete použít nástroj Drago Generator: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)

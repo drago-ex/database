@@ -148,6 +148,22 @@ try {
 }
 ```
 
-## Entity Generation
+---
+
+## Optional add-ons
+
+The package works without them. Set them up by hand as described below when the project needs them.
+
+### PHPStan
+
+The `Database` trait reads the connection of a repository, which PHPStan does not see in `vendor/`, so it reports
+a private `$connection` as never read. Include the extension of this package in `phpstan.neon`:
+
+```neon
+includes:
+	- vendor/drago-ex/database/extension.neon
+```
+
+### Entity Generation
 
 For automatic entity generation, consider using the Drago Generator tool: [https://github.com/drago-ex/generator](https://github.com/drago-ex/generator)
