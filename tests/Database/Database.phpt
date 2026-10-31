@@ -113,6 +113,33 @@ test('Insert an entity', function () {
 });
 
 
+test('A record is selected with LIMIT 1, a given limit is kept', function () {
+	$database = database();
+	$queries = [];
+	$database->getConnection()->onEvent[] = function (Dibi\Event $event) use (&$queries): void {
+		$queries[] = $event->sql;
+	};
+
+	$database->read('*')->record();
+	$database->read('*')->limit(2)->record();
+	$database->read('*')->recordAll();
+
+	Assert::match('%a% LIMIT 1', $queries[0]);
+	Assert::match('%a% LIMIT 2', $queries[1]);
+	Assert::notContains('LIMIT', $queries[2]);
+});
+
+
+// #[\NoDiscard] works since PHP 8.5
+if (PHP_VERSION_ID >= 80500) {
+	test('A query builder that is thrown away is reported', function () {
+		Assert::error(function () {
+			database()->delete('sample', 'Missing');
+		}, E_USER_WARNING, 'The return value of method %a%::delete() should either be used or intentionally ignored %a%');
+	});
+}
+
+
 test('Count all records or those matching a condition', function () {
 	Assert::same(2, database()->count());
 	Assert::same(1, database()->count('%n = ?', 'sample', 'Hello'));

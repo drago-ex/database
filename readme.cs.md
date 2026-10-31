@@ -48,8 +48,10 @@ class Model
 
 ## Běžné dotazy
 
-Metody pro dotazy vracejí sestavovač dotazů (`ExtraFluent`). Výsledek načtěte přes `record()` nebo
-`recordAll()`, zápisový dotaz spusťte přes `execute()`:
+Metody pro dotazy vracejí sestavovač dotazů (`ExtraFluent`), takže dotaz lze ještě doplnit
+(`where()`, `orderBy()`…). Výsledek načtěte přes `record()` (select bez limitu načte jeden řádek)
+nebo `recordAll()`, zápisový dotaz spusťte přes `execute()`. Zahozený sestavovač dotazu, například
+`delete()` bez `execute()`, nahlásí PHP 8.5 i PHPStan (`#[\NoDiscard]`):
 
 ```php
 // All records

@@ -48,8 +48,10 @@ class Model
 
 ## Common Queries
 
-The query methods return a query builder (`ExtraFluent`). Fetch the result with `record()` or
-`recordAll()`, or run a write query with `execute()`:
+The query methods return a query builder (`ExtraFluent`), so the query can still be extended
+(`where()`, `orderBy()`…). Fetch the result with `record()` (a select without a limit reads one row)
+or `recordAll()`, or run a write query with `execute()`. A query builder that is thrown away, such as
+`delete()` without `execute()`, is reported by PHP 8.5 and PHPStan (`#[\NoDiscard]`):
 
 ```php
 // All records

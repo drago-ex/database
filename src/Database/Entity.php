@@ -21,6 +21,9 @@ class Entity extends Row
 	/** @var array<class-string, array<string, Closure(mixed): mixed>> property => conversion of its column value */
 	private static array $conversions = [];
 
+	/** @var array<class-string, array<string, string>> column => property, filled as the columns come */
+	private static array $propertyNames = [];
+
 
 	/** @param array<string, mixed> $arr column => value */
 	public function __construct(array $arr = [])
@@ -28,7 +31,9 @@ class Entity extends Row
 		$conversions = self::$conversions[static::class] ??= self::detectConversions(static::class);
 		$properties = [];
 		foreach ($arr as $column => $value) {
-			$property = property_exists($this, $column) ? $column : CaseConverter::camelCase($column);
+			$property = self::$propertyNames[static::class][$column] ??= property_exists($this, $column)
+				? $column
+				: CaseConverter::camelCase($column);
 			$properties[$property] = isset($conversions[$property]) && $value !== null
 				? $conversions[$property]($value)
 				: $value;

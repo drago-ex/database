@@ -29,6 +29,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function command(): ExtraFluent
 	{
 		/** @var ExtraFluent<T> $fluent */
@@ -46,6 +47,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function read(mixed ...$args): ExtraFluent
 	{
 		return $this->command()
@@ -59,6 +61,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function find(string $column, mixed $args): ExtraFluent
 	{
 		return $this->read('*')
@@ -71,6 +74,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function get(int $id): ExtraFluent
 	{
 		return $this->read('*')
@@ -99,6 +103,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function delete(string $column, mixed $args): ExtraFluent
 	{
 		return $this->command()
@@ -114,6 +119,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function insert(Entity|array $args): ExtraFluent
 	{
 		$args = $args instanceof Entity
@@ -132,6 +138,7 @@ trait Database
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
+	#[\NoDiscard]
 	public function update(array $args): ExtraFluent
 	{
 		return $this->command()

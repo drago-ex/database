@@ -138,3 +138,11 @@ test('Clauses keep the fluent for fetching records and reach the query', functio
 	// Fluent::Remove removes a clause, e.g. the limit before counting
 	Assert::same([], $fluent->limit(Dibi\Fluent::Remove)->exportClause('LIMIT'));
 });
+
+
+test('The limit of a record does not stay in the query', function () {
+	$fluent = (new ArrayFluent([['id' => 1]]))->select('*')->from('test');
+
+	Assert::same(1, $fluent->record()->id);
+	Assert::same([], $fluent->exportClause('LIMIT'));
+});

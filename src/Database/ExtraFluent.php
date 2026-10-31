@@ -50,12 +50,18 @@ class ExtraFluent extends Fluent
 
 
 	/**
+	 * Returns the first record; like Dibi's fetch(), a select without a limit gets LIMIT 1.
 	 * @return T|null The record or null if not found.
 	 * @throws Exception
 	 */
 	public function record(): ?Row
 	{
-		$result = $this->execute();
+		// a clone, so the limit does not stay in this query
+		$query = $this->getCommand() === 'SELECT' && $this->_export('LIMIT') === []
+			? (clone $this)->limit(1)
+			: $this;
+
+		$result = $query->execute();
 		if ($result === null) {
 			return null;
 		}
