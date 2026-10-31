@@ -1,7 +1,0 @@
-# PHPStan extension: the Database trait reads the connection of a repository,
-# so a private $connection is not reported as never read
-services:
-	-
-		class: Drago\Database\PHPStan\ConnectionPropertyExtension
-		tags:
-			- phpstan.properties.readWriteExtension

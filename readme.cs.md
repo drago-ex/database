@@ -24,26 +24,34 @@ composer require drago-ex/database
 
 - [Dibi - chytrá databázová vrstva pro PHP](https://github.com/dg/dibi)
 
-## Základní příklad modelu
+## Základní příklad repository
 
-Model používá trait `Database` a svou tabulku popisuje atributem `Table`
-(název tabulky a primární klíč). Trait čte připojení z vlastnosti `$connection`:
+Repository si v konstruktoru vytvoří `Table` a pracuje přes ni. Předá jí název tabulky, primární klíč a třídu
+entity, jako kterou se záznamy načítají (viz [Entity](#entity)):
 
 ```php
 use Dibi\Connection;
-use Drago\Attr\Table;
-use Drago\Database\Database;
+use Drago\Database\Table;
 
-#[Table('table_name', 'id')]
-class Model
+readonly class SampleRepository
 {
-	use Database;
+	/** @var Table<SampleEntity> */
+	public Table $table;
 
-	public function __construct(
-		private readonly Connection $connection,
-	) {
+	public function __construct(Connection $db)
+	{
+		$this->table = new Table($db, SampleEntity::Table, SampleEntity::PrimaryKey, SampleEntity::class);
 	}
 }
+
+$row = $this->sampleRepository->table->get(1)->record();
+```
+
+Bez entity se záznamy vracejí jako objekty `Dibi\Row`. Pohled bez primárního klíče nemůže použít `get()`
+a `save()`:
+
+```php
+$this->table = new Table($db, 'table_name', 'id');
 ```
 
 ## Běžné dotazy
@@ -55,34 +63,32 @@ nebo `recordAll()`, zápisový dotaz spusťte přes `execute()`. Zahozený sesta
 
 ```php
 // All records
-$rows = $this->model->read('*')->recordAll();
+$rows = $this->table->read('*')->recordAll();
 
 // Records by column value, or by more columns
-$rows = $this->model->find('column', 'value')->recordAll();
-$rows = $this->model->find(['column' => 'value', 'other' => 1])->recordAll();
+$rows = $this->table->find('column', 'value')->recordAll();
+$rows = $this->table->find(['column' => 'value', 'other' => 1])->recordAll();
 
 // One page of records
-$rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
+$rows = $this->table->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
 
 // One record by the primary key, or null
-$row = $this->model->get(1)->record();
+$row = $this->table->get(1)->record();
 
 // Number of records, all or matching a condition
-$count = $this->model->count();
-$count = $this->model->count(['column' => 'value']);
+$count = $this->table->count();
+$count = $this->table->count(['column' => 'value']);
 
 // Delete records by column value, or by more columns (an empty array is refused)
-$this->model->delete('column', 'value')->execute();
-$this->model->delete(['column' => 'value', 'other' => 1])->execute();
+$this->table->delete('column', 'value')->execute();
+$this->table->delete(['column' => 'value', 'other' => 1])->execute();
 ```
-
-Bez třídy entity se záznamy vracejí jako objekty `Dibi\Row`.
 
 Záznam uložíte jako pole. Když pole obsahuje primární klíč s hodnotou větší než nula,
 záznam se aktualizuje, jinak se vloží nový:
 ```php
-$this->model->save(['column' => 'value']);
-$this->model->save(['id' => 1, 'column' => 'value']);
+$this->table->save(['column' => 'value']);
+$this->table->save(['id' => 1, 'column' => 'value']);
 ```
 
 ## Entity
@@ -122,27 +128,13 @@ class ArticleEntity extends Entity
 	public Status $status;
 }
 
-$this->model->find('status', Status::Published)->recordAll();
+$this->table->find('status', Status::Published)->recordAll();
 ```
 
-Použijte entitu v modelu, aby se záznamy vracely jako objekty `SampleEntity`:
+`Table` entity vrací své záznamy jako objekty `SampleEntity`:
 ```php
-#[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
-class Model
-{
-	/** @use Database<SampleEntity> */
-	use Database;
-
-	public function __construct(
-		private readonly Connection $connection,
-	) {
-	}
-}
-
-$row = $this->model->get(1)->record();
+$row = $this->table->get(1)->record();
 echo $row->sample;
-
-$rows = $this->model->read('*')->recordAll();
 ```
 
 ## Ukládání entit
@@ -154,22 +146,22 @@ $entity->id = 1;
 $entity->sample = 'sample';
 $entity->sampleNote = 'note';
 
-$this->model->save($entity);
+$this->table->save($entity);
 ```
 
 Klíče v camelCase se převádějí na sloupce i u polí a hodnot z formulářů, také v `insert()` a `update()`:
 ```php
-$this->model->save(['id' => 1, 'sampleNote' => 'note']);
+$this->table->save(['id' => 1, 'sampleNote' => 'note']);
 ```
 
 Entitu lze vložit i přímo:
 ```php
-$this->model->insert($entity)->execute();
+$this->table->insert($entity)->execute();
 ```
 
 A upravit, s podmínkou za ní:
 ```php
-$this->model->update($entity)->where('id = ?', $entity->id)->execute();
+$this->table->update($entity)->where('id = ?', $entity->id)->execute();
 ```
 
 ## Transakce
@@ -177,19 +169,19 @@ $this->model->update($entity)->where('id = ?', $entity->id)->execute();
 `transaction()` po callbacku potvrdí transakci a vrátí jeho výsledek; když callback vyhodí výjimku,
 transakci vrátí zpět a výjimku vyhodí dál. Transakce uvnitř jiné transakce se k ní připojí:
 ```php
-$this->model->transaction(function () use ($entity): void {
-	$this->model->save($entity);
+$this->table->transaction(function () use ($entity): void {
+	$this->table->save($entity);
 });
 ```
 
 Transakci lze řídit i ručně:
 ```php
-$this->model->beginTransaction();
+$this->table->beginTransaction();
 try {
-	$this->model->save($entity);
-	$this->model->commit();
+	$this->table->save($entity);
+	$this->table->commit();
 } catch (Throwable $e) {
-	$this->model->rollBack();
+	$this->table->rollBack();
 	throw $e;
 }
 ```
@@ -199,17 +191,6 @@ try {
 ## Volitelné doplňky
 
 Balíček funguje i bez nich. Pokud je projekt potřebuje, nastavte je ručně podle popisu níže.
-
-### PHPStan
-
-Traita `Database` čte připojení repository, což PHPStan ve `vendor/` nevidí, a soukromé `$connection` proto
-hlásí jako nikdy nečtené. S `phpstan/extension-installer` se rozšíření tohoto balíčku zapne samo;
-bez něj ho zapněte v `phpstan.neon`:
-
-```neon
-includes:
-	- vendor/drago-ex/database/extension.neon
-```
 
 ### Generování entit
 

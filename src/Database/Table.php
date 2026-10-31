@@ -6,18 +6,28 @@ use Dibi\Connection;
 use Dibi\Exception;
 use Dibi\Result;
 use Dibi\Row;
-use Drago\Attr\AttributeDetection;
-use Drago\Attr\AttributeDetectionException;
-use function is_array;
+use function is_array, sprintf;
 
 
 /**
- * @template T of Row
- * @property-read Connection $connection
+ * One table of the database: a repository creates it in its constructor and works through it,
+ * new Table($connection, ArticleEntity::Table, ArticleEntity::PrimaryKey, ArticleEntity::class).
+ * Records are fetched as the entity, without one as Dibi rows; a table without a primary key (a view)
+ * cannot get or save a record by it.
+ *
+ * @template T of Row = Row
  */
-trait Database
+readonly class Table
 {
-	use AttributeDetection;
+	public function __construct(
+		private Connection $connection,
+		public string $name,
+		public ?string $primaryKey = null,
+		/** @var class-string<T> the class the records are fetched as */
+		public string $entity = Row::class,
+	) {
+	}
+
 
 	public function getConnection(): Connection
 	{
@@ -26,19 +36,15 @@ trait Database
 
 
 	/**
-	 * Creates a new ExtraFluent query builder.
+	 * Creates a new query builder that fetches records as the entity.
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
 	public function command(): ExtraFluent
 	{
 		/** @var ExtraFluent<T> $fluent */
-		$fluent = new ExtraFluent($this->getConnection());
-
-		/** @var class-string<T>|null $className */
-		$className = $this->getEntityClassName();
-		$fluent->className = $className;
+		$fluent = new ExtraFluent($this->connection);
+		$fluent->className = $this->entity;
 		return $fluent;
 	}
 
@@ -46,14 +52,13 @@ trait Database
 	/**
 	 * Read records from the table.
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
 	public function read(mixed ...$args): ExtraFluent
 	{
 		return $this->command()
 			->select(...$args)
-			->from($this->getTableName());
+			->from($this->name);
 	}
 
 
@@ -61,7 +66,6 @@ trait Database
 	 * Finds records by a column value, or by more columns given as [column => value].
 	 * @param string|array<string, mixed> $column
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
 	public function find(string|array $column, mixed $args = null): ExtraFluent
@@ -73,7 +77,7 @@ trait Database
 	/**
 	 * Returns a record by its primary key.
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
+	 * @throws \LogicException
 	 */
 	#[\NoDiscard]
 	public function get(int $id): ExtraFluent
@@ -85,7 +89,6 @@ trait Database
 
 	/**
 	 * Counts the records of the table, all of them or those matching the condition (as for where()).
-	 * @throws AttributeDetectionException
 	 * @throws Exception
 	 */
 	public function count(mixed ...$cond): int
@@ -104,7 +107,6 @@ trait Database
 	 * an empty array is refused, it would delete the whole table.
 	 * @param string|array<string, mixed> $column
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
 	 * @throws \InvalidArgumentException
 	 */
 	#[\NoDiscard]
@@ -116,7 +118,7 @@ trait Database
 
 		$query = $this->command()
 			->delete()
-			->from($this->getTableName());
+			->from($this->name);
 		return $this->whereColumns($query, $column, $args);
 	}
 
@@ -125,7 +127,6 @@ trait Database
 	 * Insert a new record into the table; an entity, or camelCase keys inserted into their snake_case columns.
 	 * @param Entity|array<string, mixed> $args
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
 	public function insert(Entity|array $args): ExtraFluent
@@ -135,7 +136,7 @@ trait Database
 			: Entity::toColumnNames($args);
 		return $this->command()
 			->insert()
-			->into($this->getTableName(), '(%n)', array_keys($args))
+			->into($this->name, '(%n)', array_keys($args))
 			->values('%l', $args);
 	}
 
@@ -144,13 +145,12 @@ trait Database
 	 * Update records in the table; an entity, or camelCase keys set into their snake_case columns.
 	 * @param Entity|array<string, mixed> $args
 	 * @return ExtraFluent<T>
-	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
 	public function update(Entity|array $args): ExtraFluent
 	{
 		return $this->command()
-			->update($this->getTableName())
+			->update($this->name)
 			->set($args instanceof Entity ? $args->toColumns() : Entity::toColumnNames($args));
 	}
 
@@ -158,8 +158,8 @@ trait Database
 	/**
 	 * Insert or update a record; camelCase keys (form values) are saved into their snake_case columns.
 	 * @param Entity|iterable<string, mixed> $args
-	 * @throws AttributeDetectionException
 	 * @throws Exception
+	 * @throws \LogicException
 	 */
 	public function save(Entity|iterable $args): Result|int|null
 	{
@@ -201,8 +201,7 @@ trait Database
 	 */
 	public function getInsertId(?string $sequence = null): int
 	{
-		return $this->getConnection()
-			->getInsertId($sequence);
+		return $this->connection->getInsertId($sequence);
 	}
 
 
@@ -216,8 +215,7 @@ trait Database
 	 */
 	public function transaction(callable $callback): mixed
 	{
-		return $this->getConnection()
-			->transaction($callback);
+		return $this->connection->transaction($callback);
 	}
 
 
@@ -227,8 +225,7 @@ trait Database
 	 */
 	public function beginTransaction(?string $savepoint = null): void
 	{
-		$this->getConnection()
-			->begin($savepoint);
+		$this->connection->begin($savepoint);
 	}
 
 
@@ -238,8 +235,7 @@ trait Database
 	 */
 	public function commit(?string $savepoint = null): void
 	{
-		$this->getConnection()
-			->commit($savepoint);
+		$this->connection->commit($savepoint);
 	}
 
 
@@ -249,8 +245,18 @@ trait Database
 	 */
 	public function rollBack(?string $savepoint = null): void
 	{
-		$this->getConnection()
-			->rollback($savepoint);
+		$this->connection->rollback($savepoint);
+	}
+
+
+	/**
+	 * Returns the primary key; a table without one (a view) cannot get or save a record by it.
+	 * @throws \LogicException
+	 */
+	public function getPrimaryKey(): string
+	{
+		return $this->primaryKey
+			?? throw new \LogicException(sprintf('The table %s has no primary key.', $this->name));
 	}
 
 

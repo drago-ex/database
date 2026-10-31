@@ -24,26 +24,34 @@ composer require drago-ex/database
 
 - [Dibi - smart database layer for PHP](https://github.com/dg/dibi)
 
-## Basic Model Example
+## Basic Repository Example
 
-A model uses the `Database` trait and describes its table with the `Table` attribute
-(table name and primary key). The trait reads the connection from the `$connection` property:
+A repository creates a `Table` in its constructor and works through it. It gets the table name, the primary
+key and the entity class the records are fetched as (see [Using Entities](#using-entities)):
 
 ```php
 use Dibi\Connection;
-use Drago\Attr\Table;
-use Drago\Database\Database;
+use Drago\Database\Table;
 
-#[Table('table_name', 'id')]
-class Model
+readonly class SampleRepository
 {
-	use Database;
+	/** @var Table<SampleEntity> */
+	public Table $table;
 
-	public function __construct(
-		private readonly Connection $connection,
-	) {
+	public function __construct(Connection $db)
+	{
+		$this->table = new Table($db, SampleEntity::Table, SampleEntity::PrimaryKey, SampleEntity::class);
 	}
 }
+
+$row = $this->sampleRepository->table->get(1)->record();
+```
+
+Without an entity, records are returned as `Dibi\Row` objects. A view without a primary key cannot use `get()`
+and `save()`:
+
+```php
+$this->table = new Table($db, 'table_name', 'id');
 ```
 
 ## Common Queries
@@ -55,34 +63,32 @@ or `recordAll()`, or run a write query with `execute()`. A query builder that is
 
 ```php
 // All records
-$rows = $this->model->read('*')->recordAll();
+$rows = $this->table->read('*')->recordAll();
 
 // Records by column value, or by more columns
-$rows = $this->model->find('column', 'value')->recordAll();
-$rows = $this->model->find(['column' => 'value', 'other' => 1])->recordAll();
+$rows = $this->table->find('column', 'value')->recordAll();
+$rows = $this->table->find(['column' => 'value', 'other' => 1])->recordAll();
 
 // One page of records
-$rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
+$rows = $this->table->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
 
 // One record by the primary key, or null
-$row = $this->model->get(1)->record();
+$row = $this->table->get(1)->record();
 
 // Number of records, all or matching a condition
-$count = $this->model->count();
-$count = $this->model->count(['column' => 'value']);
+$count = $this->table->count();
+$count = $this->table->count(['column' => 'value']);
 
 // Delete records by column value, or by more columns (an empty array is refused)
-$this->model->delete('column', 'value')->execute();
-$this->model->delete(['column' => 'value', 'other' => 1])->execute();
+$this->table->delete('column', 'value')->execute();
+$this->table->delete(['column' => 'value', 'other' => 1])->execute();
 ```
-
-Without an entity class, records are returned as `Dibi\Row` objects.
 
 Save a record as an array. When the array contains the primary key with a value greater than zero,
 the record is updated, otherwise a new record is inserted:
 ```php
-$this->model->save(['column' => 'value']);
-$this->model->save(['id' => 1, 'column' => 'value']);
+$this->table->save(['column' => 'value']);
+$this->table->save(['id' => 1, 'column' => 'value']);
 ```
 
 ## Using Entities
@@ -122,27 +128,13 @@ class ArticleEntity extends Entity
 	public Status $status;
 }
 
-$this->model->find('status', Status::Published)->recordAll();
+$this->table->find('status', Status::Published)->recordAll();
 ```
 
-Use the entity in a model, so records are returned as `SampleEntity` objects:
+A `Table` of the entity returns its records as `SampleEntity` objects:
 ```php
-#[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]
-class Model
-{
-	/** @use Database<SampleEntity> */
-	use Database;
-
-	public function __construct(
-		private readonly Connection $connection,
-	) {
-	}
-}
-
-$row = $this->model->get(1)->record();
+$row = $this->table->get(1)->record();
 echo $row->sample;
-
-$rows = $this->model->read('*')->recordAll();
 ```
 
 ## Save Entity Records
@@ -154,22 +146,22 @@ $entity->id = 1;
 $entity->sample = 'sample';
 $entity->sampleNote = 'note';
 
-$this->model->save($entity);
+$this->table->save($entity);
 ```
 
 camelCase keys are converted to columns for arrays and form values too, also in `insert()` and `update()`:
 ```php
-$this->model->save(['id' => 1, 'sampleNote' => 'note']);
+$this->table->save(['id' => 1, 'sampleNote' => 'note']);
 ```
 
 An entity can also be inserted directly:
 ```php
-$this->model->insert($entity)->execute();
+$this->table->insert($entity)->execute();
 ```
 
 And updated, with the condition after it:
 ```php
-$this->model->update($entity)->where('id = ?', $entity->id)->execute();
+$this->table->update($entity)->where('id = ?', $entity->id)->execute();
 ```
 
 ## Transactions
@@ -177,19 +169,19 @@ $this->model->update($entity)->where('id = ?', $entity->id)->execute();
 `transaction()` commits after the callback and returns its result; when the callback throws, it rolls
 back and rethrows. A transaction inside another one joins it:
 ```php
-$this->model->transaction(function () use ($entity): void {
-	$this->model->save($entity);
+$this->table->transaction(function () use ($entity): void {
+	$this->table->save($entity);
 });
 ```
 
 The transaction can also be controlled by hand:
 ```php
-$this->model->beginTransaction();
+$this->table->beginTransaction();
 try {
-	$this->model->save($entity);
-	$this->model->commit();
+	$this->table->save($entity);
+	$this->table->commit();
 } catch (Throwable $e) {
-	$this->model->rollBack();
+	$this->table->rollBack();
 	throw $e;
 }
 ```
@@ -199,17 +191,6 @@ try {
 ## Optional add-ons
 
 The package works without them. Set them up by hand as described below when the project needs them.
-
-### PHPStan
-
-The `Database` trait reads the connection of a repository, which PHPStan does not see in `vendor/`, so it reports
-a private `$connection` as never read. With `phpstan/extension-installer` the extension of this package is
-included automatically; without it, include it in `phpstan.neon`:
-
-```neon
-includes:
-	- vendor/drago-ex/database/extension.neon
-```
 
 ### Entity Generation
 

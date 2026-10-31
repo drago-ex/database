@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
 /**
- * Test: Drago\Database\Database
+ * Test: Drago\Database\Table
  */
 
+use Drago\Database\Table;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
@@ -20,10 +21,10 @@ try {
 }
 
 
-function database(): TestDatabase
+/** @return Table<TestEntity> */
+function database(): Table
 {
-	$db = new DatabaseConnection;
-	return new TestDatabase($db->connection());
+	return new Table((new DatabaseConnection)->connection(), TestEntity::Table, TestEntity::PrimaryKey, TestEntity::class);
 }
 
 
@@ -207,10 +208,7 @@ test('A transaction rolls back and rethrows when the callback throws', function 
 
 
 test('Get table name', function () {
-	$table = database()
-		->getTableName();
-
-	Assert::same('test', $table);
+	Assert::same('test', database()->name);
 });
 
 
@@ -233,7 +231,12 @@ test('Delete record by id', function () {
 
 
 test('Bool and backed enum values are saved and read back', function () {
-	$database = new TestDatabaseTyped((new DatabaseConnection)->connection());
+	$database = new Table(
+		(new DatabaseConnection)->connection(),
+		TestEntityTyped::Table,
+		TestEntityTyped::PrimaryKey,
+		TestEntityTyped::class,
+	);
 	$entity = new TestEntityTyped;
 	$entity->active = true;
 	$entity->inMenu = false;
