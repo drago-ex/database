@@ -125,3 +125,22 @@ test('Delete record by id', function () {
 
 	Assert::null($row);
 });
+
+
+test('Bool and backed enum values are saved and read back', function () {
+	$database = new TestDatabaseTyped((new DatabaseConnection)->connection());
+	$entity = new TestEntityTyped;
+	$entity->active = true;
+	$entity->inMenu = false;
+	$entity->status = TestStatus::Published;
+	$entity->priority = TestPriority::High;
+	$database->save($entity);
+
+	$row = $database->find('status', TestStatus::Published)->record();
+	Assert::type(TestEntityTyped::class, $row);
+	Assert::true($row->active);
+	Assert::false($row->inMenu);
+	Assert::same(TestStatus::Published, $row->status);
+	Assert::same(TestPriority::High, $row->priority);
+	$database->delete('id', $row->id)->execute();
+});

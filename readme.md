@@ -98,6 +98,25 @@ writes the value back to `sample_note`. For Oracle, the entity extends `EntityOr
 uppercase columns (`SAMPLE_NOTE`) the same way. An entity that declares a property named exactly as
 the column (`$sample_note`) keeps that name.
 
+A property declared as `bool` gets the column value as a bool (`TINYINT(1)` 0/1), and a property
+declared as a backed enum gets the case of the column value (`ValueError` for an unknown value).
+Both are saved, and passed to queries, as their scalar values:
+```php
+enum Status: string
+{
+	case Draft = 'draft';
+	case Published = 'published';
+}
+
+class ArticleEntity extends Entity
+{
+	public bool $commentsEnabled;
+	public Status $status;
+}
+
+$this->model->find('status', Status::Published)->recordAll();
+```
+
 Use the entity in a model, so records are returned as `SampleEntity` objects:
 ```php
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]

@@ -98,6 +98,25 @@ se hodnota zapíše zpět do `sample_note`. Pro Oracle dědí entita z `EntityOr
 sloupce velkými písmeny (`SAMPLE_NOTE`). Entita, která deklaruje vlastnost pojmenovanou přesně
 jako sloupec (`$sample_note`), si tento název ponechá.
 
+Vlastnost deklarovaná jako `bool` dostane hodnotu sloupce jako bool (`TINYINT(1)` 0/1) a vlastnost
+deklarovaná jako backed enum dostane případ odpovídající hodnotě sloupce (`ValueError` pro neznámou
+hodnotu). Obě se ukládají i předávají do dotazů jako své skalární hodnoty:
+```php
+enum Status: string
+{
+	case Draft = 'draft';
+	case Published = 'published';
+}
+
+class ArticleEntity extends Entity
+{
+	public bool $commentsEnabled;
+	public Status $status;
+}
+
+$this->model->find('status', Status::Published)->recordAll();
+```
+
 Použijte entitu v modelu, aby se záznamy vracely jako objekty `SampleEntity`:
 ```php
 #[Table(SampleEntity::Table, SampleEntity::PrimaryKey, entity: SampleEntity::class)]

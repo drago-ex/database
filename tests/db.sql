@@ -9,3 +9,15 @@ CREATE TABLE test (
   COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO test (sample) VALUES ('Hello');
+
+DROP TABLE IF EXISTS typed;
+CREATE TABLE typed (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  active TINYINT(1) NOT NULL DEFAULT 0,
+  in_menu TINYINT(1) NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'draft',
+  priority INT NULL
+)
+  ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
