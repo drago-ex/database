@@ -57,8 +57,9 @@ nebo `recordAll()`, zápisový dotaz spusťte přes `execute()`. Zahozený sesta
 // All records
 $rows = $this->model->read('*')->recordAll();
 
-// Records by column value
+// Records by column value, or by more columns
 $rows = $this->model->find('column', 'value')->recordAll();
+$rows = $this->model->find(['column' => 'value', 'other' => 1])->recordAll();
 
 // One page of records
 $rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
@@ -70,8 +71,9 @@ $row = $this->model->get(1)->record();
 $count = $this->model->count();
 $count = $this->model->count(['column' => 'value']);
 
-// Delete records by column value
+// Delete records by column value, or by more columns (an empty array is refused)
 $this->model->delete('column', 'value')->execute();
+$this->model->delete(['column' => 'value', 'other' => 1])->execute();
 ```
 
 Bez třídy entity se záznamy vracejí jako objekty `Dibi\Row`.
@@ -163,6 +165,11 @@ $this->model->save(['id' => 1, 'sampleNote' => 'note']);
 Entitu lze vložit i přímo:
 ```php
 $this->model->insert($entity)->execute();
+```
+
+A upravit, s podmínkou za ní:
+```php
+$this->model->update($entity)->where('id = ?', $entity->id)->execute();
 ```
 
 ## Transakce

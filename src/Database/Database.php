@@ -57,15 +57,15 @@ trait Database
 
 
 	/**
-	 * Finds records by column name.
+	 * Finds records by a column value, or by more columns given as [column => value].
+	 * @param string|array<string, mixed> $column
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
-	public function find(string $column, mixed $args): ExtraFluent
+	public function find(string|array $column, mixed $args = null): ExtraFluent
 	{
-		return $this->read('*')
-			->where('%n = ?', $column, $args);
+		return $this->whereColumns($this->read('*'), $column, $args);
 	}
 
 
@@ -99,17 +99,24 @@ trait Database
 
 
 	/**
-	 * Deletes a record by a specific column value.
+	 * Deletes records by a column value, or by more columns given as [column => value];
+	 * an empty array is refused, it would delete the whole table.
+	 * @param string|array<string, mixed> $column
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
+	 * @throws \InvalidArgumentException
 	 */
 	#[\NoDiscard]
-	public function delete(string $column, mixed $args): ExtraFluent
+	public function delete(string|array $column, mixed $args = null): ExtraFluent
 	{
-		return $this->command()
+		if ($column === []) {
+			throw new \InvalidArgumentException('Deleting needs a condition, an empty array would delete all records.');
+		}
+
+		$query = $this->command()
 			->delete()
-			->from($this->getTableName())
-			->where('%n = ?', $column, $args);
+			->from($this->getTableName());
+		return $this->whereColumns($query, $column, $args);
 	}
 
 
@@ -133,17 +140,17 @@ trait Database
 
 
 	/**
-	 * Update records in the table; camelCase keys are set into their snake_case columns.
-	 * @param array<string, mixed> $args
+	 * Update records in the table; an entity, or camelCase keys set into their snake_case columns.
+	 * @param Entity|array<string, mixed> $args
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
 	#[\NoDiscard]
-	public function update(array $args): ExtraFluent
+	public function update(Entity|array $args): ExtraFluent
 	{
 		return $this->command()
 			->update($this->getTableName())
-			->set(Entity::toColumnNames($args));
+			->set($args instanceof Entity ? $args->toColumns() : Entity::toColumnNames($args));
 	}
 
 
@@ -243,5 +250,19 @@ trait Database
 	{
 		$this->getConnection()
 			->rollback($savepoint);
+	}
+
+
+	/**
+	 * Adds the condition of one column, or of more columns given as [column => value].
+	 * @param ExtraFluent<T> $query
+	 * @param string|array<string, mixed> $column
+	 * @return ExtraFluent<T>
+	 */
+	private function whereColumns(ExtraFluent $query, string|array $column, mixed $args): ExtraFluent
+	{
+		return is_array($column)
+			? $query->where($column)
+			: $query->where('%n = ?', $column, $args);
 	}
 }

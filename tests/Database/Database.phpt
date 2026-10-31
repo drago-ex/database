@@ -101,6 +101,40 @@ test('Insert camel case keys into snake case columns', function () {
 });
 
 
+test('Find and delete records by more columns', function () {
+	$database = database();
+	$database->insert(['sample' => 'More', 'sampleNote' => 'One'])->execute();
+	$database->insert(['sample' => 'More', 'sampleNote' => 'Two'])->execute();
+
+	$row = $database->find(['sample' => 'More', 'sample_note' => 'Two'])->record();
+	Assert::same('Two', $row->sampleNote);
+
+	$database->delete(['sample' => 'More', 'sample_note' => 'One'])->execute();
+	Assert::same(1, $database->count(['sample' => 'More']));
+	$database->delete('sample', 'More')->execute();
+});
+
+
+test('Deleting with an empty condition is refused', function () {
+	Assert::exception(
+		fn() => database()->delete([]),
+		InvalidArgumentException::class,
+	);
+});
+
+
+test('Update a record with an entity', function () {
+	$database = database();
+	$database->insert(['sample' => 'Old'])->execute();
+	$entity = $database->find('sample', 'Old')->record();
+	$entity->sample = 'New';
+	$database->update($entity)->where('%n = ?', 'id', $entity->id)->execute();
+
+	Assert::same('New', $database->get($entity->id)->record()->sample);
+	$database->delete('id', $entity->id)->execute();
+});
+
+
 test('Insert an entity', function () {
 	$entity = new TestEntity;
 	$entity->sample = 'Entity';

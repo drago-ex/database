@@ -57,8 +57,9 @@ or `recordAll()`, or run a write query with `execute()`. A query builder that is
 // All records
 $rows = $this->model->read('*')->recordAll();
 
-// Records by column value
+// Records by column value, or by more columns
 $rows = $this->model->find('column', 'value')->recordAll();
+$rows = $this->model->find(['column' => 'value', 'other' => 1])->recordAll();
 
 // One page of records
 $rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll();
@@ -70,8 +71,9 @@ $row = $this->model->get(1)->record();
 $count = $this->model->count();
 $count = $this->model->count(['column' => 'value']);
 
-// Delete records by column value
+// Delete records by column value, or by more columns (an empty array is refused)
 $this->model->delete('column', 'value')->execute();
+$this->model->delete(['column' => 'value', 'other' => 1])->execute();
 ```
 
 Without an entity class, records are returned as `Dibi\Row` objects.
@@ -163,6 +165,11 @@ $this->model->save(['id' => 1, 'sampleNote' => 'note']);
 An entity can also be inserted directly:
 ```php
 $this->model->insert($entity)->execute();
+```
+
+And updated, with the condition after it:
+```php
+$this->model->update($entity)->where('id = ?', $entity->id)->execute();
 ```
 
 ## Transactions
