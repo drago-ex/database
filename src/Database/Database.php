@@ -8,6 +8,7 @@ use Dibi\Result;
 use Dibi\Row;
 use Drago\Attr\AttributeDetection;
 use Drago\Attr\AttributeDetectionException;
+use function is_array;
 
 
 /**
