@@ -64,6 +64,10 @@ $rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll
 // One record by the primary key, or null
 $row = $this->model->get(1)->record();
 
+// Number of records, all or matching a condition
+$count = $this->model->count();
+$count = $this->model->count(['column' => 'value']);
+
 // Delete records by column value
 $this->model->delete('column', 'value')->execute();
 ```
@@ -154,8 +158,22 @@ Klíče v camelCase se převádějí na sloupce i u polí a hodnot z formulář�
 $this->model->save(['id' => 1, 'sampleNote' => 'note']);
 ```
 
+Entitu lze vložit i přímo:
+```php
+$this->model->insert($entity)->execute();
+```
+
 ## Transakce
 
+`transaction()` po callbacku potvrdí transakci a vrátí jeho výsledek; když callback vyhodí výjimku,
+transakci vrátí zpět a výjimku vyhodí dál. Transakce uvnitř jiné transakce se k ní připojí:
+```php
+$this->model->transaction(function () use ($entity): void {
+	$this->model->save($entity);
+});
+```
+
+Transakci lze řídit i ručně:
 ```php
 $this->model->beginTransaction();
 try {

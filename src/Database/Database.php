@@ -79,6 +79,22 @@ trait Database
 
 
 	/**
+	 * Counts the records of the table, all of them or those matching the condition (as for where()).
+	 * @throws AttributeDetectionException
+	 * @throws Exception
+	 */
+	public function count(mixed ...$cond): int
+	{
+		$query = $this->read('COUNT(*)');
+		if ($cond !== []) {
+			$query->where(...$cond);
+		}
+
+		return (int) $query->fetchSingle();
+	}
+
+
+	/**
 	 * Deletes a record by a specific column value.
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
@@ -93,14 +109,16 @@ trait Database
 
 
 	/**
-	 * Insert a new record into the table; camelCase keys are inserted into their snake_case columns.
-	 * @param array<string, mixed> $args
+	 * Insert a new record into the table; an entity, or camelCase keys inserted into their snake_case columns.
+	 * @param Entity|array<string, mixed> $args
 	 * @return ExtraFluent<T>
 	 * @throws AttributeDetectionException
 	 */
-	public function insert(array $args): ExtraFluent
+	public function insert(Entity|array $args): ExtraFluent
 	{
-		$args = Entity::toColumnNames($args);
+		$args = $args instanceof Entity
+			? $args->toColumns()
+			: Entity::toColumnNames($args);
 		return $this->command()
 			->insert()
 			->into($this->getTableName(), '(%n)', array_keys($args))
@@ -170,6 +188,21 @@ trait Database
 	{
 		return $this->getConnection()
 			->getInsertId($sequence);
+	}
+
+
+	/**
+	 * Runs the callback in a transaction: commits after it, rolls back and rethrows when it throws.
+	 * A transaction inside another one joins it, so only the outer one commits.
+	 * @template R
+	 * @param callable(Connection): R $callback
+	 * @return R
+	 * @throws \Throwable
+	 */
+	public function transaction(callable $callback): mixed
+	{
+		return $this->getConnection()
+			->transaction($callback);
 	}
 
 

@@ -64,6 +64,10 @@ $rows = $this->model->read('*')->orderBy('id')->limit(10)->offset(20)->recordAll
 // One record by the primary key, or null
 $row = $this->model->get(1)->record();
 
+// Number of records, all or matching a condition
+$count = $this->model->count();
+$count = $this->model->count(['column' => 'value']);
+
 // Delete records by column value
 $this->model->delete('column', 'value')->execute();
 ```
@@ -154,8 +158,22 @@ camelCase keys are converted to columns for arrays and form values too, also in 
 $this->model->save(['id' => 1, 'sampleNote' => 'note']);
 ```
 
+An entity can also be inserted directly:
+```php
+$this->model->insert($entity)->execute();
+```
+
 ## Transactions
 
+`transaction()` commits after the callback and returns its result; when the callback throws, it rolls
+back and rethrows. A transaction inside another one joins it:
+```php
+$this->model->transaction(function () use ($entity): void {
+	$this->model->save($entity);
+});
+```
+
+The transaction can also be controlled by hand:
 ```php
 $this->model->beginTransaction();
 try {

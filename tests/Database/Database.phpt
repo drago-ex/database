@@ -101,6 +101,50 @@ test('Insert camel case keys into snake case columns', function () {
 });
 
 
+test('Insert an entity', function () {
+	$entity = new TestEntity;
+	$entity->sample = 'Entity';
+	$entity->sampleNote = 'Inserted';
+	database()->insert($entity)->execute();
+	$row = database()->find('sample', 'Entity')->record();
+
+	Assert::same('Inserted', $row->sampleNote);
+	database()->delete('sample', 'Entity')->execute();
+});
+
+
+test('Count all records or those matching a condition', function () {
+	Assert::same(2, database()->count());
+	Assert::same(1, database()->count('%n = ?', 'sample', 'Hello'));
+	Assert::same(0, database()->count(['sample' => 'Missing']));
+});
+
+
+test('A transaction commits after the callback and returns its result', function () {
+	$database = database();
+	$id = $database->transaction(function () use ($database): int {
+		$database->insert(['sample' => 'Transaction'])->execute();
+		return $database->getInsertId();
+	});
+
+	Assert::same('Transaction', $database->get($id)->record()->sample);
+	$database->delete('id', $id)->execute();
+});
+
+
+test('A transaction rolls back and rethrows when the callback throws', function () {
+	$database = database();
+	Assert::exception(function () use ($database) {
+		$database->transaction(function () use ($database) {
+			$database->insert(['sample' => 'Rolled back'])->execute();
+			throw new RuntimeException('Failed');
+		});
+	}, RuntimeException::class, 'Failed');
+
+	Assert::same(0, $database->count(['sample' => 'Rolled back']));
+});
+
+
 test('Get table name', function () {
 	$table = database()
 		->getTableName();
