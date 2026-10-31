@@ -203,7 +203,8 @@ The package works without them. Set them up by hand as described below when the 
 ### PHPStan
 
 The `Database` trait reads the connection of a repository, which PHPStan does not see in `vendor/`, so it reports
-a private `$connection` as never read. Include the extension of this package in `phpstan.neon`:
+a private `$connection` as never read. With `phpstan/extension-installer` the extension of this package is
+included automatically; without it, include it in `phpstan.neon`:
 
 ```neon
 includes:

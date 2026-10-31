@@ -203,7 +203,8 @@ Balíček funguje i bez nich. Pokud je projekt potřebuje, nastavte je ručně p
 ### PHPStan
 
 Traita `Database` čte připojení repository, což PHPStan ve `vendor/` nevidí, a soukromé `$connection` proto
-hlásí jako nikdy nečtené. Rozšíření tohoto balíčku zapněte v `phpstan.neon`:
+hlásí jako nikdy nečtené. S `phpstan/extension-installer` se rozšíření tohoto balíčku zapne samo;
+bez něj ho zapněte v `phpstan.neon`:
 
 ```neon
 includes:
